@@ -2,6 +2,7 @@ package com.groupt.reader.controller;
 
 import com.groupt.reader.dto.TestDto;
 import com.groupt.reader.service.TestService;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,6 +13,7 @@ public class TestApiController {
     @Autowired
     private TestService testService;
 
+    @RequiresAuthentication
     @RequestMapping("/count")
     public TestDto visit() {
         TestDto ret;
