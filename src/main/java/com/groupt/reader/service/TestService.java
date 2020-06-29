@@ -2,7 +2,7 @@ package com.groupt.reader.service;
 
 import com.groupt.reader.dto.TestDto;
 import com.groupt.reader.mapper.TestMapper;
-import com.groupt.reader.model.Test;
+import com.groupt.reader.model.TestEntity;
 import com.groupt.reader.repository.TestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,9 +19,9 @@ public class TestService {
     private TestMapper testMapper;
 
     public TestDto count() throws Exception {
-        Optional<Test> t = testRepository.findById(1L);
+        Optional<TestEntity> t = testRepository.findById(1L);
         if(t.isPresent()) {
-            Test testEntity = t.get();
+            TestEntity testEntity = t.get();
             Integer result = testEntity.getCount();
             testEntity.setCount(result + 1);
             return testMapper.testToTestDto(testRepository.save(testEntity));
@@ -30,7 +30,7 @@ public class TestService {
     }
 
     public void init() {
-        Test t = new Test();
+        TestEntity t = new TestEntity();
         t.setId(1L);
         t.setCount(0);
         testRepository.save(t);

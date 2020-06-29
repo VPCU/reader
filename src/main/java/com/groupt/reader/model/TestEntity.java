@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "APP_TEST")
-public class Test {
+public class TestEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
