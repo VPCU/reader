@@ -1,6 +1,7 @@
 package com.groupt.reader.service;
 
 import com.groupt.reader.dto.TestDto;
+import com.groupt.reader.mapper.MyTestMapper;
 import com.groupt.reader.mapper.TestMapper;
 import com.groupt.reader.model.PermEntity;
 import com.groupt.reader.model.RoleEntity;
@@ -30,8 +31,8 @@ public class TestService {
     @Autowired
     private PermRepository permRepository;
 
-    @Autowired
-    private TestMapper testMapper;
+    //@Autowired
+    //private TestMapper testMapper;
 
     public TestDto count() throws Exception {
         Optional<TestEntity> t = testRepository.findById(1L);
@@ -39,7 +40,7 @@ public class TestService {
             TestEntity testEntity = t.get();
             Integer result = testEntity.getCount();
             testEntity.setCount(result + 1);
-            return testMapper.testToTestDto(testRepository.save(testEntity));
+            return MyTestMapper.testToTestDto(testRepository.save(testEntity));
         }
         throw new Exception("Database Exception");
     }
