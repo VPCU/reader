@@ -1,6 +1,7 @@
 package com.groupt.reader.service;
 
 import com.groupt.reader.dto.UserDto;
+import com.groupt.reader.mapper.MyUserMapper;
 import com.groupt.reader.mapper.UserMapper;
 import com.groupt.reader.model.PermEntity;
 import com.groupt.reader.model.RoleEntity;
@@ -14,8 +15,8 @@ import java.util.Set;
 
 @Service
 public class UserService {
-    @Autowired
-    private UserMapper userMapper;
+    //@Autowired
+    //private UserMapper userMapper;
     @Autowired
     private UserRepository userRepository;
 
@@ -31,7 +32,7 @@ public class UserService {
         for(RoleEntity it : roles) {
             r.add(it.getRval());
         }
-        UserDto userDto = userMapper.userToUserDto(u);
+        UserDto userDto = MyUserMapper.userToUserDto(u);
         userDto.setPerms(p);
         userDto.setRoles(r);
         return userDto;
