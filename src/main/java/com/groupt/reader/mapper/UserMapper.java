@@ -1,8 +1,6 @@
 package com.groupt.reader.mapper;
 
-import com.groupt.reader.dto.TestDto;
 import com.groupt.reader.dto.UserDto;
-import com.groupt.reader.model.TestEntity;
 import com.groupt.reader.model.UserEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
