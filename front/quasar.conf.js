@@ -91,7 +91,8 @@ module.exports = function (/* ctx */) {
       importStrategy: 'auto',
 
       // Quasar plugins
-      plugins: []
+      plugins: [],
+      components: ['QInput', 'QEditor', 'QRating', 'QBtn']
     },
 
     // animations: 'all', // --- includes all animations
