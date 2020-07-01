@@ -70,5 +70,9 @@ public class TestService {
         roleRepository.save(r);
         permRepository.save(p);
         userRepository.save(u);
+        r.setRid(2L);
+        r.setRname("读者");
+        r.setRval("reader");
+        roleRepository.save(r);
     }
 }
