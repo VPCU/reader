@@ -15,11 +15,6 @@ import java.util.Map;
 @RestController
 public class UserController {
     @PostMapping("/login")
-    /*public String login(@RequestBody String body) {
-        JSONObject json = JSON.parseObject(body);
-        String username = json.getString("username");
-        String password = json.getString("password");
-    }*/
     public Json login(@RequestBody Map<String, Object> payload) {
         String username = (String)payload.get("username");
         String password = (String)payload.get("password");
