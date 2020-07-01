@@ -7,7 +7,7 @@ const routes = [
       { path: '', component: () => import('pages/TipSquare.vue') },
       { path: 'login', component: () => import('pages/Login.vue') },
       { path: 'signup', component: () => import('pages/SignUp.vue') },
-      { path: 'newreview', component: () => import('pages/NewReview') }
+      { path: 'newreview', component: () => import('pages/NewReview') },
       { path: 'drifting', component: () => import('pages/Drifting.vue') }
     ]
   },
