@@ -6,7 +6,8 @@ const routes = [
     children: [
       { path: '', component: () => import('pages/TipSquare.vue') },
       { path: 'login', component: () => import('pages/Login.vue') },
-      { path: 'signup', component: () => import('pages/SignUp.vue') }
+      { path: 'signup', component: () => import('pages/SignUp.vue') },
+      { path: 'drifting', component: () => import('pages/Drifting.vue') }
     ]
   },
   // Always leave this as last one,
