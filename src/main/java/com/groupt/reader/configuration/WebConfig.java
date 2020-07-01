@@ -19,10 +19,10 @@ public class WebConfig implements WebMvcConfigurer {
         config.addAllowedHeader("*");
 
         config.addExposedHeader("Content-Type");
-        config.addExposedHeader( "X-Requested-With");
+        config.addExposedHeader("X-Requested-With");
         config.addExposedHeader("accept");
         config.addExposedHeader("Origin");
-        config.addExposedHeader( "Access-Control-Request-Method");
+        config.addExposedHeader("Access-Control-Request-Method");
         config.addExposedHeader("Access-Control-Request-Headers");
 
 

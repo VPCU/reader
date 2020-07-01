@@ -35,6 +35,7 @@
 
 <script>
 import 'boot/axios'
+import 'boot/store'
 export default {
   name: 'Login',
   data () {
@@ -54,10 +55,11 @@ export default {
         .then((response) => {
           console.log(response.data)
           if (!response.data.succ) {
-            this.$data.errmsg = response.data.oper
+            this.$data.errmsg = response.data.msg
             this.$data.alert = true
           } else {
             console.log('登录成功')
+            this.$gStore.token = response.data.token
           }
         })
         .catch(() => {

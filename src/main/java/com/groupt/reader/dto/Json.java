@@ -36,11 +36,11 @@ public class Json extends HashMap<String, Object> {
     /**
      * 操作成功返回的响应信息
      */
-    public Json(String oper) {
-        this.put(KEY_OPER, oper);
+    public Json(String msg) {
+        this.put(KEY_MSG, msg);
         this.put(KEY_SUCC, true);
         this.put(KEY_CODE, DEFAULT_SUCC_CODE);
-        this.put(KEY_MSG, DEFAULT_SUCC_MSG);
+        this.put(KEY_OPER, DEFAULT_OPER_VAL);
     }
 
     /**
@@ -70,8 +70,8 @@ public class Json extends HashMap<String, Object> {
         return new Json();
     }
 
-    public static Json succ(String operate) {
-        return new Json(operate, true, DEFAULT_SUCC_CODE, DEFAULT_SUCC_MSG, null);
+    public static Json succ(String msg) {
+        return new Json(DEFAULT_OPER_VAL, true, DEFAULT_SUCC_CODE, msg, null);
     }
 
     public static Json succ(String operate, String message) {
@@ -93,8 +93,8 @@ public class Json extends HashMap<String, Object> {
         return new Json(DEFAULT_OPER_VAL, false, DEFAULT_FAIL_CODE, DEFAULT_FAIL_MSG, null);
     }
 
-    public static Json fail(String operate) {
-        return new Json(operate, false, DEFAULT_FAIL_CODE, DEFAULT_FAIL_MSG, null);
+    public static Json fail(String msg) {
+        return new Json(DEFAULT_OPER_VAL, false, DEFAULT_FAIL_CODE, msg, null);
     }
 
     public static Json fail(String operate, String message) {

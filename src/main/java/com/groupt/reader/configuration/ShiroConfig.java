@@ -2,8 +2,10 @@ package com.groupt.reader.configuration;
 
 import com.groupt.reader.shiro.CustomRealm;
 import org.apache.shiro.realm.Realm;
+import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.spring.web.config.DefaultShiroFilterChainDefinition;
 import org.apache.shiro.spring.web.config.ShiroFilterChainDefinition;
+import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +16,11 @@ public class ShiroConfig {
     @Bean
     public Realm realm() {
         return new CustomRealm();
+    }
+
+    @Bean
+    public SessionManager sessionManager() {
+        return new CustomDefaultWebSessionManager();
     }
 
     @Bean

@@ -37,6 +37,7 @@ public class UserController {
             UserDto user = (UserDto) currentUser.getPrincipal();
             if (user == null) throw new AuthenticationException();
             return Json.succ()
+                    .data("token", currentUser.getSession().getId())
                     .data("uid", user.getUid())
                     .data("nick", user.getNick())
                     .data("roles", user.getRoles())

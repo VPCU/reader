@@ -13,7 +13,7 @@ public class BookEntity {
     private String isbn;
     private String name;
     private String image;
-    private String writer;
+    private String author;
     private String publisher;
     private String language;
     private String detail;
@@ -53,12 +53,12 @@ public class BookEntity {
         this.image = image;
     }
 
-    public String getWriter() {
-        return writer;
+    public String getAuthor() {
+        return author;
     }
 
-    public void setWriter(String writer) {
-        this.writer = writer;
+    public void setAuthor(String writer) {
+        this.author = writer;
     }
 
     public String getPublisher() {
