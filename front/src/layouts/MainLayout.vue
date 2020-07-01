@@ -40,7 +40,7 @@
     </q-header>
     <q-footer elevated>
       <q-tabs v-model="tab">
-        <q-tab name="Tips" label="广场" />
+        <q-tab name="Tips" @click="add"  label="广场" />
         <q-tab name="Group" label="圈子" />
         <q-tab name="Mall" label="商城" />
         <q-tab name="MySelf" label="我的" />
@@ -143,6 +143,11 @@ export default {
         { text: 'My Play activity' },
         { text: 'Parent guide' }
       ]
+    }
+  },
+  methods: {
+    add () {
+      this.$router.push('/')
     }
   }
 }

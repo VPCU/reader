@@ -52,6 +52,10 @@
           <q-spinner-dots color="primary" size="40px" />
         </div>
       </template>
+      <q-page-sticky position="bottom-right" :offset="[18, 18]">
+        <q-btn fab icon="add" @click="add" color="accent" />
+        <q-btn fab icon="mail" @click="drift" color="accent" />
+      </q-page-sticky>
     </q-infinite-scroll>
   </div>
 </template>
@@ -72,6 +76,12 @@ export default {
           done()
         }
       }, 2000)
+    },
+    add () {
+      this.$router.push('/newreview')
+    },
+    drift () {
+      this.$router.push('/drifting')
     }
   }
 }
