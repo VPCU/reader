@@ -18,6 +18,9 @@ public class BookReviewController {
     @Autowired
     private BookReviewService bookReviewService;
 
+    @Autowired
+    private BookReviewRepository bookReviewRepository;
+
     @RequiresRoles("reader")
     @PostMapping("/newreview")
     public Object newReview(@RequestBody NewBookReviewDto bookReviewDto) {
@@ -27,5 +30,10 @@ public class BookReviewController {
         boolean success = bookReviewService.newBookReview(bookReviewDto);
         if(success) return Json.succ("发布成功");
         else return Json.fail("发布失败");
+    }
+
+    @RequestMapping("/square/reviews")
+    public Object getSquareReviews(){
+        return bookReviewService.getAllBookReviews();
     }
 }
