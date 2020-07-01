@@ -3,26 +3,48 @@
     <q-infinite-scroll @load="onLoad" :offset="250">
       <div v-for="(item, index) in items" :key="index" class="caption">
         <template>
-            <q-banner rounded class="bg-grey-3">
-              <template v-slot:avatar>
-                <img
-                  src="https://cdn.quasar.dev/img/mountains.jpg"
-                  style="width: 30px; height: 30px"
-                >
-              </template>
-              {{item}}
-              <q-btn flat label="Retry" />
-              <q-tabs
-                width = 100%
-                v-model="tab"
-                dense
-                class="bg-teal text-yellow shadow-2"
-              >
-                <q-tab name="mails" icon="mail" />
-                <q-tab name="alarms" icon="alarm" />
-                <q-tab name="movies" icon="movie" />
-              </q-tabs>
-            </q-banner>
+          <q-card flat bordered class="my-card bg-grey-1">
+<!--            这里控制用户头像和用户名-->
+            <q-item>
+              <q-item-section avatar>
+                <q-avatar>
+                  <img src="https://cdn.quasar.dev/img/boy-avatar.png">
+                </q-avatar>
+              </q-item-section>
+
+              <q-item-section>
+                <q-item-label>用户名</q-item-label>
+                <q-item-label caption>
+                  用户简介
+                </q-item-label>
+              </q-item-section>
+            </q-item>
+
+            <q-separator />
+<!--            这里控制该书评的内容-->
+            <q-card-section horizontal>
+
+              <q-card-section class="q-pt-xs">
+                <div class="text-overline">Overline</div>
+                <div class="text-h5 q-mt-sm q-mb-xs">标题</div>
+                <div class="text-caption text-grey">
+                  {{item}}
+                </div>
+              </q-card-section>
+            </q-card-section>
+
+            <q-card-section>
+            </q-card-section>
+
+            <q-separator />
+
+            <q-card-actions align="right">
+              <q-btn flat round color="red" icon="favorite" />
+              <q-btn flat round color="teal" icon="bookmark" />
+              <q-btn flat round color="primary" icon="share" />
+            </q-card-actions>
+          </q-card>
+
         </template>
       </div>
       <template v-slot:loading>
@@ -33,12 +55,12 @@
     </q-infinite-scroll>
   </div>
 </template>
-
+<!--从后端获取到各种信息-->
 <script>
 export default {
   data () {
     return {
-      items: ['0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000', 1, 2, 3, 4, 5, 6]
+      items: ['Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 1, 2, 3, 4, 5, 6]
     }
   },
 
@@ -54,3 +76,9 @@ export default {
   }
 }
 </script>
+<!--样式-->
+<style lang="sass" scoped>
+.my-card
+  width: 100%
+  max-width: 100%
+</style>
