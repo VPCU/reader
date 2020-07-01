@@ -31,6 +31,8 @@ public class UserEntity {
 
     private String phone;
 
+    private String resume; //个人说明
+
     @ManyToMany(targetEntity = RoleEntity.class, cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
     private Set<RoleEntity> roles = new HashSet<>();
 
@@ -123,5 +125,13 @@ public class UserEntity {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getResume() {
+        return resume;
+    }
+
+    public void setResume(String resume) {
+        this.resume = resume;
     }
 }
