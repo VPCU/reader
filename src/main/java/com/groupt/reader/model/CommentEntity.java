@@ -14,4 +14,44 @@ public class CommentEntity {
     private Date createTime;
     private Long reviewId;
     private Long ftCmtId;
+
+    public Long getCmtId() {
+        return cmtId;
+    }
+
+    public void setCmtId(Long cmtId) {
+        this.cmtId = cmtId;
+    }
+
+    public BookReviewEntity getReview() {
+        return review;
+    }
+
+    public void setReview(BookReviewEntity review) {
+        this.review = review;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Long getReviewId() {
+        return reviewId;
+    }
+
+    public void setReviewId(Long reviewId) {
+        this.reviewId = reviewId;
+    }
+
+    public Long getFtCmtId() {
+        return ftCmtId;
+    }
+
+    public void setFtCmtId(Long ftCmtId) {
+        this.ftCmtId = ftCmtId;
+    }
 }

@@ -16,6 +16,7 @@ public class BookReviewEntity {
     private Date createTime;
     @Lob
     private String content;
+    private String title;
 
     public Long getRid() {
         return rid;
@@ -55,5 +56,13 @@ public class BookReviewEntity {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }
