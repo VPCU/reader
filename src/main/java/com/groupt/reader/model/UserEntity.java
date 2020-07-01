@@ -27,6 +27,10 @@ public class UserEntity {
 
     private Date updated;   // 修改时间
 
+    private String email;
+
+    private String phone;
+
     @ManyToMany(targetEntity = RoleEntity.class, cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
     private Set<RoleEntity> roles = new HashSet<>();
 
@@ -103,5 +107,21 @@ public class UserEntity {
 
     public void setPerms(Set<PermEntity> perms) {
         this.perms = perms;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

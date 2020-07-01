@@ -11,6 +11,7 @@ public class RoleEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long rid;       // 角色id
     private String rname;   // 角色名，用于显示
+    @Column(unique = true)
     private String rval;    //角色值，用于权限判断
 
     public Long getRid() {
