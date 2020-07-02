@@ -41,10 +41,25 @@
             <q-card-actions align="right">
               <q-btn flat round color="red" icon="favorite" />
               <q-btn flat round color="teal" icon="bookmark" />
-              <q-btn flat round color="primary" icon="share" />
+              <q-btn flat round color="primary" @click="prompt = true"  icon="share" />
+              <q-dialog v-model="prompt" persistent>
+                <q-card style="max-width: 300px">
+                  <q-card-section>
+                    <div class="text-h6">请输入举报理由</div>
+                  </q-card-section>
+
+                  <q-card-section class="q-pt-none">
+                    <q-input type="textarea" dense v-model="reports" autofocus @keyup.enter="prompt = false" />
+                  </q-card-section>
+
+                  <q-card-actions align="right" class="text-primary">
+                    <q-btn flat label="取消" v-close-popup />
+                    <q-btn flat label="确认举报" @click="reportto(index)" v-close-popup />
+                  </q-card-actions>
+                </q-card>
+              </q-dialog>
             </q-card-actions>
           </q-card>
-
         </template>
       </div>
       <template v-slot:loading>
@@ -61,6 +76,7 @@
       </q-page-scroller>
     </q-infinite-scroll>
   </div>
+
 </template>
 <!--从后端获取到各种信息-->
 <script>
@@ -74,7 +90,9 @@ export default {
       limit: 1,
       tipnum: 5,
       desc: true,
-      errmsg: ''
+      errmsg: '',
+      prompt: false,
+      reports: ''
     }
   },
 
@@ -90,8 +108,8 @@ export default {
           token: this.$gStore.token
         }
       }).then((response) => {
-        console.log('response+++++++++++++++++')
-        console.log(response.data[0].content)
+        // console.log('response+++++++++++++++++')
+        // console.log(response.data[0].content)
         this.items.push(String(response.data[0].content))
         done()
       })
@@ -105,6 +123,9 @@ export default {
       //     done()
       //   }
       // }, 2000)
+    },
+    reportto (index) {
+      console.log('举报的是哪一个+++' + index)
     },
     add () {
       this.$router.push('/newreview')
