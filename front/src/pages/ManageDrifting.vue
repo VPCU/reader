@@ -21,7 +21,7 @@
         <q-card-separator />
         <q-card-actions class="q-px-none q-px-none" align="center">
           <q-btn flat icon="event" >漂流记录</q-btn>
-          <q-btn flat icon="create" >编辑</q-btn>
+          <q-btn flat icon="create" @click="editdrift" >编辑</q-btn>
           <q-btn flat icon="highlight_off" color="red" >结束漂流</q-btn>
         </q-card-actions>
       </div>
@@ -34,6 +34,11 @@ export default {
   data () {
     return {
       drifting: [{ driftingid: '1', bookname: '书名1', location: 'xxx十字路口xx便利店', state: '借阅中', detail: '书籍介绍或其他信息' }, { driftingid: '2', bookname: '书名2', location: 'xxx小区xx警卫室', state: '闲置', detail: '书籍介绍或其他信息' }]
+    }
+  },
+  methods: {
+    editdrift () {
+      this.$router.push('/editdrifting')
     }
   }
 }
