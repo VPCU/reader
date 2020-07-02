@@ -97,6 +97,46 @@ Post
             "bookName": "L.R"
         }
     ]
+    
+### /reviews/my
+
+- GET
+- RequiresRoles: reader
+
+Request:
+
+    /reviews/my
+    
+Answer:
+    
+    [
+        {
+            "rid": 1,
+            "createTime": "2020-07-01T13:43:24.224+00:00",
+            "content": "分死殴打杰佛逊 。 搜房isdfojs分isdosj分 ， 死。 近似等级封禁，封禁递送。四季豆腐i，。Sar Por Una Para mi sado.",
+            "title": "莫泊桑小说",
+            "userId": 2,
+            "username": "user0",
+            "userNick": "superman",
+            "userResume": null,
+            "bookId": 1,
+            "bookAuthor": "黑柳",
+            "bookName": "黑柳"
+        },
+        {
+            "rid": 4,
+            "createTime": "2020-07-02T04:10:01.411+00:00",
+            "content": "PHP is the <p> BEST PL in the world.",
+            "title": "PHP is the BEST",
+            "userId": 2,
+            "username": "user0",
+            "userNick": "superman",
+            "userResume": null,
+            "bookId": 3,
+            "bookAuthor": "L.R",
+            "bookName": "L.R"
+        }
+    ]
 
 
 ## Comments
