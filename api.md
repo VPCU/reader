@@ -1,4 +1,6 @@
-# API
+# API.md
+
+## Reviews
 
 ### /reviews/new
 
@@ -97,6 +99,8 @@ Post
     ]
 
 
+## Comments
+
 ### /comments/all
 
 - GET
@@ -149,30 +153,7 @@ Answer:
         "oper": "default"
     }
 
-### /count
-
-- GET
-- RequiresRoles
-- RequiresAuthentication
-
-访问次数统计。
-
-Answer:
-
-    {
-        "status": "ok",
-        "count": 1
-    }
-
-### /init
-- GET POST
-
-初始化数据库（在删库之后使用）。将会生成一个管理员：admin0, 123456.
-
-Answer:
-
-    Success
-
+## Users
 
 ### /login
 
@@ -254,42 +235,46 @@ Answer:
         "oper": "default"
     }
 
-### /newreview
 
-- POST
-- RequiresRoles: reader
-- RequiresPermissions: new:review
+## Others
 
-Request:
+### /count
 
-    {
-        "title": "莫泊桑小说",
-        "bookName": "我是猫", 
-        "bookAuthor": "黑柳",
-        "content": "分死殴打杰佛逊 。 搜房isdfojs分isdosj分 ， 死。 近似等级封禁，封禁递送。四季豆腐i，。Sar Por Una Para mi sado."
-    }
+- GET
+- RequiresRoles
+- RequiresAuthentication
+
+访问次数统计。
 
 Answer:
 
     {
-        "msg": "发布成功",
-        "code": 1,
-        "succ": true,
-        "oper": "default"
+        "status": "ok",
+        "count": 1
     }
+
+### /init
+- GET POST
+
+初始化数据库（在删库之后使用）. 将会生成一个管理员：admin0, 123456.
+
+Answer:
+
+    Success
+
 
 
 ## authorization
 
-登录,权限有关的事情。
+登录,权限有关的事情.
 
 ### token
 
-登录时，会返回一个token。与服务器的交互中，需要在header中携带token。
+登录时,会返回一个token.与服务器的交互需要在header中携带token.
 
-例子请参考现有代码。
+例子请参考现有代码.
 
-token可能会过期。
+token可能会过期.
 
 ### Permissions
 
