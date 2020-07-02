@@ -60,6 +60,41 @@ Answer:
         }
     ]
 
+
+### /square/reviewsbylimits
+
+流式分页加载书评。
+
+- GET
+
+
+    offset int
+    limit int
+    desc bool
+
+Request
+    
+    /square/reviewsbylimits?offset=3&limit=3&desc=true
+    
+Post
+
+    [
+        {
+            "rid": 4,
+            "createTime": "2020-07-02T04:10:01.411+00:00",
+            "content": "PHP is the <p> BEST PL in the world.",
+            "title": "PHP is the BEST",
+            "userId": 2,
+            "username": "user0",
+            "userNick": "superman",
+            "userResume": null,
+            "bookId": 3,
+            "bookAuthor": "L.R",
+            "bookName": "L.R"
+        }
+    ]
+
+
 ### /count
 
 - GET
@@ -167,9 +202,7 @@ Answer:
 
 ### /newreview
 
-- GET
-
-返回所有书评（待改进流加载）
+- POST
 
 Request:
 

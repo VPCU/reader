@@ -1,7 +1,6 @@
 package com.groupt.reader.service;
 
 import com.groupt.reader.dto.BookReviewDto;
-import com.groupt.reader.dto.Json;
 import com.groupt.reader.dto.NewBookReviewDto;
 import com.groupt.reader.dto.UserDto;
 import com.groupt.reader.mapper.BookReviewMapper;
@@ -13,6 +12,7 @@ import com.groupt.reader.repository.BookReviewRepository;
 import com.groupt.reader.repository.UserRepository;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -57,6 +57,24 @@ public class BookReviewService {
         for(BookReviewEntity review : reviews) {
             ret.add(BookReviewMapper.BookReviewToBookReviewDto(review));
         }
+        return ret;
+    }
+
+    public List<BookReviewDto> getBookReviews(int cursor, int limit, boolean desc) {
+
+        List<BookReviewDto> ret = new ArrayList<>();
+        List<BookReviewEntity> reviews;
+        if(!desc) {
+            reviews = bookReviewRepository.findByRidLessThanEqual((long) cursor,
+                    Sort.sort(BookReviewEntity.class).by(BookReviewEntity::getRid).ascending());
+        } else {
+            reviews = bookReviewRepository.findByRidGreaterThanEqual((long) cursor,
+                    Sort.sort(BookReviewEntity.class).by(BookReviewEntity::getRid).descending());
+        }
+        for(BookReviewEntity review : reviews) {
+            ret.add(BookReviewMapper.BookReviewToBookReviewDto(review));
+        }
+
         return ret;
     }
 }

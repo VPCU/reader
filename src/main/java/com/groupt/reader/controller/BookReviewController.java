@@ -7,10 +7,7 @@ import com.groupt.reader.service.BookReviewService;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class BookReviewController {
@@ -32,8 +29,13 @@ public class BookReviewController {
         else return Json.fail("发布失败");
     }
 
-    @RequestMapping("/square/reviews")
+    @GetMapping("/square/reviews")
     public Object getSquareReviews(){
         return bookReviewService.getAllBookReviews();
+    }
+
+    @GetMapping("/square/reviewsbylimits")
+    public Object getSquareReviewsByOffset(@RequestParam int offset, @RequestParam int limit, @RequestParam boolean desc){
+        return bookReviewService.getBookReviews(offset, limit, desc);
     }
 }
