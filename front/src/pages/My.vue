@@ -11,7 +11,7 @@
         <q-item-label caption>用户简介</q-item-label>
       </q-item-section>
       <q-item-section side>
-        <q-icon name="settings" clickable v-ripple size="28px"/>
+        <q-icon name="settings" clickable v-ripple size="28px" @click="set"/>
       </q-item-section>
     </q-item>
 
@@ -88,6 +88,9 @@ export default {
     },
     managedrift () {
       this.$router.push('/managedrifting')
+    },
+    set () {
+      this.$router.push('/mysettings')
     }
   }
 }
