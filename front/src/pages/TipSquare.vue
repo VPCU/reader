@@ -53,9 +53,12 @@
         </div>
       </template>
       <q-page-sticky position="bottom-right" :offset="[18, 18]">
-        <q-btn fab icon="add" @click="add" color="accent" />
-        <q-btn fab icon="mail" @click="drift" color="accent" />
+        <q-btn fab icon="add" @click="add" color="light-blue-3" />
+        <q-btn fab icon="mail" @click="drift" color="blue-3" />
       </q-page-sticky>
+      <q-page-scroller position="bottom-left" :scroll-offset="150" :offset="[18, 18]">
+        <q-btn fab icon="keyboard_arrow_up" color="grey-3" />
+      </q-page-scroller>
     </q-infinite-scroll>
   </div>
 </template>
