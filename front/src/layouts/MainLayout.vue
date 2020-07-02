@@ -43,7 +43,7 @@
         <q-tab name="Tips" @click="add"  label="广场" />
         <q-tab name="Group" label="圈子" />
         <q-tab name="Mall" label="商城" />
-        <q-tab name="MySelf" label="我的" />
+        <q-tab name="MySelf" @click="my" label="我的" />
       </q-tabs>
     </q-footer>
 <!--    <q-drawer-->
@@ -148,6 +148,9 @@ export default {
   methods: {
     add () {
       this.$router.push('/')
+    },
+    my () {
+      this.$router.push('/my')
     }
   }
 }

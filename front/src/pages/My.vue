@@ -1,0 +1,88 @@
+<template>
+  <div class="q-pa-md q-gutter-y-md">
+    <q-item>
+      <q-item-section side>
+        <q-avatar rounded size="48px">
+          <img src="https://cdn.quasar.dev/img/boy-avatar.png" />
+        </q-avatar>
+      </q-item-section>
+      <q-item-section>
+        <q-item-label>用户名</q-item-label>
+        <q-item-label caption>用户简介</q-item-label>
+      </q-item-section>
+      <q-item-section side>
+        <q-icon name="settings" clickable v-ripple size="28px"/>
+      </q-item-section>
+    </q-item>
+
+    <q-separator spaced />
+
+    <div class="q-col-gutter-md row items-start">
+      <div class="col-4">
+        <q-img
+          src="https://cdn.quasar.dev/img/chicken-salad.jpg"
+          style="width: 100%" clickable v-ripple
+          class="rounded-borders"
+        >
+          <div class="absolute-full text-subtitle2 flex flex-center">
+                     收藏
+          </div>
+        </q-img>
+      </div>
+      <div class="col-4">
+        <q-img
+          src="https://cdn.quasar.dev/img/parallax1.jpg"
+          style="width: 100%" clickable v-ripple
+          class="rounded-borders"
+        >
+          <div class="absolute-full text-subtitle2 flex flex-center">
+                     好友
+          </div>
+        </q-img>
+      </div>
+      <div class="col-4">
+        <q-img
+          src="https://cdn.quasar.dev/img/parallax2.jpg"
+          style="width: 100%" clickable v-ripple
+          class="rounded-borders"
+        >
+          <div class="absolute-full text-subtitle2 flex flex-center">
+                     私信
+          </div>
+        </q-img>
+      </div>
+    </div>
+
+    <q-card class="my-card">
+      <q-card-section class="bg-light-blue-3 text-white">
+        <div class="text-h6">我的书评</div>
+      </q-card-section>
+
+      <q-card-actions align="around">
+        <q-btn flat icon="bookmark" color="blue-grey-3"> <span class="text-black">查看全部</span> </q-btn>
+        <q-btn flat icon="create" color="blue-grey-3"> <span class="text-black">写书评</span> </q-btn>
+      </q-card-actions>
+    </q-card>
+
+    <q-card class="my-card">
+      <q-card-section class="bg-blue-3 text-white">
+        <div class="text-h6">我的漂流</div>
+      </q-card-section>
+
+      <q-card-actions align="around">
+        <q-btn flat icon="bookmark" color="blue-grey-3"> <span class="text-black">查看全部</span> </q-btn>
+        <q-btn flat icon="create" color="blue-grey-3"> <span class="text-black">发起漂流</span> </q-btn>
+      </q-card-actions>
+    </q-card>
+  </div>
+</template>
+
+<script>
+export default {
+
+}
+</script>
+
+<style lang="sass" scoped>
+
+</style>

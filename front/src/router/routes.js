@@ -8,7 +8,8 @@ const routes = [
       { path: 'login', component: () => import('pages/Login.vue') },
       { path: 'signup', component: () => import('pages/SignUp.vue') },
       { path: 'newreview', component: () => import('pages/NewReview') },
-      { path: 'drifting', component: () => import('pages/Drifting.vue') }
+      { path: 'drifting', component: () => import('pages/Drifting.vue') },
+      { path: 'my', component: () => import('pages/my.vue') }
     ]
   },
   // Always leave this as last one,
