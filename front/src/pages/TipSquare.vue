@@ -41,10 +41,25 @@
             <q-card-actions align="right">
               <q-btn flat round color="red" icon="favorite" />
               <q-btn flat round color="teal" icon="bookmark" />
-              <q-btn flat round color="primary" icon="share" />
+              <q-btn flat round color="primary" @click="prompt = true"  icon="share" />
+              <q-dialog v-model="prompt" persistent>
+                <q-card style="max-width: 300px">
+                  <q-card-section>
+                    <div class="text-h6">请输入举报理由</div>
+                  </q-card-section>
+
+                  <q-card-section class="q-pt-none">
+                    <q-input type="textarea" dense v-model="reports" autofocus @keyup.enter="prompt = false" />
+                  </q-card-section>
+
+                  <q-card-actions align="right" class="text-primary">
+                    <q-btn flat label="取消" v-close-popup />
+                    <q-btn flat label="确认举报" @click="reportto(index)" v-close-popup />
+                  </q-card-actions>
+                </q-card>
+              </q-dialog>
             </q-card-actions>
           </q-card>
-
         </template>
       </div>
       <template v-slot:loading>
@@ -61,24 +76,56 @@
       </q-page-scroller>
     </q-infinite-scroll>
   </div>
+
 </template>
 <!--从后端获取到各种信息-->
 <script>
+import 'boot/axios'
+import 'boot/store'
 export default {
   data () {
     return {
-      items: ['Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 1, 2, 3, 4, 5, 6]
+      items: [0, 1, 2, 3, 4, 5, 6],
+      offset: 1,
+      limit: 1,
+      tipnum: 5,
+      desc: true,
+      errmsg: '',
+      prompt: false,
+      reports: ''
     }
   },
 
   methods: {
     onLoad (index, done) {
-      setTimeout(() => {
-        if (this.items) {
-          this.items.splice(0, 0, {}, {}, {}, {}, {}, {}, {})
-          done()
+      this.$axios.get('reviews/bylimit', {
+        params: {
+          offset: this.$data.offset,
+          limit: this.$data.limit,
+          desc: this.$data.desc
+        },
+        headers: {
+          token: this.$gStore.token
         }
-      }, 2000)
+      }).then((response) => {
+        // console.log('response+++++++++++++++++')
+        // console.log(response.data[0].content)
+        this.items.push(String(response.data[0].content))
+        done()
+      })
+        .catch((error) => {
+          console.log(error)
+        })
+
+      // setTimeout(() => {
+      //   if (this.items) {
+      //     this.items.splice(0, 0, {}, {}, {}, {}, {}, {}, {})
+      //     done()
+      //   }
+      // }, 2000)
+    },
+    reportto (index) {
+      console.log('举报的是哪一个+++' + index)
     },
     add () {
       this.$router.push('/newreview')
