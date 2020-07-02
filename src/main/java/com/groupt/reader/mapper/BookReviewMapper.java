@@ -1,9 +1,11 @@
 package com.groupt.reader.mapper;
 
 import com.groupt.reader.dto.BookReviewDto;
+import com.groupt.reader.dto.UserDto;
 import com.groupt.reader.model.BookEntity;
 import com.groupt.reader.model.BookReviewEntity;
 import com.groupt.reader.model.UserEntity;
+import org.apache.shiro.SecurityUtils;
 
 public class BookReviewMapper {
     public static BookReviewDto BookReviewToBookReviewDto (BookReviewEntity bookReview){
@@ -23,4 +25,7 @@ public class BookReviewMapper {
         bookReviewDto.setUserResume(user.getResume());
         return bookReviewDto;
     }
+
+
 }
+

@@ -88,4 +88,25 @@ public class BookReviewController {
     }
 
 
+    @RequiresAuthentication
+    @GetMapping("/reviews/countekil")
+    public int countEkils(@RequestParam Long rid) {
+        return bookReviewService.countEkil(rid);
+    }
+
+    @RequiresRoles("reader")
+    @GetMapping("/reviews/getekil")
+    public boolean getEkil(@RequestParam Long rid) {
+        return bookReviewService.getEkil(rid);
+    }
+
+    @RequiresRoles("reader")
+    @GetMapping("/reviews/setekil")
+    public Json setEkil(@RequestParam Long rid, @RequestParam boolean ekil) {
+        if(bookReviewService.setEkil(rid, ekil)) {
+            return Json.succ();
+        } else {
+            return Json.fail();
+        }
+    }
 }

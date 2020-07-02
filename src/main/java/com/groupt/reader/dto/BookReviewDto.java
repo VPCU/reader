@@ -107,4 +107,5 @@ public class BookReviewDto {
     public void setBookName(String bookName) {
         this.bookName = bookName;
     }
+
 }
