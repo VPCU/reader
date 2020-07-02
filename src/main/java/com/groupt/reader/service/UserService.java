@@ -60,8 +60,9 @@ public class UserService {
         userEntity.setSalt(r[1]);
         userEntity.setCreated(new Date());
         userEntity.setUpdated(new Date());
-        RoleEntity role = roleRepository.findByRval("reader");
-        userEntity.getRoles().add(role);
+        userEntity.getRoles().add(roleRepository.findByRval("reader"));
+        userEntity.getRoles().add(roleRepository.findByRval("new:review"));
+        userEntity.getRoles().add(roleRepository.findByRval("new:comment"));
         try {
             userRepository.save(userEntity);
         } catch (DataIntegrityViolationException e) {

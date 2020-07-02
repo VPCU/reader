@@ -14,6 +14,10 @@ public class CommentEntity {
     private Date createTime;
     private Long reviewId;
     private Long ftCmtId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private UserEntity creator;
+    @Lob
+    private String content;
 
     public Long getCmtId() {
         return cmtId;
@@ -53,5 +57,21 @@ public class CommentEntity {
 
     public void setFtCmtId(Long ftCmtId) {
         this.ftCmtId = ftCmtId;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public UserEntity getCreator() {
+        return creator;
+    }
+
+    public void setCreator(UserEntity creator) {
+        this.creator = creator;
     }
 }

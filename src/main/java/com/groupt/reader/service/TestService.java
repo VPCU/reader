@@ -74,5 +74,12 @@ public class TestService {
         r.setRname("读者");
         r.setRval("reader");
         roleRepository.save(r);
+        p.setPid(2L);
+        p.setPname("发布书评");
+        p.setPval("new:review");
+        p.setPid(3L);
+        p.setPname("发布评论");
+        p.setPval("new:comment");
+        permRepository.save(p);
     }
 }

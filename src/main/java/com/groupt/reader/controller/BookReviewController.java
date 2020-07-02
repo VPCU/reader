@@ -4,6 +4,8 @@ import com.groupt.reader.dto.Json;
 import com.groupt.reader.dto.NewBookReviewDto;
 import com.groupt.reader.repository.BookReviewRepository;
 import com.groupt.reader.service.BookReviewService;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
@@ -19,7 +21,8 @@ public class BookReviewController {
     private BookReviewRepository bookReviewRepository;
 
     @RequiresRoles("reader")
-    @PostMapping("/newreview")
+    @RequiresPermissions("new:review")
+    @PostMapping("/reviews/new")
     public Object newReview(@RequestBody NewBookReviewDto bookReviewDto) {
         if(StringUtils.isEmpty(bookReviewDto.getTitle())) {
             return Json.fail("请输入标题");
@@ -29,12 +32,14 @@ public class BookReviewController {
         else return Json.fail("发布失败");
     }
 
-    @GetMapping("/square/reviews")
+    @RequiresAuthentication
+    @GetMapping("/reviews/all")
     public Object getSquareReviews(){
         return bookReviewService.getAllBookReviews();
     }
 
-    @GetMapping("/square/reviewsbylimits")
+    @RequiresAuthentication
+    @GetMapping("/reviews/bylimit")
     public Object getSquareReviewsByOffset(@RequestParam int offset, @RequestParam int limit, @RequestParam boolean desc){
         return bookReviewService.getBookReviews(offset, limit, desc);
     }

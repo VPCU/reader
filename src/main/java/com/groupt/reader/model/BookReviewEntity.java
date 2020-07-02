@@ -2,6 +2,7 @@ package com.groupt.reader.model;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "boot_reviews")
@@ -17,7 +18,6 @@ public class BookReviewEntity {
     @Lob
     private String content;
     private String title;
-
     public Long getRid() {
         return rid;
     }
@@ -65,4 +65,5 @@ public class BookReviewEntity {
     public void setTitle(String title) {
         this.title = title;
     }
+
 }

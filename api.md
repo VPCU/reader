@@ -1,9 +1,10 @@
 # API
 
-### /newreview
+### /reviews/new
 
 - POST
 - RequiresRoles: reader
+- RequiresPermissions: new:review
 
 Request:
 
@@ -24,10 +25,10 @@ Answer:
     }
 
 
-### /square/reviews
+### /reviews/all
 
 - GET
-- RequiresRoles: reader, admin
+- RequiresAuthentication
 
 Answer:
 
@@ -61,11 +62,12 @@ Answer:
     ]
 
 
-### /square/reviewsbylimits
+### /reviews/bylimit
 
 流式分页加载书评。
 
 - GET
+- RequiresAuthentication
 
 
     offset int
@@ -94,6 +96,58 @@ Post
         }
     ]
 
+
+### /comments/all
+
+- GET
+- RequiresRoles: reader
+- RequiresPermissions: new:comment
+
+
+    rid int
+       
+Request:
+
+    /comments/all?rid=1
+
+Answer:
+
+    [
+        {
+            "id": 1,
+            "reviewId": null,
+            "creatorId": 2,
+            "creatorUserName": "user0",
+            "creatorUserNick": "superman",
+            "creatorUserResume": null,
+            "createTime": "2020-07-02T06:29:27.021+00:00",
+            "fatherCommentId": null,
+            "content": "好"
+        }
+    ]
+
+### /comments/new
+
+- POST
+- RequiresRoles: reader
+- RequiresPermissions: new:comment
+
+Request:
+
+    {
+        "reviewId": 1,
+        "ftCmtId": null,
+        "content": "好"
+    }
+
+Answer:
+
+    {
+        "msg": "评论成功",
+        "code": 1,
+        "succ": true,
+        "oper": "default"
+    }
 
 ### /count
 
@@ -203,6 +257,8 @@ Answer:
 ### /newreview
 
 - POST
+- RequiresRoles: reader
+- RequiresPermissions: new:review
 
 Request:
 
