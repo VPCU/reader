@@ -12,6 +12,8 @@ import com.groupt.reader.repository.BookReviewRepository;
 import com.groupt.reader.repository.UserRepository;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -60,16 +62,36 @@ public class BookReviewService {
         return ret;
     }
 
+    public List<BookReviewDto> getSelfBookReviews() {
+        UserDto userDto = (UserDto)SecurityUtils.getSubject().getPrincipal();
+        UserEntity userEntity = userRepository.findByUname(userDto.getUname());
+        return getBookReviewsByAuthor(userEntity);
+    }
+
+    public List<BookReviewDto> getBookReviewsByAuthor(Long uid) {
+        return getBookReviewsByAuthor(userRepository.findById(uid).get());
+    }
+
+    public List<BookReviewDto> getBookReviewsByAuthor(UserEntity user) {
+        List<BookReviewDto> reviews = new ArrayList<>();
+        for(BookReviewEntity review :bookReviewRepository.findByAuthor(user)) {
+            reviews.add(BookReviewMapper.BookReviewToBookReviewDto(review));
+        }
+        return reviews;
+    }
+
     public List<BookReviewDto> getBookReviews(int cursor, int limit, boolean desc) {
 
         List<BookReviewDto> ret = new ArrayList<>();
         List<BookReviewEntity> reviews;
         if(!desc) {
-            reviews = bookReviewRepository.findByRidLessThanEqual((long) cursor,
-                    Sort.sort(BookReviewEntity.class).by(BookReviewEntity::getRid).ascending());
+            Sort sort = Sort.sort(BookReviewEntity.class).by(BookReviewEntity::getRid).ascending();
+            Pageable pageable = PageRequest.of(0, limit, sort);
+            reviews = bookReviewRepository.findByRidGreaterThanEqual((long) cursor, pageable);
         } else {
-            reviews = bookReviewRepository.findByRidGreaterThanEqual((long) cursor,
-                    Sort.sort(BookReviewEntity.class).by(BookReviewEntity::getRid).descending());
+            Sort sort = Sort.sort(BookReviewEntity.class).by(BookReviewEntity::getRid).descending();
+            Pageable pageable = PageRequest.of(0, limit, sort);
+            reviews = bookReviewRepository.findByRidLessThanEqual((long) cursor, pageable);
         }
         for(BookReviewEntity review : reviews) {
             ret.add(BookReviewMapper.BookReviewToBookReviewDto(review));

@@ -43,4 +43,10 @@ public class BookReviewController {
     public Object getSquareReviewsByOffset(@RequestParam int offset, @RequestParam int limit, @RequestParam boolean desc){
         return bookReviewService.getBookReviews(offset, limit, desc);
     }
+
+    @RequiresRoles("reader")
+    @GetMapping("/reviews/my")
+    public Object getMyReviews() {
+        return bookReviewService.getSelfBookReviews();
+    }
 }
