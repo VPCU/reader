@@ -70,7 +70,7 @@ export default {
   data () {
     return {
       items: [0, 1, 2, 3, 4, 5, 6],
-      offset: 2,
+      offset: 1,
       limit: 1,
       tipnum: 5,
       desc: true,
