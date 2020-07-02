@@ -4,14 +4,8 @@ import com.groupt.reader.dto.BookReviewDto;
 import com.groupt.reader.dto.NewBookReviewDto;
 import com.groupt.reader.dto.UserDto;
 import com.groupt.reader.mapper.BookReviewMapper;
-import com.groupt.reader.model.BookEntity;
-import com.groupt.reader.model.BookReviewEntity;
-import com.groupt.reader.model.UserEntity;
-import com.groupt.reader.model.UserLikeReview;
-import com.groupt.reader.repository.BookRepository;
-import com.groupt.reader.repository.BookReviewRepository;
-import com.groupt.reader.repository.UserLikeReviewRepository;
-import com.groupt.reader.repository.UserRepository;
+import com.groupt.reader.model.*;
+import com.groupt.reader.repository.*;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -39,6 +33,9 @@ public class BookReviewService {
     @Autowired
     UserLikeReviewRepository userLikeReviewRepository;
 
+    @Autowired
+    UserEkilReviewRepository userEkilReviewRepository;
+
     public boolean newBookReview(NewBookReviewDto bookReviewDto) {
         UserDto userDto = (UserDto)SecurityUtils.getSubject().getPrincipal();
         UserEntity userEntity = userRepository.findByUname(userDto.getUname());
@@ -62,6 +59,9 @@ public class BookReviewService {
     public List<BookReviewDto> getAllBookReviews() {
         List<BookReviewDto> ret = new ArrayList<>();
         List<BookReviewEntity> reviews = bookReviewRepository.findAll();
+
+
+
         for(BookReviewEntity review : reviews) {
             ret.add(BookReviewMapper.BookReviewToBookReviewDto(review));
         }
@@ -151,4 +151,32 @@ public class BookReviewService {
         Optional<BookReviewEntity> book = bookReviewRepository.findById(rid);
         return book.map(BookReviewMapper::BookReviewToBookReviewDto).orElse(null);
     }
+
+    public int countEkil(Long rid) {
+        return userEkilReviewRepository.countByReview(rid);
+    }
+
+    public boolean setEkil(Long review, boolean like) {
+        UserDto userDto = (UserDto)SecurityUtils.getSubject().getPrincipal();
+        Long user = userDto.getUid();
+        boolean now = userEkilReviewRepository.existsByUserAndReview(user, review);
+        if(now == like) return true;
+        if(like) {
+            UserEkilReview userEkilReview = new UserEkilReview();
+            if(!userRepository.existsById(user) || !bookReviewRepository.existsById(review)) return false;
+            userEkilReview.setReview(review);
+            userEkilReview.setUser(user);
+            userEkilReviewRepository.save(userEkilReview);
+            return true;
+        } else {
+            userEkilReviewRepository.deleteAllByUserAndReview(user, review);
+            return true;
+        }
+    }
+
+    public boolean getEkil(long rid) {
+        UserDto userDto = (UserDto)SecurityUtils.getSubject().getPrincipal();
+        return userEkilReviewRepository.existsByUserAndReview(userDto.getUid(), rid);
+    }
+
 }

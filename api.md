@@ -247,6 +247,64 @@ Answer:
             "bookName": "黑柳"
         }
     ]
+    
+    
+### /reviews/countekil
+
+返回书评的总赞数。
+
+- GET
+- RequiresAuthentication
+
+
+    rid int
+
+Answer
+
+    int
+    
+    
+### /reviews/getekil
+
+返回赞的状态。
+
+- GET
+- RequiredRoles: reader
+
+Answer:
+
+    boolean
+    
+## /reviews/setekil
+
+设置赞的状态
+
+- GET
+- RequiredRoles: reader
+
+    
+    rid int
+    ekil bool
+
+Answer:
+
+    {
+        "msg": "msg",
+        "code": 1,
+        "succ": true,
+        "oper": "default"
+    }
+
+Answer 2:
+
+    {
+        "msg": "msg",
+        "code": 1,
+        "succ": true,
+        "oper": "default"
+    }
+        
+    
 
 ## Comments
 
