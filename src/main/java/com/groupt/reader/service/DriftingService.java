@@ -35,4 +35,8 @@ public class DriftingService {
         return driftingRepository.findByUid(userDto.getUid());
     }
 
+    public DriftingEntity getDriftingById(Long id) {
+        return driftingRepository.findById(id).get();
+    }
+
 }

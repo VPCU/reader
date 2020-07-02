@@ -3,14 +3,12 @@ package com.groupt.reader.controller;
 import com.groupt.reader.dto.Json;
 import com.groupt.reader.model.DriftingEntity;
 import com.groupt.reader.service.DriftingService;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -40,5 +38,11 @@ public class DriftingController {
     @GetMapping("/drifting/all")
     public List<DriftingEntity> getUsersAllDrifting() {
         return driftingService.getSelfDrifting();
+    }
+
+    @RequiresAuthentication
+    @GetMapping("/drifting/id/{id}")
+    public Object getDriftingById(@PathVariable(name = "id") int id) {
+        return driftingService.getDriftingById((long)id);
     }
 }

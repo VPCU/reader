@@ -80,11 +80,9 @@ public class BookReviewController {
     }
 
     @RequiresAuthentication
-    @GetMapping("/reviews/rid/{id}")
+    @GetMapping("/reviews/id/{id}")
     public Object getReviewsById(@PathVariable(name = "id") int id) {
-        BookReviewDto review = bookReviewService.getBookReviewById((long) id);
-        if(review == null) return Json.fail("请求失败。");
-        else return Json.succ().data(review);
+        return bookReviewService.getBookReviewById((long) id);
     }
 
 

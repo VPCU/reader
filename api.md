@@ -2,7 +2,7 @@
 
 ## Reviews
 
-### /reviews/rid/{id}
+### /reviews/id/{id}
 
 请求对应id的书评。
 
@@ -12,23 +12,17 @@
 Answer:
 
     {
-        "msg": "ok",
-        "code": 1,
-        "succ": true,
-        "data": {
-            "rid": 1,
-            "createTime": "2020-07-01T13:43:24.224+00:00",
-            "content": "分死殴打杰佛逊 。 搜房isdfojs分isdosj分 ， 死。 近似等级封禁，封禁递送。四季豆腐i，。Sar Por Una Para mi sado.",
-            "title": "莫泊桑小说",
-            "userId": 2,
-            "username": "user0",
-            "userNick": "superman",
-            "userResume": null,
-            "bookId": 1,
-            "bookAuthor": "黑柳",
-            "bookName": "黑柳"
-        },
-        "oper": "default"
+        "rid": 1,
+        "createTime": "2020-07-01T13:43:24.224+00:00",
+        "content": "分死殴打杰佛逊 。 搜房isdfojs分isdosj分 ， 死。 近似等级封禁，封禁递送。四季豆腐i，。Sar Por Una Para mi sado.",
+        "title": "莫泊桑小说",
+        "userId": 2,
+        "username": "user0",
+        "userNick": "superman",
+        "userResume": null,
+        "bookId": 1,
+        "bookAuthor": "黑柳",
+        "bookName": "黑柳"
     }
 
 ### /reviews/new
@@ -505,7 +499,7 @@ Answer:
 获取发起的所有漂流。
 
 - GET
-
+- RequiresRoles: reader
 
 Answer:
 
@@ -525,6 +519,29 @@ Answer:
             "events": null
         }
     ]
+    
+### /drifting/id/{id}
+
+Request
+
+    /drifting/id/1
+    
+Answer:
+
+    {
+        "driId": 1,
+        "uid": 2,
+        "bookName": "Shirro",
+        "author": "Romon Handson",
+        "isbn": null,
+        "curPosition": "东起第一根电线杆",
+        "curState": null,
+        "available": true,
+        "guard": null,
+        "imgSrc": null,
+        "createTime": null,
+        "events": null
+    }
 
 ## authorization
 
