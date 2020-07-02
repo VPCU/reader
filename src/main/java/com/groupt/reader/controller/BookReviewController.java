@@ -1,5 +1,6 @@
 package com.groupt.reader.controller;
 
+import com.groupt.reader.dto.BookReviewDto;
 import com.groupt.reader.dto.Json;
 import com.groupt.reader.dto.NewBookReviewDto;
 import com.groupt.reader.repository.BookReviewRepository;
@@ -49,4 +50,42 @@ public class BookReviewController {
     public Object getMyReviews() {
         return bookReviewService.getSelfBookReviews();
     }
+
+    @RequiresRoles("reader")
+    @GetMapping("/reviews/getlike")
+    public boolean like(@RequestParam int rid) {
+        return bookReviewService.likeByRid(rid);
+    }
+
+    @RequiresRoles("reader")
+    @GetMapping("/reviews/setlike")
+    public Json setLike(@RequestParam Long rid, boolean like) {
+        if(bookReviewService.setSelfLikeReview(rid, like)) {
+            return Json.succ("Ok.");
+        } else {
+            return Json.fail("Fail.");
+        }
+    }
+
+    @RequiresRoles("reader")
+    @GetMapping("/reviews/countlike")
+    public int countLike() {
+        return bookReviewService.countLike();
+    }
+
+    @RequiresRoles("reader")
+    @GetMapping("/reviews/like")
+    public Object getAllLike() {
+        return bookReviewService.getLikes();
+    }
+
+    @RequiresAuthentication
+    @GetMapping("/reviews/rid/{id}")
+    public Object getReviewsById(@PathVariable(name = "id") int id) {
+        BookReviewDto review = bookReviewService.getBookReviewById((long) id);
+        if(review == null) return Json.fail("请求失败。");
+        else return Json.succ().data(review);
+    }
+
+
 }

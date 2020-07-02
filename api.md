@@ -2,6 +2,35 @@
 
 ## Reviews
 
+### /reviews/rid/{id}
+
+请求对应id的书评。
+
+- GET
+- RequiresAuthentication
+
+Answer:
+
+    {
+        "msg": "ok",
+        "code": 1,
+        "succ": true,
+        "data": {
+            "rid": 1,
+            "createTime": "2020-07-01T13:43:24.224+00:00",
+            "content": "分死殴打杰佛逊 。 搜房isdfojs分isdosj分 ， 死。 近似等级封禁，封禁递送。四季豆腐i，。Sar Por Una Para mi sado.",
+            "title": "莫泊桑小说",
+            "userId": 2,
+            "username": "user0",
+            "userNick": "superman",
+            "userResume": null,
+            "bookId": 1,
+            "bookAuthor": "黑柳",
+            "bookName": "黑柳"
+        },
+        "oper": "default"
+    }
+
 ### /reviews/new
 
 - POST
@@ -100,6 +129,8 @@ Post
     
 ### /reviews/my
 
+返回用户创建的书评。
+
 - GET
 - RequiresRoles: reader
 
@@ -138,6 +169,84 @@ Answer:
         }
     ]
 
+
+### /reviews/getlike
+
+返回用户是否收藏过某书评。
+
+- GET
+- RequiresRoles: reader
+
+
+    rid int
+
+Request:
+    
+    /getlike?rid=1
+
+Answer:
+
+    bool
+    
+### /reviews/setlike
+
+设置用户是否收藏书评。
+
+- GET
+- RequiresRoles: reader
+
+
+    rid int
+    like boolean
+    
+Request:
+
+    /reviews/setlike?rid=1&like=true
+    
+Answer:
+
+    {
+        "msg": "Ok.",
+        "code": 1,
+        "succ": true,
+        "oper": "default"
+    }
+
+### /reviews/countlike
+
+查询用户收藏书评的总数。
+
+- GET
+- RequiresRoles: reader
+
+Answer:
+
+    int
+
+### /reviews/like
+
+返回用户收藏的所有书评。
+
+- GET
+- RequiresRoles: reader
+
+Answer:
+
+    [
+        {
+            "rid": 1,
+            "createTime": "2020-07-01T13:43:24.224+00:00",
+            "content": "分死殴打杰佛逊 。 搜房isdfojs分isdosj分 ， 死。 近似等级封禁，封禁递送。四季豆腐i，。Sar Por Una Para mi sado.",
+            "title": "莫泊桑小说",
+            "userId": 2,
+            "username": "user0",
+            "userNick": "superman",
+            "userResume": null,
+            "bookId": 1,
+            "bookAuthor": "黑柳",
+            "bookName": "黑柳"
+        }
+    ]
 
 ## Comments
 
