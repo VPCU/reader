@@ -10,6 +10,7 @@ const routes = [
       { path: 'newreview', component: () => import('pages/NewReview') },
       { path: 'drifting', component: () => import('pages/Drifting.vue') },
       { path: 'my', component: () => import('pages/My.vue') },
+      { path: 'mysettings', component: () => import('pages/MySettings.vue') },
       { path: 'managedrifting', component: () => import('pages/ManageDrifting.vue') },
       { path: 'editdrifting', component: () => import('pages/EditDrifting.vue') },
       { path: 'managereport', component: () => import('pages/ManageReport.vue') },
