@@ -61,7 +61,7 @@ public class DangDangBook {
                 Document doc = Jsoup.parse(detailUrl, 30000);
                 Elements select = doc.select("a[name=itemlist-picture]");
                 for (Element element : select) {
-                    String sql="insert into book (id,book_name,price,author,publisher,book_time,isbn,type,url) values";
+                    String sql="insert into book (id,book_pic,book_name,price,author,publisher,book_time,isbn,type,url) values";
 
                     List<String> params=new ArrayList<>();
                     String id = UUID.randomUUID().toString().replaceAll("-","");
@@ -76,6 +76,10 @@ public class DangDangBook {
                         //书名
                         String bookName = parse.select(".name_info").get(0).select("h1").get(0).attr("title");
                         params.add(bookName);
+
+                        //封面地址
+                        String picAddress = parse.select(".pic").get(0).select("a").select("img").get(0).attr("src");
+                        params.add(picAddress);
 
 
                         //价格
