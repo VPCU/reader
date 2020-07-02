@@ -64,21 +64,47 @@
 </template>
 <!--从后端获取到各种信息-->
 <script>
+import 'boot/axios'
+import 'boot/store'
 export default {
   data () {
     return {
-      items: ['Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 1, 2, 3, 4, 5, 6]
+      items: [0, 1, 2, 3, 4, 5, 6],
+      offset: 2,
+      limit: 1,
+      tipnum: 5,
+      desc: true,
+      errmsg: ''
     }
   },
 
   methods: {
     onLoad (index, done) {
-      setTimeout(() => {
-        if (this.items) {
-          this.items.splice(0, 0, {}, {}, {}, {}, {}, {}, {})
-          done()
+      this.$axios.get('reviews/bylimit', {
+        params: {
+          offset: this.$data.offset,
+          limit: this.$data.limit,
+          desc: this.$data.desc
+        },
+        headers: {
+          token: this.$gStore.token
         }
-      }, 2000)
+      }).then((response) => {
+        console.log('response+++++++++++++++++')
+        console.log(response.data[0].content)
+        this.items.push(String(response.data[0].content))
+        done()
+      })
+        .catch((error) => {
+          console.log(error)
+        })
+
+      // setTimeout(() => {
+      //   if (this.items) {
+      //     this.items.splice(0, 0, {}, {}, {}, {}, {}, {}, {})
+      //     done()
+      //   }
+      // }, 2000)
     },
     add () {
       this.$router.push('/newreview')
