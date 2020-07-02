@@ -1,10 +1,10 @@
 <template>
   <q-page padding class="docs-input row justify-center">
-    <div style="width: 1000px; max-width: 100vw;">
+    <div class="q-ma-sm" style="width: 1000px; max-width: 100vw;">
 
-        <h4 class="q-mt-lg">发起漂流</h4>
+        <h4 class="q-mt-sm">发起漂流</h4>
 
-        <q-input v-model="bookName" placeholder="书籍名称" />
+        <q-input v-model="bookName" float-lable="书籍名称" placeholder="书籍名称"/>
         <q-input v-model="bookAuthor" placeholder="书籍作者" />
         <q-input v-model="isbn" placeholder="ISBN" />
         <q-input v-model="location" placeholder="寄存处" />
@@ -12,7 +12,7 @@
         <q-input v-model="keeper" placeholder="保管人" />
         <br>
         <div class="q-caption" color="grey">请上传书籍现况照片</div>
-        <q-uploader color="primary" inverted float-label="请上传书籍现况照片" extensions=".jpg" :url="url" />
+        <q-uploader class="full-width" color="primary" inverted float-label="请上传书籍现况照片" extensions=".jpg" :url="url" />
 
         <q-checkbox v-model="checked" color="secondary" label="我已知晓并愿意承担发起漂流可能面临的风险。" @input="check" />
         <br>
