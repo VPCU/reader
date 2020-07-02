@@ -60,7 +60,7 @@
 
       <q-card-actions align="around">
         <q-btn flat icon="bookmark" color="blue-grey-3"> <span class="text-black">查看全部</span> </q-btn>
-        <q-btn flat icon="create" color="blue-grey-3"> <span class="text-black">写书评</span> </q-btn>
+        <q-btn flat icon="create" color="blue-grey-3" @click="add"> <span class="text-black">写书评</span> </q-btn>
       </q-card-actions>
     </q-card>
 
@@ -70,8 +70,8 @@
       </q-card-section>
 
       <q-card-actions align="around">
-        <q-btn flat icon="bookmark" color="blue-grey-3"> <span class="text-black">查看全部</span> </q-btn>
-        <q-btn flat icon="create" color="blue-grey-3"> <span class="text-black">发起漂流</span> </q-btn>
+        <q-btn flat icon="bookmark" color="blue-grey-3" @click="managedrift"> <span class="text-black">管理漂流</span> </q-btn>
+        <q-btn flat icon="create" color="blue-grey-3" @click="drift"> <span class="text-black">发起漂流</span> </q-btn>
       </q-card-actions>
     </q-card>
   </div>
@@ -79,7 +79,17 @@
 
 <script>
 export default {
-
+  methods: {
+    add () {
+      this.$router.push('/newreview')
+    },
+    drift () {
+      this.$router.push('/drifting')
+    },
+    managedrift () {
+      this.$router.push('/managedrifting')
+    }
+  }
 }
 </script>
 
