@@ -63,6 +63,7 @@ public class UserService {
         userEntity.getRoles().add(roleRepository.findByRval("reader"));
         userEntity.getRoles().add(roleRepository.findByRval("new:review"));
         userEntity.getRoles().add(roleRepository.findByRval("new:comment"));
+        userEntity.getRoles().add(roleRepository.findByRval("new:drifting"));
         try {
             userRepository.save(userEntity);
         } catch (DataIntegrityViolationException e) {

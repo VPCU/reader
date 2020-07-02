@@ -300,7 +300,7 @@ Answer 2:
     {
         "msg": "msg",
         "code": 1,
-        "succ": true,
+        "succ": false,
         "oper": "default"
     }
         
@@ -470,6 +470,61 @@ Answer:
     Success
 
 
+## Drifting
+
+### /drifting/new
+
+- POST
+- RequiresRoles: reader
+- RequiresPermissions: new:drifting
+
+
+    data: int  //创建好的漂流的id
+
+Request:
+
+    {
+        "bookName":"Shirro",
+        "author":"Romon Handson",
+        "position":"东起第一根电线杆"
+    }
+    
+Answer:
+
+    {
+        "msg": "发起成功",
+        "code": 1,
+        "succ": true,
+        "data": 1,
+        "oper": "default"
+    }
+
+
+### /drifting/all
+
+获取发起的所有漂流。
+
+- GET
+
+
+Answer:
+
+    [
+        {
+            "driId": 1,
+            "uid": 2,
+            "bookName": "Shirro",
+            "author": "Romon Handson",
+            "isbn": null,
+            "curPosition": "东起第一根电线杆",
+            "curState": null,
+            "available": true,
+            "guard": null,
+            "imgSrc": null,
+            "createTime": null,
+            "events": null
+        }
+    ]
 
 ## authorization
 

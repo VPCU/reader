@@ -31,6 +31,9 @@ public class TestService {
     @Autowired
     private PermRepository permRepository;
 
+    @Autowired
+    private PermissionService permissionService;
+
     //@Autowired
     //private TestMapper testMapper;
 
@@ -62,13 +65,10 @@ public class TestService {
         r.setRname("管理员");
         r.setRval("admin");
         PermEntity p = new PermEntity();
-        p.setPid(1L);
-        p.setPname("封禁帐号");
-        p.setPval("disable users");
+        permissionService.newPermission(1L, "封禁帐号", "disable:users");
         u.getRoles().add(r);
         u.getPerms().add(p);
         roleRepository.save(r);
-        permRepository.save(p);
         userRepository.save(u);
         r.setRid(2L);
         r.setRname("读者");
@@ -77,9 +77,13 @@ public class TestService {
         p.setPid(2L);
         p.setPname("发布书评");
         p.setPval("new:review");
+        permRepository.save(p);
         p.setPid(3L);
         p.setPname("发布评论");
         p.setPval("new:comment");
         permRepository.save(p);
+        permissionService.newPermission(2L, "发布书评", "new:review");
+        permissionService.newPermission(3L, "发布评论", "new:comment");
+        permissionService.newPermission(4L, "发布漂流", "new:drifting");
     }
 }
