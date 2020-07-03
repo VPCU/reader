@@ -380,7 +380,8 @@ Answer:
         ],
         "oper": "default",
         "perms": [],
-        "token": "b856a716-9e33-477b-8113-dffcef5c7a2f"
+        "token": "b856a716-9e33-477b-8113-dffcef5c7a2f",
+        "imgSrc": "/img/1.png"
     }
 
 Answer 2:
@@ -639,11 +640,10 @@ Answer:
             "uid": 2,
             "uname": "user0",
             "nick": "superman",
-            "pwd": "",
-            "salt": "",
             "disabled": false,
             "created": "2020-07-01T13:35:14.388+00:00",
             "updated": "2020-07-01T13:35:14.388+00:00",
+            "imgSrc": "/img/1.png",
             "roles": [
                 "reader"
             ],
@@ -727,6 +727,88 @@ Answer:
         "succ": true,
         "oper": "default"
     }
+
+## Report
+
+### /report/review
+
+举报书评。
+
+- POST
+- RequiresRoles reader
+
+
+    reviewId int
+    content string
+
+### /report/admin/reviews
+
+- GET
+- RequiresRoles admin
+
+管理员查看所有对书评的举报。
+
+Answer:
+
+    [
+        {
+            "reportId": 14,
+            "review": {
+                "rid": 2,
+                "createTime": "2020-07-01T14:13:28.923+00:00",
+                "content": "<h3><font color=\"blue\">爱国、敬业、诚信、友善</font></h3>",
+                "title": "莫泊桑小说",
+                "disabled": false
+            },
+            "reporter": {
+                "uid": 2,
+                "uname": "user0",
+                "nick": "superman",
+                "created": "2020-07-01T13:35:14.388+00:00",
+                "updated": "2020-07-01T13:35:14.388+00:00",
+                "email": "",
+                "phone": "12355555",
+                "resume": null,
+                "disabled": false
+            },
+            "content": "!DJFOSJF>>>>>"
+        },
+        {
+            "reportId": 14,
+            "review": {
+                "rid": 2,
+                "createTime": "2020-07-01T14:13:28.923+00:00",
+                "content": "<h3><font color=\"blue\">爱国、敬业、诚信、友善</font></h3>",
+                "title": "莫泊桑小说",
+                "disabled": false
+            },
+            "reporter": {
+                "uid": 2,
+                "uname": "user0",
+                "nick": "superman",
+                "created": "2020-07-01T13:35:14.388+00:00",
+                "updated": "2020-07-01T13:35:14.388+00:00",
+                "email": "",
+                "phone": "12355555",
+                "resume": null,
+                "disabled": false
+            },
+            "content": "!DJFOSJF>>>>>"
+        }
+    ]
+
+### /report/admin/reviews
+
+管理员处理举报。每个举报信息只能被处理一次，处理后不会被同名GET方法查询到。
+
+- POST
+- RequiresRoles admin
+- process:report
+
+
+    reportId int 必填
+    status string 必填
+    log string
 
 ## authorization
 

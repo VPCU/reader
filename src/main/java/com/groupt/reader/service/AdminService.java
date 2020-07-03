@@ -3,16 +3,17 @@ package com.groupt.reader.service;
 import com.groupt.reader.dto.UserDto;
 import com.groupt.reader.mapper.MyUserMapper;
 import com.groupt.reader.mapper.UserMapper;
+import com.groupt.reader.model.ReportEntity;
 import com.groupt.reader.model.UserEntity;
+import com.groupt.reader.repository.BookReviewRepository;
+import com.groupt.reader.repository.ReportRepository;
 import com.groupt.reader.repository.UserRepository;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.UnauthorizedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class AdminService {
@@ -20,6 +21,10 @@ public class AdminService {
     UserRepository userRepository;
     @Autowired
     PermissionService permissionService;
+    @Autowired
+    private ReportRepository reportRepository;
+    @Autowired
+    private BookReviewRepository bookReviewRepository;
 
     public List<UserDto> getAllUsersList() {
         List<UserEntity> users = userRepository.findAll();
@@ -69,5 +74,19 @@ public class AdminService {
             throw new UnauthorizedException("管理员没有对应的权限");
         permissionService.addPermission(user, val);
         return true;
+    }
+
+    public List<Map<String, Object>> getAllReports() {
+        List<ReportEntity> reports = reportRepository.getAllByDone(false);
+        Map<String, Object> result = new HashMap<>();
+        List<Map<String, Object>> ret = new ArrayList<>();
+        for(ReportEntity report: reports) {
+            result.put("reportId", report.getRptId());
+            result.put("reporter", userRepository.findById(report.getReporter()).get());
+            result.put("review", bookReviewRepository.findById(report.getReviewId()).get());
+            result.put("content", report.getContent());
+            ret.add(result);
+        }
+        return ret;
     }
 }

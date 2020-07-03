@@ -60,6 +60,7 @@ public class TestService {
         permissionService.newPermission(9L, "删除书评", "disable:review");
         permissionService.newPermission(10L, "授予权限", "addperm:reader");
         permissionService.newPermission(11L, "移除权限", "rmperm:reader");
+        permissionService.newPermission(12L, "处理举报", "process:report");
         RoleEntity r = new RoleEntity();
         r.setRid(1L);
         r.setRname("管理员");

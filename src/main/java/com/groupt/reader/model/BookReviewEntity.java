@@ -1,12 +1,16 @@
 package com.groupt.reader.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreType;
+
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+@JsonIgnoreType
 @Entity
 @Table(name = "boot_reviews")
-public class BookReviewEntity {
+public class BookReviewEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long rid;
