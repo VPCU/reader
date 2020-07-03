@@ -17,14 +17,16 @@
         <q-checkbox v-model="checked" color="secondary" label="我已知晓并愿意承担发起漂流可能面临的风险。" @input="check" />
         <br>
 
-        <q-btn id="start1" :color="color1" class="full-width" icon="create" label="发起漂流" :disabled="disable1" />
+        <q-btn id="start1" :color="color1" class="full-width" icon="create" label="发起漂流" :disabled="disable1" @click="commit" />
     </div>
   </q-page>
 </template>
 
 <script>
-
+import 'boot/axios'
+import 'boot/store'
 export default {
+  name: 'Drifting',
   data () {
     return {
       checked: false,
@@ -49,13 +51,12 @@ export default {
       }
     },
     commit () {
-      this.$axios.post('newdrifting', {
-        title: this.$data.title,
+      this.$axios.post('/drifting/new', {
         bookName: this.$data.bookName,
-        bookAuthor: this.$data.bookAuthor,
+        author: this.$data.bookAuthor,
         isbn: this.$data.isbn,
-        location: this.$data.location,
-        keeper: this.$data.keeper
+        position: this.$data.location,
+        guardian: this.$data.keeper
       }, {
         headers: {
           token: this.$gStore.token

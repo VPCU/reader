@@ -1,6 +1,6 @@
 <template>
-  <q-list>
-    <q-card inline class="bigger q-ma-sm" v-for="{ driftingid, bookname, location, state, detail } in drifting" :key="driftingid">
+  <q-list @load="onLoad">
+    <q-card inline class="bigger q-ma-sm" v-for="{ driId, bookName, author, curPosition, available, detail } in drifting" :key="driId">
       <q-card-media>
         <img  src="https://cdn.quasar.dev/img/parallax2.jpg" width="100%">
       </q-card-media>
@@ -9,13 +9,14 @@
           <!-- probably use later
           <q-btn fab color="primary" icon="place" align="right" style="top: 0; right: 8px; transform: translateY(-50%);" />
           -->
-          <div class="ellipsis">{{ bookname }}</div>
+          <h6 class="q-my-sm">{{ bookName }} by {{ author }}</h6>
           <div slot="right" class="row items-center">
-            <q-icon name="place" /> {{ location }}
+            <q-icon name="place" /> {{ curPosition }}
           </div>
         </q-card-title>
         <q-card-main>
-          <p>{{ state }}</p>
+          <p v-if="available" color:green>可取阅</p>
+          <p v-if="!available" color:red>借阅中</p>
           <p class="text-faded">{{ detail }}</p>
         </q-card-main>
         <q-card-separator />
@@ -33,10 +34,43 @@
 export default {
   data () {
     return {
-      drifting: [{ driftingid: '1', bookname: '书名1', location: 'xxx十字路口xx便利店', state: '借阅中', detail: '书籍介绍或其他信息' }, { driftingid: '2', bookname: '书名2', location: 'xxx小区xx警卫室', state: '闲置', detail: '书籍介绍或其他信息' }]
+      drifting: []
+      // [{ driId: '1', bookName: '书名1', location: 'xxx十字路口xx便利店', state: '借阅中', detail: '书籍介绍或其他信息' }, { driftingid: '2', bookname: '书名2', location: 'xxx小区xx警卫室', state: '闲置', detail: '书籍介绍或其他信息' }]
     }
   },
+  mounted: function () {
+    this.createcode()// 加载页面时触发的函数
+  },
   methods: {
+    createcode () {
+      this.$axios.get('/drifting/all', {
+        headers: {
+          token: this.$gStore.token
+        }
+      }).then((response) => {
+        if (response.data[0]) {
+          console.log('查询结果（limit均为1）')
+          console.log(response.data)
+          this.drifting = response.data
+        }
+      })
+    },
+    onLoad (driftingid, done) {
+      this.$axios.get('/drifting/all', {
+        headers: {
+          token: this.$gStore.token
+        }
+      }).then((response) => {
+        if (response.data[0]) {
+          console.log('查询结果（limit均为1）')
+          console.log(response.data)
+          this.drifting.push(response.data[0])
+        }
+        done()
+      }).catch((error) => {
+        console.log(error)
+      })
+    },
     editdrift () {
       this.$router.push('/editdrifting')
     }
