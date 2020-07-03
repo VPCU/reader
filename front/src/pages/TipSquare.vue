@@ -28,7 +28,7 @@
                 <div class="text-overline">Overline</div>
                 <div class="text-h5 q-mt-sm q-mb-xs">标题</div>
                 <div class="text-caption text-grey">
-                  {{item}}
+                  <p v-html="item"></p>
                 </div>
               </q-card-section>
             </q-card-section>
@@ -85,7 +85,7 @@ import 'boot/store'
 export default {
   data () {
     return {
-      items: [0, 1, 2, 3, 4, 5, 6],
+      items: [],
       offset: 1,
       limit: 1,
       tipnum: 5,
