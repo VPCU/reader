@@ -74,6 +74,9 @@ export default {
         .catch(() => {
           alert('error')
         })
+    },
+    login () {
+      this.$router.push('/login')
     }
   }
 }

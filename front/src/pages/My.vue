@@ -60,7 +60,7 @@
       </q-card-section>
 
       <q-card-actions align="around">
-        <q-btn flat icon="bookmark" color="blue-grey-3"> <span class="text-black">查看全部</span> </q-btn>
+        <q-btn flat icon="bookmark" color="blue-grey-3" @click="myreview"> <span class="text-black">查看全部</span> </q-btn>
         <q-btn flat icon="create" color="blue-grey-3" @click="add"> <span class="text-black">写书评</span> </q-btn>
       </q-card-actions>
     </q-card>
@@ -83,6 +83,9 @@ export default {
   methods: {
     add () {
       this.$router.push('/newreview')
+    },
+    myreview () {
+      this.$router.push('/readmyreview')
     },
     drift () {
       this.$router.push('/drifting')
