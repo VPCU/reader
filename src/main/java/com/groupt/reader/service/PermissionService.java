@@ -1,6 +1,7 @@
 package com.groupt.reader.service;
 
 import com.groupt.reader.model.PermEntity;
+import com.groupt.reader.model.UserEntity;
 import com.groupt.reader.repository.PermRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,5 +17,9 @@ public class PermissionService {
         p.setPname(name);
         p.setPval(val);
         permRepository.save(p);
+    }
+
+    public void addPermission(UserEntity user, String val) {
+        user.getPerms().add(permRepository.findByPval(val));
     }
 }

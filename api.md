@@ -480,7 +480,9 @@ Request:
     {
         "bookName":"Shirro",
         "author":"Romon Handson",
+        “isbn”:"XXXXXXXXXXXXXXXX",
         "position":"东起第一根电线杆"
+        "guardian":"Mr.WANG"
     }
     
 Answer:
@@ -522,6 +524,9 @@ Answer:
     
 ### /drifting/id/{id}
 
+- GET
+- RequiresAuthentication
+
 Request
 
     /drifting/id/1
@@ -542,6 +547,21 @@ Answer:
         "createTime": null,
         "events": null
     }
+    
+    
+### /drifting/edit
+
+- POST
+- RequiresRoles: reader
+- RequiresPermissions: new:drifting
+
+
+    dirftId int
+    bookName string
+    author string
+    isbn string
+    position string
+    guardian string
 
 ## authorization
 

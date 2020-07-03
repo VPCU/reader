@@ -49,6 +49,15 @@ public class TestService {
     }
 
     public void init() {
+        permissionService.newPermission(1L, "封禁帐号", "disable:reader");
+        permissionService.newPermission(2L, "发布书评", "new:review");
+        permissionService.newPermission(3L, "发布评论", "new:comment");
+        permissionService.newPermission(4L, "发布漂流", "new:drifting");
+        permissionService.newPermission(5L, "超级管理", "whosyourdaddy");
+        permissionService.newPermission(6L, "查看帐号", "show:reader");
+        permissionService.newPermission(7L, "解封帐号", "enable:reader");
+        permissionService.newPermission(8L, "删除评论", "disable:comment");
+        permissionService.newPermission(9L, "删除书评", "disable:review");
         TestEntity t = new TestEntity();
         t.setId(1L);
         t.setCount(0);
@@ -65,7 +74,6 @@ public class TestService {
         r.setRname("管理员");
         r.setRval("admin");
         PermEntity p = new PermEntity();
-        permissionService.newPermission(1L, "封禁帐号", "disable:users");
         u.getRoles().add(r);
         u.getPerms().add(p);
         roleRepository.save(r);
@@ -74,16 +82,6 @@ public class TestService {
         r.setRname("读者");
         r.setRval("reader");
         roleRepository.save(r);
-        p.setPid(2L);
-        p.setPname("发布书评");
-        p.setPval("new:review");
-        permRepository.save(p);
-        p.setPid(3L);
-        p.setPname("发布评论");
-        p.setPval("new:comment");
-        permRepository.save(p);
-        permissionService.newPermission(2L, "发布书评", "new:review");
-        permissionService.newPermission(3L, "发布评论", "new:comment");
-        permissionService.newPermission(4L, "发布漂流", "new:drifting");
+
     }
 }

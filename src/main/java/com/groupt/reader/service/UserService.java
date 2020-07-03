@@ -4,6 +4,7 @@ import com.groupt.reader.dto.UserDto;
 import com.groupt.reader.mapper.MyUserMapper;
 import com.groupt.reader.model.RoleEntity;
 import com.groupt.reader.model.UserEntity;
+import com.groupt.reader.repository.PermRepository;
 import com.groupt.reader.repository.RoleRepository;
 import com.groupt.reader.repository.UserRepository;
 import com.groupt.reader.util.ByteArrayToString;
@@ -26,6 +27,8 @@ public class UserService {
     private UserRepository userRepository;
     @Autowired
     private RoleRepository roleRepository;
+    @Autowired
+    private PermRepository permRepository;
 
     private final RandomNumberGenerator randomNumberGenerator;
 
@@ -61,9 +64,9 @@ public class UserService {
         userEntity.setCreated(new Date());
         userEntity.setUpdated(new Date());
         userEntity.getRoles().add(roleRepository.findByRval("reader"));
-        userEntity.getRoles().add(roleRepository.findByRval("new:review"));
-        userEntity.getRoles().add(roleRepository.findByRval("new:comment"));
-        userEntity.getRoles().add(roleRepository.findByRval("new:drifting"));
+        userEntity.getPerms().add(permRepository.findByPval("new:review"));
+        userEntity.getPerms().add(permRepository.findByPval("new:comment"));
+        userEntity.getPerms().add(permRepository.findByPval("new:drifting"));
         try {
             userRepository.save(userEntity);
         } catch (DataIntegrityViolationException e) {
