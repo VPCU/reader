@@ -1,18 +1,21 @@
 <template>
-  <q-page class="flex flex-center">
-    <div class="q-gutter-md" style="max-width: 600px">
-      <q-input outlined v-model="username" label="用户名" />
-      <q-input outlined v-model="phone" label="手机号码" />
-      <q-input outlined v-model="nick" label="昵称" />
-      <q-input outlined v-model="email" label="邮箱" />
-      <q-input outlined v-model="password" label="密码" />
-      <q-input outlined v-model="confirm_password" label="确认密码" />
-      <div class="row justify-between">
-        <div class="col-5">
-          <q-btn color="white" text-color="black" @click="login"  label="登录" style="width: 100%" />
+  <div>
+    <div class="q-mt-sm q-mb-none">
+      <p style="font-size: 30px" class="q-mx-md q-mt-lg">注册账号</p>
+    </div>
+    <div class="q-mt-md">
+      <q-input outlined class="q-ma-md" v-model="username" label="用户名" />
+      <q-input outlined class="q-ma-md" v-model="phone" label="手机号码" />
+      <q-input outlined class="q-ma-md" v-model="nick" label="昵称" />
+      <q-input outlined class="q-ma-md" v-model="email" label="邮箱" />
+      <q-input outlined class="q-ma-md" v-model="password" label="密码" />
+      <q-input outlined class="q-ma-md" v-model="confirm_password" label="确认密码" />
+      <div class="row justify-between q-mx-md q-px-none">
+        <div class="col-6">
+          <q-btn outline color="primary" @click="login"  label="登录" style="width: 100%" />
         </div>
         <div class="col-5">
-          <q-btn color="white" text-color="black" @click="signup" label="注册" style="width: 100%" />
+          <q-btn outline color="primary" @click="signup" label="注册" style="width: 100%" />
         </div>
       </div>
 
@@ -34,7 +37,7 @@
       </q-card>
     </q-dialog>
 
-  </q-page>
+  </div>
 </template>
 
 <script>

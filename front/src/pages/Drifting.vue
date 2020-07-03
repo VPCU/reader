@@ -1,6 +1,6 @@
 <template>
   <q-list>
-    <q-card inline class="bigger q-ma-sm" v-for="{ driId, bookName, author, curPosition, available, detail } in drifting" :key="driId">
+    <q-card inline class="bigger q-ma-sm" v-for="{ driId, bookName, author, curPosition, available, detail, guard} in drifting" :key="driId">
       <q-card-media>
         <img  src="https://cdn.quasar.dev/img/parallax2.jpg" width="100%">
       </q-card-media>
@@ -12,6 +12,9 @@
           <h6 class="q-my-sm">{{ bookName }} by {{ author }}</h6>
           <div slot="right" class="row items-center">
             <q-icon name="place" /> {{ curPosition }}
+          </div>
+          <div slot="right" class="row items-center" v-if="guard">
+            <q-icon name="person_pin" />保管人:{{ guard }}
           </div>
         </q-card-title>
         <q-card-main>
