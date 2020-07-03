@@ -22,7 +22,7 @@
 
             <q-separator />
 <!--            这里控制该书评的内容-->
-            <q-card-section horizontal @click="readdetail">
+            <q-card-section horizontal @click="readdetail(item.rid)">
 
               <q-card-section class="q-pt-xs">
                 <div class="text-overline">Overline</div>
@@ -54,7 +54,17 @@
 
                   <q-card-actions align="right" class="text-primary">
                     <q-btn flat label="取消" v-close-popup />
-                    <q-btn flat label="确认举报" @click="reportto(index)" v-close-popup />
+                    <q-btn flat label="确认举报" @click="reportto(item.rid)" v-close-popup />
+                  </q-card-actions>
+                </q-card>
+              </q-dialog>
+              <q-dialog v-model="alert">
+                <q-card>
+                  <q-card-section>
+                    <div class="text-h6">举报成功</div>
+                  </q-card-section>
+                  <q-card-actions align="right">
+                    <q-btn flat label="OK" color="primary" v-close-popup />
                   </q-card-actions>
                 </q-card>
               </q-dialog>
@@ -67,7 +77,7 @@
           <q-spinner-dots color="primary" size="40px" />
         </div>
       </template>
-      <q-page-sticky position="bottom-right" :offset="[18, 18]">
+      <q-page-sticky position="bottom-right" :offset="[20, 18]">
         <q-btn fab icon="add" @click="add" color="light-blue-3" />
         <q-btn fab icon="mail" @click="drift" color="blue-3" />
       </q-page-sticky>
@@ -98,10 +108,10 @@ export default {
       items: [],
       offset: 1,
       limit: 1,
-      tipnum: 5,
       desc: true,
       errmsg: '',
       prompt: false,
+      alert: false,
       reports: ''
     }
   },
@@ -118,9 +128,13 @@ export default {
           token: this.$gStore.token
         }
       }).then((response) => {
-        // console.log('response+++++++++++++++++')
-        // console.log(response.data[0].content)
-        this.items.push(response.data[0])
+        if (response.data[0]) {
+          console.log('查询结果（limit均为1）')
+          console.log(response.data)
+          this.items.push(response.data[0])
+          this.offset++
+          console.log('下一步查询的offset' + this.offset)
+        }
         done()
       })
         .catch((error) => {
@@ -134,13 +148,34 @@ export default {
       //   }
       // }, 2000)
     },
-    reportto (index) {
-      console.log('举报的是哪一个+++' + index)
+    reportto (rid) {
+      this.$axios.post('comments/new', {
+        reviewId: rid,
+        content: this.$data.reports
+      },
+      {
+        headers: {
+          token: this.$gStore.token
+        }
+      })
+        .then((response) => {
+          console.log(response.data)
+          if (!response.data.succ) {
+            console.log('举报失败')
+            this.$data.errmsg = response.data.msg
+          } else {
+            console.log('举报成功')
+            this.$data.alert = true
+          }
+        })
+        .catch(() => {
+          alert('error')
+        })
     },
-    readdetail () {
+    readdetail (rid) {
       this.$router.push({
         path: '/readreview',
-        query: { id: '1' }
+        query: { rid: String(rid) }
       })
     },
     add () {
