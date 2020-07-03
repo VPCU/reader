@@ -34,6 +34,7 @@
           src="https://cdn.quasar.dev/img/parallax1.jpg"
           style="width: 100%" clickable v-ripple
           class="rounded-borders"
+          @click="friend"
         >
           <div class="absolute-full text-subtitle2 flex flex-center">
                      好友
@@ -91,6 +92,9 @@ export default {
     },
     set () {
       this.$router.push('/mysettings')
+    },
+    friend () {
+      this.$router.push('/myfriends')
     }
   }
 }
