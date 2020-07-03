@@ -38,7 +38,7 @@ public class BookReviewService {
 
     public boolean newBookReview(NewBookReviewDto bookReviewDto) {
         UserDto userDto = (UserDto)SecurityUtils.getSubject().getPrincipal();
-        UserEntity userEntity = userRepository.findByUname(userDto.getUname());
+        UserEntity userEntity = userRepository.findById(userDto.getUid()).get();
         BookReviewEntity bookReviewEntity = new BookReviewEntity();
         bookReviewEntity.setAuthor(userEntity);
         bookReviewEntity.setTitle(bookReviewDto.getTitle());
@@ -70,7 +70,7 @@ public class BookReviewService {
 
     public List<BookReviewDto> getSelfBookReviews() {
         UserDto userDto = (UserDto)SecurityUtils.getSubject().getPrincipal();
-        UserEntity userEntity = userRepository.findByUname(userDto.getUname());
+        UserEntity userEntity = userRepository.findById(userDto.getUid()).get();
         return getBookReviewsByAuthor(userEntity);
     }
 
@@ -80,8 +80,9 @@ public class BookReviewService {
 
     public List<BookReviewDto> getBookReviewsByAuthor(UserEntity user) {
         List<BookReviewDto> reviews = new ArrayList<>();
-        for(BookReviewEntity review :bookReviewRepository.findByAuthor(user)) {
-            reviews.add(BookReviewMapper.BookReviewToBookReviewDto(review));
+        for(BookReviewEntity review :bookReviewRepository.findByAuthorAndDisabled(user, false)) {
+            if(!review.getDisabled())
+                reviews.add(BookReviewMapper.BookReviewToBookReviewDto(review));
         }
         return reviews;
     }
@@ -93,14 +94,15 @@ public class BookReviewService {
         if(!desc) {
             Sort sort = Sort.sort(BookReviewEntity.class).by(BookReviewEntity::getRid).ascending();
             Pageable pageable = PageRequest.of(0, limit, sort);
-            reviews = bookReviewRepository.findByRidGreaterThanEqual((long) cursor, pageable);
+            reviews = bookReviewRepository.findByRidGreaterThanEqualAndDisabled((long) cursor, false, pageable);
         } else {
             Sort sort = Sort.sort(BookReviewEntity.class).by(BookReviewEntity::getRid).descending();
             Pageable pageable = PageRequest.of(0, limit, sort);
-            reviews = bookReviewRepository.findByRidLessThanEqual((long) cursor, pageable);
+            reviews = bookReviewRepository.findByRidLessThanEqualAndDisabled((long) cursor, false, pageable);
         }
         for(BookReviewEntity review : reviews) {
-            ret.add(BookReviewMapper.BookReviewToBookReviewDto(review));
+            if(!review.getDisabled())
+                ret.add(BookReviewMapper.BookReviewToBookReviewDto(review));
         }
         return ret;
     }

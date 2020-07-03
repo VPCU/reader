@@ -1,14 +1,22 @@
 package com.groupt.reader.service;
 
+import com.groupt.reader.dto.BookReviewDto;
 import com.groupt.reader.dto.UserDto;
+import com.groupt.reader.mapper.BookReviewMapper;
+import com.groupt.reader.model.BookReviewEntity;
 import com.groupt.reader.model.DriftingEntity;
 import com.groupt.reader.repository.DriftingRepository;
 import com.groupt.reader.repository.UserRepository;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DriftingService {
@@ -39,4 +47,28 @@ public class DriftingService {
         return driftingRepository.findById(id).get();
     }
 
+    public boolean borrowById(Long id) {
+        UserDto userDto = (UserDto) SecurityUtils.getSubject().getPrincipal();
+        Optional<DriftingEntity> _drift = driftingRepository.findById(id);
+        if(!_drift.isPresent()) return false;
+        DriftingEntity drifting = _drift.get();
+        if(!drifting.getAvailable()) return false;
+        drifting.setAvailable(false);
+        drifting.setCurUid(userDto.getUid());
+        return true;
+    }
+
+    public List<DriftingEntity> getDrifting(int cursor, int limit, boolean desc) {
+        List<DriftingEntity> driftings;
+        if(!desc) {
+            Sort sort = Sort.sort(DriftingEntity.class).by(DriftingEntity::getDriId).ascending();
+            Pageable pageable = PageRequest.of(0, limit, sort);
+            driftings = driftingRepository.findByDriIdGreaterThanEqual((long) cursor, pageable);
+        } else {
+            Sort sort = Sort.sort(DriftingEntity.class).by(DriftingEntity::getDriId).descending();
+            Pageable pageable = PageRequest.of(0, limit, sort);
+            driftings = driftingRepository.findByDriIdLessThanEqual((long) cursor, pageable);
+        }
+        return driftings;
+    }
 }

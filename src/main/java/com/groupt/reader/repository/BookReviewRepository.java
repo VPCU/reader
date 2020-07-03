@@ -9,7 +9,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface BookReviewRepository extends JpaRepository<BookReviewEntity, Long> {
-    List<BookReviewEntity> findByRidLessThanEqual(Long id, Pageable page);
-    List<BookReviewEntity> findByRidGreaterThanEqual(Long id, Pageable page);
-    List<BookReviewEntity> findByAuthor(UserEntity user);
+    List<BookReviewEntity> findByRidLessThanEqualAndDisabled(Long id, Boolean disabled, Pageable page);
+    List<BookReviewEntity> findByRidGreaterThanEqualAndDisabled(Long id, Boolean disabled, Pageable page);
+    List<BookReviewEntity> findByAuthorAndDisabled(UserEntity user, Boolean disabled);
+    List<BookReviewEntity> findAllByDisabled(Boolean disabled);
 }

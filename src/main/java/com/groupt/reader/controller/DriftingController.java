@@ -75,4 +75,21 @@ public class DriftingController {
         driftingRepository.save(drift);
         return Json.succ();
     }
+
+    @RequiresAuthentication
+    @RequiresPermissions("new:drifting")
+    @GetMapping("/drifting/borrow")
+    public Json borrow(@RequestParam Long driftId) {
+        if(driftingService.borrowById(driftId)) {
+            return Json.succ();
+        } else {
+            return Json.fail();
+        }
+    }
+
+    @RequiresAuthentication
+    @GetMapping("/drifting/bylimit")
+    public Object getSquareReviewsByOffset(@RequestParam int cursor, @RequestParam int limit, @RequestParam boolean desc){
+        return driftingService.getDrifting(cursor, limit, desc);
+    }
 }

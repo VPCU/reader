@@ -21,6 +21,7 @@ public class BookReviewEntity {
     public Long getRid() {
         return rid;
     }
+    private Boolean disabled = false;
 
     public void setRid(Long rid) {
         this.rid = rid;
@@ -66,4 +67,11 @@ public class BookReviewEntity {
         this.title = title;
     }
 
+    public Boolean getDisabled() {
+        return disabled;
+    }
+
+    public void setDisabled(Boolean disabled) {
+        this.disabled = disabled;
+    }
 }

@@ -481,7 +481,7 @@ Request:
         "bookName":"Shirro",
         "author":"Romon Handson",
         “isbn”:"XXXXXXXXXXXXXXXX",
-        "position":"东起第一根电线杆"
+        "position":"东起第一根电线杆",
         "guardian":"Mr.WANG"
     }
     
@@ -498,7 +498,7 @@ Answer:
 
 ### /drifting/all
 
-获取发起的所有漂流。
+获取该用户本人发起的所有漂流。
 
 - GET
 - RequiresRoles: reader
@@ -507,19 +507,20 @@ Answer:
 
     [
         {
-            "driId": 1,
-            "uid": 2,
-            "bookName": "Shirro",
-            "author": "Romon Handson",
-            "isbn": null,
-            "curPosition": "东起第一根电线杆",
-            "curState": null,
-            "available": true,
-            "guard": null,
-            "imgSrc": null,
-            "createTime": null,
-            "events": null
-        }
+                "driId": 3,
+                "uid": 2,
+                "curUid": null,
+                "bookName": "基本乐理通用教材",
+                "author": "李重光",
+                "isbn": "978-7-04-015553-4",
+                "curPosition": "石大19号楼值班室",
+                "curState": null,
+                "available": true,
+                "guard": "宿管阿姨",
+                "imgSrc": null,
+                "createTime": null,
+                "events": null
+            }
     ]
     
 ### /drifting/id/{id}
@@ -562,6 +563,66 @@ Answer:
     isbn string
     position string
     guardian string
+
+### /drifting/borrow
+
+- GET
+- RequiresRoles: reader
+- RequiresPermissions: new:drifting
+
+借阅该书籍。将available置为true，curUid置为借阅者的uid。
+
+    driftId int
+    
+### /drifting/bylimit
+
+- GET
+- RequiresAuthentication
+
+
+    cursor int
+    limit int
+    desc bool
+
+Request:
+    
+    cursor=2&limit=30&desc=false
+    
+Answer:
+
+    [
+        {
+            "driId": 2,
+            "uid": 2,
+            "curUid": null,
+            "bookName": "古代民主与现代民主",
+            "author": "M.I.芬利",
+            "isbn": "978-7-100-16712-3",
+            "curPosition": "石大南教110讲桌",
+            "curState": null,
+            "available": true,
+            "guard": "无",
+            "imgSrc": null,
+            "createTime": null,
+            "events": null
+        },
+        {
+            "driId": 3,
+            "uid": 2,
+            "curUid": null,
+            "bookName": "基本乐理通用教材",
+            "author": "李重光",
+            "isbn": "978-7-04-015553-4",
+            "curPosition": "石大19号楼值班室",
+            "curState": null,
+            "available": true,
+            "guard": "宿管阿姨",
+            "imgSrc": null,
+            "createTime": null,
+            "events": null
+        }
+    ]
+    
 
 ## Admin
 

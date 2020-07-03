@@ -118,4 +118,13 @@ public class DriftingEntity {
     public void setEvents(String events) {
         this.events = events;
     }
+
+    public Long getCurUid() {
+        return curUid;
+    }
+
+    public void setCurUid(Long curUid) {
+        this.curUid = curUid;
+    }
+
 }
