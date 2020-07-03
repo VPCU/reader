@@ -8,7 +8,7 @@
           <q-btn color="white" text-color="black" @click="login"  label="登录" style="width: 100%" />
         </div>
         <div class="col-5">
-          <q-btn color="white" text-color="black" label="注册" style="width: 100%" />
+          <q-btn color="white" text-color="black" @click="signup" label="注册" style="width: 100%" />
         </div>
       </div>
 
@@ -66,6 +66,9 @@ export default {
         .catch(() => {
           alert('error')
         })
+    },
+    signup () {
+      this.$router.push('/signup')
     }
   }
 }
