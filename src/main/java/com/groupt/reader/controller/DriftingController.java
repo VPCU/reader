@@ -1,8 +1,11 @@
 package com.groupt.reader.controller;
 
 import com.groupt.reader.dto.Json;
+import com.groupt.reader.dto.UserDto;
 import com.groupt.reader.model.DriftingEntity;
+import com.groupt.reader.repository.DriftingRepository;
 import com.groupt.reader.service.DriftingService;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;
@@ -17,6 +20,9 @@ import java.util.Map;
 public class DriftingController {
     @Autowired
     private DriftingService driftingService;
+
+    @Autowired
+    private DriftingRepository driftingRepository;
 
     @RequiresRoles("reader")
     @RequiresPermissions("new:drifting")
@@ -44,5 +50,29 @@ public class DriftingController {
     @GetMapping("/drifting/id/{id}")
     public Object getDriftingById(@PathVariable(name = "id") int id) {
         return driftingService.getDriftingById((long)id);
+    }
+
+    @RequiresRoles("reader")
+    @RequiresPermissions("new:drifting")
+    @PostMapping("/drifting/edit")
+    public Object setDrifting(@RequestBody Map<String, Object> payload) {
+        Long driftId = (Long)payload.get("dirftId");
+        String bookName = (String)payload.get("bookName");
+        String author = (String)payload.get("author");
+        String isbn = (String)payload.get("isbn");
+        String position = (String)payload.get("position");
+        String guardian = (String)payload.get("guardian");
+        if(driftId == null) return Json.fail("id 不能为空");
+        if(driftingRepository.findById(driftId).isPresent()) return Json.fail("错误的id");
+        DriftingEntity drift = driftingRepository.findById(driftId).get();
+        UserDto userDto = (UserDto) SecurityUtils.getSubject().getPrincipal();
+        if(!userDto.getUid().equals(drift.getUid())) return Json.fail("没有权限修改");
+        if(bookName != null) drift.setBookName(bookName);
+        if(author != null) drift.setAuthor(author);
+        if(isbn != null) drift.setIsbn(isbn);
+        if(position != null) drift.setCurPosition(position);
+        if(guardian != null) drift.setGuard(guardian);
+        driftingRepository.save(drift);
+        return Json.succ();
     }
 }
