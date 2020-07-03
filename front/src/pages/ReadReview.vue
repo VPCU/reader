@@ -1,22 +1,54 @@
 <template>
   <div class="q-pa-md">
-    <q-card class="my-card">
-      <q-img
-        src="https://cdn.quasar.dev/img/parallax2.jpg"
-        basic
-      >
-        <div class="absolute-bottom text-h6">
-          Title
-        </div>
-      </q-img>
+    <q-card class="my-card bg-secondary text-white" @load ="onTips">
+      <q-card-section>
+        <div class="text-h6">Our Changing Planet</div>
+        <div class="text-subtitle2">by John Doe</div>
+      </q-card-section>
 
       <q-card-section>
-        {{ lorem }}
+        <p v-html="$options.filters.ellipsis(content)"></p>
       </q-card-section>
+
+      <q-separator dark />
+
+      <q-card-actions>
+        <q-btn flat>点  赞</q-btn>
+        <q-btn flat>收  藏</q-btn>
+        <q-btn flat>举  报</q-btn>
+      </q-card-actions>
     </q-card>
     <div>
-      {{p}}
+      <q-chip size="18px" icon="bookmark">
+        评论内容
+      </q-chip>
     </div>
+    <q-dialog v-model="comment" persistent>
+      <q-card style="max-width: 300px">
+        <q-card-section>
+          <div class="text-h6">请输入评论内容</div>
+        </q-card-section>
+
+        <q-card-section class="q-pt-none">
+          <q-input type="textarea" dense v-model="reports" autofocus @keyup.enter="comment = false" />
+        </q-card-section>
+
+        <q-card-actions align="right" class="text-primary">
+          <q-btn flat label="取消" v-close-popup />
+          <q-btn flat label="评论" @click="reportto" v-close-popup />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
+    <q-dialog v-model="alert">
+      <q-card>
+        <q-card-section>
+          <div class="text-h6">评论成功</div>
+        </q-card-section>
+        <q-card-actions align="right">
+          <q-btn flat label="OK" color="primary" v-close-popup />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
     <div class="q-pa-md">
       <q-infinite-scroll @load="onLoad" :offset="0">
         <div v-for="(item, index) in items" :key="index" class="caption">
@@ -39,7 +71,7 @@
                   <div class="text-overline">Overline</div>
                   <div class="text-h5 q-mt-sm q-mb-xs">标题</div>
                   <div class="text-caption text-grey">
-                    {{item}}
+                    <p v-html="$options.filters.ellipsis(String(item.content))"></p>
                   </div>
                 </q-card-section>
               </q-card-section>
@@ -63,27 +95,104 @@
         </template>
       </q-infinite-scroll>
     </div>
+    <q-page-sticky position="bottom-right" :offset="[18, 18]">
+      <q-btn fab icon="add" @click="comment = true" color="light-blue-3" />
+    </q-page-sticky>
   </div>
 </template>
 
 <script>
 export default {
   name: 'ReadReview',
-  data () {
-    return {
-      lorem: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-      items: ['ok', 'good', 'nice', 'come on'],
-      p: this.$route.query.id
+  filters: {
+    // 当渲染的文字超出30字后显示省略号
+    ellipsis (value) {
+      if (!value) return ''
+      if (value.length > 50) {
+        return value.slice(0, 50) + '...'
+      }
+      return value
     }
   },
+  data () {
+    return {
+      content: '',
+      items: [],
+      rid: this.$route.query.rid,
+      reports: '',
+      comment: false
+    }
+  },
+  mounted () {
+    this.onTips()
+  },
   methods: {
-    onLoad (index, done) {
-      setTimeout(() => {
-        if (this.items) {
-          this.items.push({}, {}, {}, {}, {}, {}, {})
-          done()
+    onTips () {
+      this.$axios.get('reviews/bylimit', {
+        params: {
+          offset: this.$data.rid,
+          limit: 1,
+          desc: true
+        },
+        headers: {
+          token: this.$gStore.token
         }
-      }, 2000)
+      }).then((response) => {
+        if (response.data[0]) {
+          console.log(response.data)
+          this.content = String(response.data[0].content)
+        }
+      })
+        .catch((error) => {
+          console.log(error)
+        })
+    },
+    // 这是用于刷新评论的函数
+    onLoad (index, done) {
+      this.$axios.get('comments/all', {
+        params: {
+          rid: this.$data.rid
+        },
+        headers: {
+          token: this.$gStore.token
+        }
+      }).then((response) => {
+        console.log('response+++++++++++++++++')
+        console.log(response.data)
+        this.items = []
+        for (const key in response.data) {
+          this.items.push(response.data[key])
+        }
+        done()
+      })
+        .catch((error) => {
+          console.log(error)
+        })
+    },
+    // 这是用于评论的函数
+    reportto () {
+      this.$axios.post('comments/new', {
+        reviewId: this.rid,
+        content: this.$data.reports
+      },
+      {
+        headers: {
+          token: this.$gStore.token
+        }
+      })
+        .then((response) => {
+          console.log(response.data)
+          if (!response.data.succ) {
+            console.log('评论失败')
+            this.$data.errmsg = response.data.msg
+          } else {
+            console.log('评论成功')
+            this.$data.alert = true
+          }
+        })
+        .catch(() => {
+          alert('error')
+        })
     }
   }
 }
