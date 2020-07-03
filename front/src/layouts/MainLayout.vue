@@ -41,7 +41,7 @@
     <q-footer elevated>
       <q-tabs v-model="tab">
         <q-tab name="Tips" @click="add"  label="广场" />
-        <q-tab name="Group" label="圈子" />
+        <q-tab name="Group" @click="drifting" label="漂流" />
         <q-tab name="Mall" label="商城" />
         <q-tab name="MySelf" @click="my" label="我的" />
       </q-tabs>
@@ -148,6 +148,9 @@ export default {
   methods: {
     add () {
       this.$router.push('/')
+    },
+    drifting () {
+      this.$router.push('/drifting')
     },
     my () {
       this.$router.push('/my')

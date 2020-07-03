@@ -1,5 +1,5 @@
 <template>
-  <q-list @load="onLoad">
+  <q-list>
     <q-card inline class="bigger q-ma-sm" v-for="{ driId, bookName, author, curPosition, available, detail } in drifting" :key="driId">
       <q-card-media>
         <img  src="https://cdn.quasar.dev/img/parallax2.jpg" width="100%">
@@ -49,30 +49,16 @@ export default {
         }
       }).then((response) => {
         if (response.data[0]) {
-          console.log('查询结果（limit均为1）')
           console.log(response.data)
           this.drifting = response.data
         }
       })
     },
-    onLoad (driftingid, done) {
-      this.$axios.get('/drifting/all', {
-        headers: {
-          token: this.$gStore.token
-        }
-      }).then((response) => {
-        if (response.data[0]) {
-          console.log('查询结果（limit均为1）')
-          console.log(response.data)
-          this.drifting.push(response.data[0])
-        }
-        done()
-      }).catch((error) => {
-        console.log(error)
+    editdrift (driId) {
+      this.$router.push({
+        path: '/editdrifting',
+        query: { driId: driId }
       })
-    },
-    editdrift () {
-      this.$router.push('/editdrifting')
     }
   }
 }

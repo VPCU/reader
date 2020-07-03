@@ -72,7 +72,18 @@
 
       <q-card-actions align="around">
         <q-btn flat icon="bookmark" color="blue-grey-3" @click="managedrift"> <span class="text-black">管理漂流</span> </q-btn>
-        <q-btn flat icon="create" color="blue-grey-3" @click="drift"> <span class="text-black">发起漂流</span> </q-btn>
+        <q-btn flat icon="create" color="blue-grey-3" @click="newdrift"> <span class="text-black">发起漂流</span> </q-btn>
+      </q-card-actions>
+    </q-card>
+
+    <q-card class="my-card">
+      <q-card-section class="bg-orange text-white">
+        <div class="text-h6">后台管理</div>
+      </q-card-section>
+
+      <q-card-actions align="around">
+        <q-btn flat icon="bookmark" color="blue-grey-3" @click="managereport"> <span class="text-black">举报处理</span> </q-btn>
+        <q-btn flat icon="create" color="blue-grey-3" @click="todo"> <span class="text-black">待定</span> </q-btn>
       </q-card-actions>
     </q-card>
   </div>
@@ -87,8 +98,8 @@ export default {
     myreview () {
       this.$router.push('/readmyreview')
     },
-    drift () {
-      this.$router.push('/drifting')
+    newdrift () {
+      this.$router.push('/newdrifting')
     },
     managedrift () {
       this.$router.push('/managedrifting')
@@ -98,6 +109,9 @@ export default {
     },
     friend () {
       this.$router.push('/myfriends')
+    },
+    managereport () {
+      this.$router.push('/managereport')
     }
   }
 }
