@@ -1,16 +1,20 @@
 package com.groupt.reader.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreType;
 import com.groupt.reader.repository.PermRepository;
 import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+@JsonIgnoreType
 @Entity
 @Table(name = "user")
-public class UserEntity {
+public class UserEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long uid;       // 用户id
@@ -20,8 +24,9 @@ public class UserEntity {
 
     private String nick;    // 用户昵称，可改
 
+    @JsonIgnore
     private String pwd;     // 已加密的登录密码
-
+    @JsonIgnore
     private String salt;    // 加密盐值
 
     private Date created;   // 创建时间
@@ -34,13 +39,17 @@ public class UserEntity {
 
     private String resume; //个人说明
 
+    private String imgSrc; //头像
+
     @Column(columnDefinition = "boolean default false")
     private Boolean disabled;
 
-    @ManyToMany(targetEntity = RoleEntity.class, cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    @JsonIgnore
+    @ManyToMany(targetEntity = RoleEntity.class, cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     private Set<RoleEntity> roles = new HashSet<>();
 
-    @ManyToMany(targetEntity = PermEntity.class, cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    @JsonIgnore
+    @ManyToMany(targetEntity = PermEntity.class, cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     private Set<PermEntity> perms = new HashSet<>();
 
     public Long getUid() {
@@ -145,5 +154,12 @@ public class UserEntity {
 
     public void setDisabled(Boolean disabled) {
         this.disabled = disabled;
+    }
+
+    public String getImgSrc() {        return imgSrc;
+    }
+
+    public void setImgSrc(String imgSrc) {
+        this.imgSrc = imgSrc;
     }
 }

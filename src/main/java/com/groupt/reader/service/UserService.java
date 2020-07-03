@@ -2,11 +2,10 @@ package com.groupt.reader.service;
 
 import com.groupt.reader.dto.UserDto;
 import com.groupt.reader.mapper.MyUserMapper;
+import com.groupt.reader.model.ReportEntity;
 import com.groupt.reader.model.RoleEntity;
 import com.groupt.reader.model.UserEntity;
-import com.groupt.reader.repository.PermRepository;
-import com.groupt.reader.repository.RoleRepository;
-import com.groupt.reader.repository.UserRepository;
+import com.groupt.reader.repository.*;
 import com.groupt.reader.util.ByteArrayToString;
 import org.apache.shiro.crypto.RandomNumberGenerator;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
@@ -17,7 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.util.*;
 
 @Service
 public class UserService {
@@ -29,6 +28,7 @@ public class UserService {
     private RoleRepository roleRepository;
     @Autowired
     private PermRepository permRepository;
+
 
     private final RandomNumberGenerator randomNumberGenerator;
 
@@ -79,4 +79,6 @@ public class UserService {
     public boolean userExists(String userName) {
         return userRepository.existsByUname(userName);
     }
+
+
 }

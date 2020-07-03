@@ -1,8 +1,11 @@
 package com.groupt.reader.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreType;
+
 import javax.persistence.*;
 import java.util.Date;
 
+@JsonIgnoreType
 @Entity
 @Table(name = "comments")
 public class CommentEntity {

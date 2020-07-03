@@ -1,9 +1,12 @@
 package com.groupt.reader.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreType;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+@JsonIgnoreType
 @Entity
 @Table(name = "books")
 public class BookEntity {
@@ -18,7 +21,7 @@ public class BookEntity {
     private String language;
     private String detail;
 
-    @ManyToMany(targetEntity = TagEntity.class, cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    @ManyToMany(targetEntity = TagEntity.class, cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     private Set<TagEntity> tags = new HashSet<>();
 
     public Long getBid() {

@@ -20,6 +20,7 @@ public class MyUserMapper {
         userDto.setUname(user.getUname());
         userDto.setUpdated(user.getUpdated());
         userDto.setDisabled(user.getDisabled());
+        userDto.setImgSrc(user.getImgSrc());
 
         Set<PermEntity> perms = user.getPerms();
         Set<RoleEntity> roles = user.getRoles();
