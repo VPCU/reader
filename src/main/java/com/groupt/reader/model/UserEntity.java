@@ -1,6 +1,7 @@
 package com.groupt.reader.model;
 
 import com.groupt.reader.repository.PermRepository;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -32,6 +33,9 @@ public class UserEntity {
     private String phone;
 
     private String resume; //个人说明
+
+    @Column(columnDefinition = "boolean default false")
+    private Boolean disabled;
 
     @ManyToMany(targetEntity = RoleEntity.class, cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
     private Set<RoleEntity> roles = new HashSet<>();
@@ -133,5 +137,13 @@ public class UserEntity {
 
     public void setResume(String resume) {
         this.resume = resume;
+    }
+
+    public Boolean getDisabled() {
+        return disabled;
+    }
+
+    public void setDisabled(Boolean disabled) {
+        this.disabled = disabled;
     }
 }

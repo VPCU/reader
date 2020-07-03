@@ -15,7 +15,7 @@
       </q-card-section>
     </q-card>
     <div>
-      评论
+      {{p}}
     </div>
     <div class="q-pa-md">
       <q-infinite-scroll @load="onLoad" :offset="0">
@@ -72,7 +72,8 @@ export default {
   data () {
     return {
       lorem: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-      items: ['ok', 'good', 'nice', 'come on']
+      items: ['ok', 'good', 'nice', 'come on'],
+      p: this.$route.query.id
     }
   },
   methods: {

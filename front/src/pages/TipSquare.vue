@@ -22,13 +22,13 @@
 
             <q-separator />
 <!--            这里控制该书评的内容-->
-            <q-card-section horizontal>
+            <q-card-section horizontal @click="readdetail">
 
               <q-card-section class="q-pt-xs">
                 <div class="text-overline">Overline</div>
-                <div class="text-h5 q-mt-sm q-mb-xs">标题</div>
+                <div class="text-h5 q-mt-sm q-mb-xs">{{String(item.title)}}</div>
                 <div class="text-caption text-grey" >
-                 <p v-html="$options.filters.ellipsis(item)"></p>
+                 <p v-html="$options.filters.ellipsis(String(item.content))"></p>
                 </div>
               </q-card-section>
             </q-card-section>
@@ -120,7 +120,7 @@ export default {
       }).then((response) => {
         // console.log('response+++++++++++++++++')
         // console.log(response.data[0].content)
-        this.items.push(String(response.data[0].content))
+        this.items.push(response.data[0])
         done()
       })
         .catch((error) => {
@@ -136,6 +136,12 @@ export default {
     },
     reportto (index) {
       console.log('举报的是哪一个+++' + index)
+    },
+    readdetail () {
+      this.$router.push({
+        path: '/readreview',
+        query: { id: '1' }
+      })
     },
     add () {
       this.$router.push('/newreview')

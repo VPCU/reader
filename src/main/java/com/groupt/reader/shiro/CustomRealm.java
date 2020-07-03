@@ -65,6 +65,8 @@ public class CustomRealm extends AuthorizingRealm {
             throw new UnknownAccountException("No account found for admin [" + username + "]");
         }
 
+        if(userDB.getDisabled()) throw new AccountException("The account is disabled.");
+
         //查询用户的角色和权限存到SimpleAuthenticationInfo中，这样在其它地方
         //SecurityUtils.getSubject().getPrincipal()就能拿出用户的所有信息，包括角色和权限
 

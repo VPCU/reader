@@ -563,6 +563,59 @@ Answer:
     position string
     guardian string
 
+## Admin
+
+### /admin/getallusers
+
+- GET
+- RequiresRoles: admin
+
+
+Answer:
+
+    [
+        {
+            "uid": 2,
+            "uname": "user0",
+            "nick": "superman",
+            "pwd": "",
+            "salt": "",
+            "disabled": false,
+            "created": "2020-07-01T13:35:14.388+00:00",
+            "updated": "2020-07-01T13:35:14.388+00:00",
+            "roles": [
+                "reader"
+            ],
+            "perms": [
+                "new:review",
+                "new:drifting",
+                "new:comment"
+            ]
+        }
+    ]
+
+### /admin/setdisabled
+
+封禁帐号。
+
+- GET
+- RequiresRoles: admin
+- RequiresPermissions: disable:reader
+
+    
+    id int
+    disabled bool
+    
+Answer:
+
+    {
+        "msg": "ok",
+        "code": 1,
+        "succ": true,
+        "oper": "default"
+    }
+
+    
 ## authorization
 
 登录,权限有关的事情.
