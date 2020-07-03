@@ -14,7 +14,8 @@ const routes = [
       { path: 'managedrifting', component: () => import('pages/ManageDrifting.vue') },
       { path: 'editdrifting', component: () => import('pages/EditDrifting.vue') },
       { path: 'managereport', component: () => import('pages/ManageReport.vue') },
-      { path: 'manageusers', component: () => import('pages/ManageUsers.vue') }
+      { path: 'manageusers', component: () => import('pages/ManageUsers.vue') },
+      { path: 'readreview', component: () => import('pages/ReadReview.vue') }
     ]
   },
   // Always leave this as last one,
