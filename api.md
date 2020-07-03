@@ -594,7 +594,7 @@ Answer:
         }
     ]
 
-### /admin/setdisabled
+### /admin/disableuser
 
 封禁帐号。
 
@@ -604,7 +604,6 @@ Answer:
 
     
     id int
-    disabled bool
     
 Answer:
 
@@ -615,7 +614,59 @@ Answer:
         "oper": "default"
     }
 
+### /admin/enableuser
     
+
+- GET
+- RequiresRoles: admin
+- RequiresPermissions: enable:reader
+
+    
+    id int
+    
+Answer:
+
+    {
+        "msg": "ok",
+        "code": 1,
+        "succ": true,
+        "oper": "default"
+    }
+    
+
+### /admin/addpermission
+
+- GET
+- RequiresRoles: admin
+- RequiresPermissions: addperm:reader
+
+    
+    id int
+    val string
+
+### /admin/removepermission
+
+- GET
+- RequiresRoles: admin
+- RequiresPermissions: rmperm:reader
+
+
+    id int
+    val string
+
+Request:
+
+    /admin/removepermission?id=2&val=new:drifting
+    
+Answer:
+
+    {
+        "msg": "ok",
+        "code": 1,
+        "succ": true,
+        "oper": "default"
+    }
+
 ## authorization
 
 登录,权限有关的事情.

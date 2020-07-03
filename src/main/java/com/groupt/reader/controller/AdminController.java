@@ -10,21 +10,52 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequiresRoles("admin")
 public class AdminController {
     @Autowired
     private AdminService adminService;
 
-    @RequiresRoles("admin")
+    @RequiresPermissions("show:reader")
     @GetMapping("/admin/getallusers")
     public Object getAllUsers() {
         return adminService.getAllUsersList();
     }
 
-    @RequiresRoles("admin")
     @RequiresPermissions("disable:reader")
-    @GetMapping("/admin/setdisabled")
-    public Object setDisabled(@RequestParam Long id, @RequestParam Boolean disabled) {
-        if(adminService.setDisabled(id, disabled)) {
+    @GetMapping("/admin/disableuser")
+    public Object setDisabled(@RequestParam Long id) {
+        if(adminService.setDisabled(id, false)) {
+            return Json.succ();
+        } else {
+            return Json.fail();
+        }
+    }
+
+    @RequiresPermissions("enable:reader")
+    @GetMapping("/admin/enableuser")
+    public Object setEnabled(@RequestParam Long id) {
+        if(adminService.setDisabled(id, true)) {
+            return Json.succ();
+        } else {
+            return Json.fail();
+        }
+    }
+
+    @RequiresPermissions("addperm:reader")
+    @GetMapping("/admin/addpermission")
+    public Object addPermission(@RequestParam Long id, @RequestParam String val) {
+        if(adminService.adminAddUsersPermission(id, val)) {
+            return Json.succ();
+        } else {
+            return Json.fail();
+        }
+    }
+
+
+    @RequiresPermissions("rmperm:reader")
+    @GetMapping("/admin/removepermission")
+    public Object rmPermission(@RequestParam Long id, @RequestParam String val) {
+        if(adminService.adminRemoveUsersPermission(id, val)) {
             return Json.succ();
         } else {
             return Json.fail();

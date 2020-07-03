@@ -58,6 +58,18 @@ public class TestService {
         permissionService.newPermission(7L, "解封帐号", "enable:reader");
         permissionService.newPermission(8L, "删除评论", "disable:comment");
         permissionService.newPermission(9L, "删除书评", "disable:review");
+        permissionService.newPermission(10L, "授予权限", "addperm:reader");
+        permissionService.newPermission(11L, "移除权限", "rmperm:reader");
+        RoleEntity r = new RoleEntity();
+        r.setRid(1L);
+        r.setRname("管理员");
+        r.setRval("admin");
+        roleRepository.save(r);
+        r.setRid(2L);
+        r.setRname("读者");
+        r.setRval("reader");
+        roleRepository.save(r);
+
         TestEntity t = new TestEntity();
         t.setId(1L);
         t.setCount(0);
@@ -69,19 +81,18 @@ public class TestService {
         u.setPwd("J/ms7qTJtqmysekuY8/v1TAS+VKqXdH5sB7ulXZOWho=");
         u.setSalt("wxKYXuTPST5SG0jMQzVPsg==");
         u.setNick("管理员1");
-        RoleEntity r = new RoleEntity();
-        r.setRid(1L);
-        r.setRname("管理员");
-        r.setRval("admin");
-        PermEntity p = new PermEntity();
-        u.getRoles().add(r);
-        u.getPerms().add(p);
-        roleRepository.save(r);
+        u.getRoles().add(roleRepository.findByRval("admin"));
         userRepository.save(u);
-        r.setRid(2L);
-        r.setRname("读者");
-        r.setRval("reader");
-        roleRepository.save(r);
+        permissionService.addPermission(u, "disable:reader");
+        permissionService.addPermission(u, "new:review");
+        permissionService.addPermission(u, "new:comment");
+        permissionService.addPermission(u, "new:drifting");
+        permissionService.addPermission(u, "show:reader");
+        permissionService.addPermission(u, "enable:reader");
+        permissionService.addPermission(u, "disable:comment");
+        permissionService.addPermission(u, "disable:review");
+        permissionService.addPermission(u, "addperm:reader");
+        permissionService.addPermission(u, "rmperm:reader");
 
     }
 }
