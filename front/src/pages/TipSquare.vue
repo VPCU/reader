@@ -27,8 +27,8 @@
               <q-card-section class="q-pt-xs">
                 <div class="text-overline">Overline</div>
                 <div class="text-h5 q-mt-sm q-mb-xs">标题</div>
-                <div class="text-caption text-grey">
-                  <p v-html="item"></p>
+                <div class="text-caption text-grey" >
+                 <p v-html="$options.filters.ellipsis(item)"></p>
                 </div>
               </q-card-section>
             </q-card-section>
@@ -83,6 +83,16 @@
 import 'boot/axios'
 import 'boot/store'
 export default {
+  filters: {
+    // 当渲染的文字超出30字后显示省略号
+    ellipsis (value) {
+      if (!value) return ''
+      if (value.length > 50) {
+        return value.slice(0, 50) + '...'
+      }
+      return value
+    }
+  },
   data () {
     return {
       items: [],
