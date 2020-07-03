@@ -4,7 +4,7 @@
       <q-item-label header class="text-h5">我的好友</q-item-label>
 
       <q-item v-for="contact in contacts" :key="contact.id" class="q-my-sm" clickable v-ripple >
-        <q-item-section avatar>
+        <q-item-section avatar @click="info">
           <q-avatar>
             <img :src="`${contact.avatar}`">
           </q-avatar>
