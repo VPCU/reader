@@ -69,6 +69,8 @@ export default {
             this.$data.alert = true
           } else {
             console.log('发起成功')
+            this.$gStore.token = response.data.token
+            this.$router.push('/managedrifting')
           }
         })
         .catch(() => {
