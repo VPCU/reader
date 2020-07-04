@@ -15,6 +15,15 @@
       :stamp="`${detail.time}`"
       />
     </div>
+
+    <q-page-sticky position="bottom" :offset="[0, 15]">
+      <q-input standout="bg-grey-6" v-model="text" style="width:325px">
+        <template v-slot:append>
+          <q-btn round dense flat icon="send" />
+        </template>
+      </q-input>
+    </q-page-sticky>
+
   </div>
 </template>
 
@@ -25,6 +34,36 @@ const details = [{
   time: '11:00',
   url: 'https://cdn.quasar.dev/img/boy-avatar.png',
   isMe: true
+}, {
+  name: 'Ruddy Jedrzej',
+  content: '你好',
+  time: '11:20',
+  url: 'https://cdn.quasar.dev/img/avatar1.jpg',
+  isMe: false
+}, {
+  name: 'Ruddy Jedrzej',
+  content: '你好',
+  time: '11:20',
+  url: 'https://cdn.quasar.dev/img/avatar1.jpg',
+  isMe: false
+}, {
+  name: 'Ruddy Jedrzej',
+  content: '你好',
+  time: '11:20',
+  url: 'https://cdn.quasar.dev/img/avatar1.jpg',
+  isMe: false
+}, {
+  name: 'Ruddy Jedrzej',
+  content: '你好',
+  time: '11:20',
+  url: 'https://cdn.quasar.dev/img/avatar1.jpg',
+  isMe: false
+}, {
+  name: 'Ruddy Jedrzej',
+  content: '你好',
+  time: '11:20',
+  url: 'https://cdn.quasar.dev/img/avatar1.jpg',
+  isMe: false
 }, {
   name: 'Ruddy Jedrzej',
   content: '你好',
