@@ -23,6 +23,7 @@ public class BookReviewMapper {
         bookReviewDto.setUsername(user.getUname());
         bookReviewDto.setUserNick(user.getNick());
         bookReviewDto.setUserResume(user.getResume());
+        bookReviewDto.setUserImgSrc(user.getImgSrc());
         return bookReviewDto;
     }
 

@@ -48,6 +48,7 @@ export default {
           token: this.$gStore.token
         }
       }).then((response) => {
+        if (response.data.code === 4401) this.$router.push('/login')
         if (response.data[0]) {
           console.log(response.data)
           this.drifting = response.data

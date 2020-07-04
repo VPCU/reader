@@ -31,7 +31,7 @@
 
           <q-btn round flat>
             <q-avatar size="26px">
-              <img src="https://cdn.quasar.dev/img/boy-avatar.png">
+              <img :src="this.iconSrc">
             </q-avatar>
             <q-tooltip>Account</q-tooltip>
           </q-btn>
@@ -133,6 +133,7 @@ export default {
       leftDrawerOpen: false,
       search: '',
       storage: 0.26,
+      iconSrc: this.$gStore.user.imgSrc,
       links1: [
         { text: 'Account' },
         { text: 'Payment methods' },
@@ -146,6 +147,9 @@ export default {
     }
   },
   methods: {
+    tab () {
+      // tab
+    },
     add () {
       this.$router.push('/')
     },

@@ -9,14 +9,14 @@
               <q-item>
                 <q-item-section avatar>
                   <q-avatar>
-                    <img src="https://cdn.quasar.dev/img/boy-avatar.png">
+                    <img :src="item.userImgSrc">
                   </q-avatar>
                 </q-item-section>
 
                 <q-item-section>
-                  <q-item-label>用户名</q-item-label>
+                  <q-item-label>{{item.userNick}}</q-item-label>
                   <q-item-label caption>
-                    用户简介
+                    用户简介 - {{item.userResume}}
                   </q-item-label>
                 </q-item-section>
               </q-item>
@@ -26,7 +26,7 @@
               <q-card-section horizontal @click="readdetail(item.rid)">
 
                 <q-card-section class="q-pt-xs">
-                  <div class="text-overline">Overline</div>
+                  <!--<div class="text-overline">Overline</div>-->
                   <div class="text-h5 q-mt-sm q-mb-xs">{{String(item.title)}}</div>
                   <div class="text-caption text-grey">
                     <p v-html="$options.filters.ellipsis(String(item.content))"></p>
@@ -138,6 +138,7 @@ export default {
           token: this.$gStore.token
         }
       }).then((response) => {
+        if (response.data.code === 4401) this.$router.push('/login')
         e.ekil = response.data
       })
         .catch((error) => {
@@ -153,6 +154,7 @@ export default {
           token: this.$gStore.token
         }
       }).then((response) => {
+        if (response.data.code === 4401) this.$router.push('/login')
         e.liked = response.data
       })
         .catch((error) => {
@@ -160,6 +162,7 @@ export default {
         })
     },
     onLoad (index, done) {
+      console.log('#############', this.$gStore.user)
       this.$axios.get('reviews/bylimit', {
         params: {
           offset: this.$data.offset,
@@ -170,6 +173,7 @@ export default {
           token: this.$gStore.token
         }
       }).then((response) => {
+        if (response.data.code === 4401) this.$router.push('/login')
         console.log(response.data)
         if (response.data.length) {
           var data = response.data
@@ -207,6 +211,7 @@ export default {
         }
       })
         .then((response) => {
+          if (response.data.code === 4401) this.$router.push('/login')
           console.log(response.data)
           if (!response.data.succ) {
             console.log('举报失败')
@@ -235,6 +240,7 @@ export default {
           token: this.$gStore.token
         }
       }).then((response) => {
+        if (response.data.code === 4401) this.$router.push('/login')
         if (response.data[0]) {
           console.log('调用了ekil' + response.data[0])
           return response.data[0]
@@ -254,6 +260,7 @@ export default {
           token: this.$gStore.token
         }
       }).then((response) => {
+        if (response.data.code === 4401) this.$router.push('/login')
         if (!response.data.succ) {
           this.$data.errmsg = response.data.msg
         } else {

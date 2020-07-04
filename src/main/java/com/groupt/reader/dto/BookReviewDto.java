@@ -16,6 +16,7 @@ public class BookReviewDto {
     private String username;
     private String userNick;
     private String userResume;
+    private String userImgSrc;
     private Long bookId;
     private String bookAuthor;
     private String bookName;
@@ -108,4 +109,11 @@ public class BookReviewDto {
         this.bookName = bookName;
     }
 
+    public String getUserImgSrc() {
+        return userImgSrc;
+    }
+
+    public void setUserImgSrc(String userImgSrc) {
+        this.userImgSrc = userImgSrc;
+    }
 }

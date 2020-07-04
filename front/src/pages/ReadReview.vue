@@ -139,6 +139,7 @@ export default {
           token: this.$gStore.token
         }
       }).then((response) => {
+        if (response.data.code === 4401) this.$router.push('/login')
         if (response.data[0]) {
           console.log(response.data)
           this.content = String(response.data[0].content)
@@ -158,6 +159,7 @@ export default {
           token: this.$gStore.token
         }
       }).then((response) => {
+        if (response.data.code === 4401) this.$router.push('/login')
         console.log('response+++++++++++++++++')
         console.log(response.data)
         this.items = []
@@ -182,6 +184,7 @@ export default {
         }
       })
         .then((response) => {
+          if (response.data.code === 4401) this.$router.push('/login')
           console.log(response.data)
           if (!response.data.succ) {
             console.log('评论失败')

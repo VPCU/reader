@@ -64,6 +64,7 @@ export default {
         }
       })
         .then((response) => {
+          if (response.data.code === 4401) this.$router.push('/login')
           console.log(response.data)
           if (!response.data.succ) {
             this.$data.errmsg = response.data.msg

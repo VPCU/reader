@@ -8,7 +8,7 @@
             <q-item>
               <q-item-section avatar>
                 <q-avatar>
-                  <img src="https://cdn.quasar.dev/img/boy-avatar.png">
+                  <img :src="item.userImgSrc">
                 </q-avatar>
               </q-item-section>
 
@@ -96,6 +96,7 @@ export default {
           token: this.$gStore.token
         }
       }).then((response) => {
+        if (response.data.code === 4401) this.$router.push('/login')
         e.ekil = response.data
       })
         .catch((error) => {
@@ -110,6 +111,7 @@ export default {
           token: this.$gStore.token
         }
       }).then((response) => {
+        if (response.data.code === 4401) this.$router.push('/login')
         console.log(response.data)
         if (response.data.length) {
           var data = response.data
@@ -151,6 +153,7 @@ export default {
           token: this.$gStore.token
         }
       }).then((response) => {
+        if (response.data.code === 4401) this.$router.push('/login')
         if (response.data[0]) {
           console.log('调用了ekil' + response.data[0])
           return response.data[0]
@@ -170,6 +173,7 @@ export default {
           token: this.$gStore.token
         }
       }).then((response) => {
+        if (response.data.code === 4401) this.$router.push('/login')
         if (!response.data.succ) {
           this.$data.errmsg = response.data.msg
         } else {

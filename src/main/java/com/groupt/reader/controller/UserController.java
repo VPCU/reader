@@ -5,13 +5,11 @@ import com.groupt.reader.dto.UserDto;
 import com.groupt.reader.service.UserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -36,12 +34,7 @@ public class UserController {
             currentUser.login( new UsernamePasswordToken(username, password));
             UserDto user = (UserDto) currentUser.getPrincipal();
             if (user == null) throw new AuthenticationException();
-            return Json.succ()
-                    .data("token", currentUser.getSession().getId())
-                    .data("uid", user.getUid())
-                    .data("nick", user.getNick())
-                    .data("roles", user.getRoles())
-                    .data("perms", user.getPerms());
+            return userInfo(currentUser);
         } catch ( UnknownAccountException uae ) {
             return Json.fail("用户帐号或密码不正确");
         } catch ( IncorrectCredentialsException ice ) {
@@ -51,6 +44,23 @@ public class UserController {
         } catch ( AuthenticationException ae ) {
             return Json.fail("登录失败");
         }
+    }
+
+    @RequiresAuthentication
+    @GetMapping("/getuser")
+    public Object getUserInfo() {
+        return userInfo(SecurityUtils.getSubject());
+    }
+
+    private Json userInfo(Subject currentUser) {
+        UserDto user = (UserDto) currentUser.getPrincipal();
+        return Json.succ()
+                .data("token", currentUser.getSession().getId())
+                .data("uid", user.getUid())
+                .data("nick", user.getNick())
+                .data("roles", user.getRoles())
+                .data("perms", user.getPerms())
+                .data("imgSrc", user.getImgSrc());
     }
 
     @PostMapping("/signup")

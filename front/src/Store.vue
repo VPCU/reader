@@ -1,7 +1,9 @@
 <script>
-const token = ''
+const token = null
+const user = null
 
 export default {
-  token
+  token,
+  user
 }
 </script>
