@@ -16,7 +16,7 @@
                 <q-item-section>
                   <q-item-label>{{item.userNick}}</q-item-label>
                   <q-item-label caption>
-                    用户简介 - {{item.userResume}}
+                    {{item.userResume}}
                   </q-item-label>
                 </q-item-section>
               </q-item>
@@ -162,7 +162,6 @@ export default {
         })
     },
     onLoad (index, done) {
-      console.log('#############', this.$gStore.user)
       this.$axios.get('reviews/bylimit', {
         params: {
           offset: this.$data.offset,

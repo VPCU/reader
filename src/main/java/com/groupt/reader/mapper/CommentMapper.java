@@ -16,6 +16,7 @@ public class CommentMapper {
         dto.setCreatorUserNick(creator.getNick());
         dto.setCreatorUserResume(creator.getResume());
         dto.setFatherCommentId(commentEntity.getFtCmtId());
+        dto.setImgSrc(creator.getImgSrc());
         return dto;
     }
 }

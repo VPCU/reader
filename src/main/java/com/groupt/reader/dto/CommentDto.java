@@ -12,6 +12,7 @@ public class CommentDto {
     Date createTime;
     Long fatherCommentId;
     String content;
+    String imgSrc;
 
     public Long getId() {
         return id;
@@ -83,5 +84,13 @@ public class CommentDto {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getImgSrc() {
+        return imgSrc;
+    }
+
+    public void setImgSrc(String imgSrc) {
+        this.imgSrc = imgSrc;
     }
 }

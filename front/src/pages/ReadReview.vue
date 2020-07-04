@@ -2,12 +2,12 @@
   <div class="q-pa-md">
     <q-card class="my-card bg-secondary text-white" @load ="onTips">
       <q-card-section>
-        <div class="text-h6">Our Changing Planet</div>
-        <div class="text-subtitle2">by John Doe</div>
+        <div class="text-h6">{{this.content.title}}</div>
+        <div class="text-subtitle2">by {{this.content.userNick}}</div>
       </q-card-section>
 
       <q-card-section>
-        <p v-html="$options.filters.ellipsis(content)"></p>
+        <p v-html="$options.filters.ellipsis(content.content)"></p>
       </q-card-section>
 
       <q-separator dark />
@@ -50,7 +50,7 @@
       </q-card>
     </q-dialog>
     <div class="q-pa-md">
-      <q-infinite-scroll @load="onLoad" :offset="0">
+      <q-infinite-scroll @load="onLoad" ref="infiniteScroll" :offset="0">
         <div v-for="(item, index) in items" :key="index" class="caption">
           <template>
             <q-card flat bordered class="my-card bg-grey-1">
@@ -68,8 +68,8 @@
               <q-card-section horizontal>
 
                 <q-card-section class="q-pt-xs">
-                  <div class="text-overline">Overline</div>
-                  <div class="text-h5 q-mt-sm q-mb-xs">标题</div>
+                  <!--<div class="text-overline">Overline</div>
+                  <div class="text-h5 q-mt-sm q-mb-xs">标题</div>-->
                   <div class="text-caption text-grey">
                     <p v-html="$options.filters.ellipsis(String(item.content))"></p>
                   </div>
@@ -109,15 +109,15 @@ export default {
     // 当渲染的文字超出30字后显示省略号
     ellipsis (value) {
       if (!value) return ''
-      if (value.length > 50) {
-        return value.slice(0, 50) + '...'
-      }
+      // if (value.length > 50) {
+      //   return value.slice(0, 50) + '...'
+      // }
       return value
     }
   },
   data () {
     return {
-      content: '',
+      content: null,
       items: [],
       rid: this.$route.query.rid,
       reports: '',
@@ -129,21 +129,16 @@ export default {
   },
   methods: {
     onTips () {
-      this.$axios.get('reviews/bylimit', {
+      this.$axios.get('reviews/id/' + this.rid, {
         params: {
-          offset: this.$data.rid,
-          limit: 1,
-          desc: true
         },
         headers: {
           token: this.$gStore.token
         }
       }).then((response) => {
         if (response.data.code === 4401) this.$router.push('/login')
-        if (response.data[0]) {
-          console.log(response.data)
-          this.content = String(response.data[0].content)
-        }
+        console.log(response.data)
+        this.content = response.data
       })
         .catch((error) => {
           console.log(error)
@@ -160,12 +155,9 @@ export default {
         }
       }).then((response) => {
         if (response.data.code === 4401) this.$router.push('/login')
-        console.log('response+++++++++++++++++')
         console.log(response.data)
-        this.items = []
-        for (const key in response.data) {
-          this.items.push(response.data[key])
-        }
+        response.data.forEach(e => this.items.push(e))
+        this.$refs.infiniteScroll.stop()
         done()
       })
         .catch((error) => {
