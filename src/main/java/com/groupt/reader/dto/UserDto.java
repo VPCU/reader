@@ -1,5 +1,7 @@
 package com.groupt.reader.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -9,7 +11,9 @@ public class UserDto {
     private Long uid;       // 用户id
     private String uname;   // 登录名，不可改
     private String nick;    // 用户昵称，可改
+    @JsonIgnore
     private String pwd;     // 已加密的登录密码
+    @JsonIgnore
     private String salt;    // 加密盐值
     private Date created;   // 创建时间
     private Date updated;   // 修改时间

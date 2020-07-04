@@ -810,6 +810,42 @@ Answer:
     status string 必填
     log string
 
+### /friends/add
+
+- GET
+
+
+    uid int
+
+
+### /friends/del
+
+- GET
+
+
+    uid int
+    
+### /friends/all
+
+- GET
+
+
+Answer:
+    
+    [
+        {
+            "uid": ,
+            "uname": "abc",
+            "nick": "cccc",
+            "created": null,
+            "updated": null,
+            "imgSrc": null,
+            "disabled": false,
+            "roles": null,
+            "perms": null
+        }
+    ]
+
 ## authorization
 
 登录,权限有关的事情.
