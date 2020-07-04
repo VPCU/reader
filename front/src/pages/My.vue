@@ -7,8 +7,8 @@
         </q-avatar>
       </q-item-section>
       <q-item-section>
-        <q-item-label>用户名</q-item-label>
-        <q-item-label caption>用户简介</q-item-label>
+        <q-item-label>{{ nickname }}</q-item-label>
+        <q-item-label caption>{{ role }}</q-item-label>
       </q-item-section>
       <q-item-section side>
         <q-icon name="settings" clickable v-ripple size="28px" @click="set"/>
@@ -94,7 +94,9 @@
 export default {
   data () {
     return {
-      admin: this.$gStore.user.roles.includes('admin')
+      admin: this.$gStore.user.roles.includes('admin'),
+      nickname: this.$gStore.user.nick,
+      role: this.$gStore.user.roles[0]
     }
   },
   methods: {
