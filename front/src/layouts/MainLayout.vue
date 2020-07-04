@@ -21,14 +21,14 @@
         <q-space />
 
         <div class="q-pl-md q-gutter-sm row no-wrap items-center">
-          <q-btn round dense flat color="grey-8" icon="notifications">
+          <q-btn round dense flat color="grey-8" icon="notifications" @click = "message">
             <q-badge color="red" text-color="white" floating>
               2
             </q-badge>
             <q-tooltip>Notifications</q-tooltip>
           </q-btn>
 
-          <q-btn round flat>
+          <q-btn round flat @click = "my">
             <q-avatar size="26px">
               <img :src="this.iconSrc">
             </q-avatar>
@@ -89,6 +89,9 @@ export default {
     },
     mall () {
       this.$router.push('/mall')
+    },
+    message () {
+      this.$router.push('/mymessages')
     }
   }
 }
