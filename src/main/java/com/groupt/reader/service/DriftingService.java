@@ -55,6 +55,7 @@ public class DriftingService {
         if(!drifting.getAvailable()) return false;
         drifting.setAvailable(false);
         drifting.setCurUid(userDto.getUid());
+        driftingRepository.save(drifting);
         return true;
     }
 
@@ -66,6 +67,7 @@ public class DriftingService {
         if(drifting.getAvailable()) return false;
         if(!drifting.getCurUid().equals(userDto.getUid())) return false;
         drifting.setAvailable(true);
+        driftingRepository.save(drifting);
         return true;
     }
 
