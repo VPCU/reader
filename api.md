@@ -986,6 +986,7 @@ Answer:
 
 
 Answer:
+
     [
         {
             "message": {
@@ -1045,6 +1046,34 @@ Answer:
 - GET
 - RequiresAuthentication
 
+## Upload and Resource
+
+资源文件存储在application.properties中的user.resource.path处。
+
+### /upload
+
+上传文件。上传成功后将返回一个文件名，用来访问该文件。
+
+- POST
+
+    value = "file"
+
+Answer:
+
+    {
+        "msg": "ok",
+        "code": 1,
+        "succ": true,
+        "oper": "default",
+        "data": "uujcozinkhuopkrazmbn.png"
+    }
+
+
+### /img/{filename}
+
+- GET
+
+返回文件名为filename的，用upload上传的图片。
 
 ## authorization
 

@@ -13,7 +13,10 @@
         <q-input v-model="keeper" placeholder="保管人" />
         <br>
         <div class="q-caption" color="grey">请上传书籍现况照片</div>
-        <q-uploader class="full-width" color="primary" inverted float-label="请上传书籍现况照片" extensions=".jpg" :url="url" />
+        <q-uploader class="full-width" color="primary" inverted
+                    float-label="请上传书籍现况照片" extensions=".jpg" fieldName="file"
+                    :url="this.$axios.defaults.baseURL+'/upload'"
+                    @uploaded="fileUploaded"/>
 
         <q-checkbox v-model="checked" color="secondary" label="我已知晓并愿意承担发起漂流可能面临的风险。" @input="check" />
         <br>
@@ -43,6 +46,10 @@ export default {
     }
   },
   methods: {
+    fileUploaded ({ files, xhr }) {
+      console.log('上传成功')
+      console.log(JSON.parse(xhr.response))
+    },
     check () {
       if (this.$data.checked === true) {
         this.$data.color1 = 'primary'
