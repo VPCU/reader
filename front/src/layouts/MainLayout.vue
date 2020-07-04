@@ -2,16 +2,6 @@
   <q-layout view="hHh LpR fFf" class="bg-grey-3">
     <q-header class="bg-grey-3 text-grey-9" reveal height-hint="60">
       <q-toolbar class="GPLAY__toolbar text-grey-6">
-        <q-btn
-          v-if="this.$q.platform.is.mobile || !leftDrawerOpen"
-          flat
-          dense
-          round
-          @click="leftDrawerOpen = !leftDrawerOpen"
-          aria-label="Menu"
-          icon="menu"
-          class="q-mr-sm"
-        />
         <q-space />
 
         <div class="GPLAY__toolbar-input-container row no-wrap">
@@ -22,14 +12,14 @@
         <q-space />
 
         <div class="q-pl-md q-gutter-sm row no-wrap items-center">
-          <q-btn round dense flat color="grey-8" icon="notifications">
+          <q-btn round dense flat color="grey-8" icon="notifications" @click = "message">
             <q-badge color="red" text-color="white" floating>
               2
             </q-badge>
             <q-tooltip>Notifications</q-tooltip>
           </q-btn>
 
-          <q-btn round flat>
+          <q-btn round flat @click = "my">
             <q-avatar size="26px">
               <img :src="this.iconSrc">
             </q-avatar>
@@ -161,6 +151,9 @@ export default {
     },
     mall () {
       this.$router.push('/mall')
+    },
+    message () {
+      this.$router.push('/mymessages')
     }
   }
 }
