@@ -60,6 +60,7 @@ export default {
           } else {
             console.log('登录成功')
             this.$gStore.token = response.data.token
+            localStorage.token = response.data.token
             this.$router.push('/')
           }
         })

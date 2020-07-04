@@ -94,6 +94,7 @@ public class TestService {
         permissionService.addPermission(u, "disable:review");
         permissionService.addPermission(u, "addperm:reader");
         permissionService.addPermission(u, "rmperm:reader");
+        permissionService.addPermission(u, "process:report");
 
     }
 }

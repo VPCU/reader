@@ -5,7 +5,11 @@
 </template>
 
 <script>
+import 'boot/store'
 export default {
-  name: 'App'
+  name: 'App',
+  created () {
+    this.$gStore.token = localStorage.token
+  }
 }
 </script>

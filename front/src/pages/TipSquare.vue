@@ -1,6 +1,6 @@
 <template xmlns:max-width="http://www.w3.org/1999/xhtml">
   <div class="q-pa-md">
-    <q-infinite-scroll @load="onLoad" :offset="250">
+    <q-infinite-scroll @load="onLoad" ref="infiniteScroll" :offset="250">
       <div v-for="(item, index) in items" :key="index" class="caption">
         <template>
           <q-card flat bordered class="my-card bg-grey-1">
@@ -39,9 +39,9 @@
             <q-separator />
 
             <q-card-actions align="right">
-              <q-btn flat round color="red" icon="favorite" @click = "setekil(item.rid,true, index)">
+              <q-btn flat round color="red" icon="favorite" @click = "setekil(item.rid,!item.liked, item)">
                 <p>
-                  {{ekil[index]}}
+                  {{item.ekil}}
                 </p>
               </q-btn>
               <q-btn flat round color="teal" icon="bookmark" >收藏</q-btn>
@@ -114,51 +114,68 @@ export default {
     return {
       items: [],
       offset: 1,
-      limit: 1,
-      desc: true,
       errmsg: '',
       prompt: false,
       alert: false,
-      reports: '',
-      ekil: [],
-      curentrid: 0
+      reports: ''
     }
   },
 
   methods: {
-    onLoad (index, done) {
+    updateEkil (e) {
+      this.getEkil(e)
       this.$axios.get('reviews/countekil', {
         params: {
-          rid: this.curentrid
+          rid: e.rid
         },
         headers: {
           token: this.$gStore.token
         }
       }).then((response) => {
-        console.log('curentrid' + this.curentrid)
-        this.ekil.push(response.data)
+        e.ekil = response.data
       })
         .catch((error) => {
           console.log(error)
         })
-
-      this.$axios.get('reviews/bylimit', {
+    },
+    getEkil (e) {
+      this.$axios.get('reviews/getekil', {
         params: {
-          offset: this.$data.offset,
-          limit: this.$data.limit,
-          desc: this.$data.desc
+          rid: e.rid
         },
         headers: {
           token: this.$gStore.token
         }
       }).then((response) => {
-        if (response.data[0]) {
-          // console.log('查询结果（limit均为1）')
-          // console.log(response.data)
-          this.curentrid = response.data[0].rid
-          this.items.push(response.data[0])
-          this.offset++
-          // console.log('下一步查询的offset' + this.offset)
+        e.liked = response.data
+      })
+        .catch((error) => {
+          console.log(error)
+        })
+    },
+    onLoad (index, done) {
+      this.$axios.get('reviews/bylimit', {
+        params: {
+          offset: this.$data.offset,
+          limit: 5,
+          desc: false
+        },
+        headers: {
+          token: this.$gStore.token
+        }
+      }).then((response) => {
+        console.log(response.data)
+        if (response.data.length) {
+          var data = response.data
+          data.forEach(e => {
+            e.ekil = 0 // required
+            this.updateEkil(e)
+          })
+          data.forEach(e => this.items.push(e))
+          this.offset = data[data.length - 1].rid + 1
+        } else {
+          this.$refs.infiniteScroll.stop()
+          console.log('stop')
         }
         done()
       })
@@ -221,11 +238,11 @@ export default {
           console.log(error)
         })
     },
-    setekil (rid, like, index) {
-      this.$axios.get('reviews/setlike', {
+    setekil (rid, ekil, obj) {
+      this.$axios.get('reviews/setekil', {
         params: {
           rid: rid,
-          like: like
+          ekil: ekil
         },
         headers: {
           token: this.$gStore.token
@@ -235,7 +252,7 @@ export default {
           this.$data.errmsg = response.data.msg
         } else {
           console.log('点赞成功')
-          this.ekil[index]++
+          this.updateEkil(obj)
         }
       })
         .catch((error) => {
