@@ -2,7 +2,7 @@
   <q-infinite-scroll @load="onLoad" ref="infiniteScroll" :offset="250">
     <q-card inline class="bigger q-ma-sm" v-for="{ driId, bookName, author, curPosition, available, detail, guard} in drifting" :key="driId">
       <q-card-media>
-        <img  src="https://cdn.quasar.dev/img/parallax2.jpg" width="100%">
+        <img  src="https://s1.ax1x.com/2020/07/05/NzX1kd.jpg" width="100%">
       </q-card-media>
       <div class="bigger q-ma-lg">
         <q-card-title class="relative-position">

@@ -20,7 +20,7 @@
     <div class="q-col-gutter-md row items-start">
       <div class="col-4">
         <q-img
-          src="https://cdn.quasar.dev/img/chicken-salad.jpg"
+          src="https://s1.ax1x.com/2020/07/05/NzXAYR.jpg"
           style="width: 100%" clickable v-ripple
           class="rounded-borders"
           @click="like"
@@ -32,7 +32,7 @@
       </div>
       <div class="col-4">
         <q-img
-          src="https://cdn.quasar.dev/img/parallax1.jpg"
+          src="https://s1.ax1x.com/2020/07/05/NzXKmD.jpg"
           style="width: 100%" clickable v-ripple
           class="rounded-borders"
           @click="friend"
@@ -44,7 +44,7 @@
       </div>
       <div class="col-4">
         <q-img
-          src="https://cdn.quasar.dev/img/parallax2.jpg"
+          src="https://s1.ax1x.com/2020/07/05/NzX1kd.jpg"
           style="width: 100%" clickable v-ripple
           class="rounded-borders"
           @click="message"
