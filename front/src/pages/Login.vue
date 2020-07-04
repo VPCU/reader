@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div @keyup.enter="login">
     <div class="q-ma-xl q-pt-lg" align="center">
       <p style="font-size: 50px" class="q-ma-none"><q-icon name="menu_book" style="font-size: 65px" />Reader</p>
     </div>
@@ -8,7 +8,7 @@
       <q-input type="password" outlined class="q-ma-md" v-model="password" label="密码" />
       <div class="row justify-between q-mx-md q-px-none">
         <div class="col-6">
-          <q-btn outline color="primary" @click="login"  label="登录" style="width: 100%" />
+          <q-btn outline color="primary" @click="login" label="登录" style="width: 100%" />
         </div>
         <div class="col-5">
           <q-btn outline color="primary" @click="signup" label="注册" style="width: 100%" />
