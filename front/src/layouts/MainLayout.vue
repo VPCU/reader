@@ -3,13 +3,12 @@
     <q-header class="bg-grey-3 text-grey-9" reveal height-hint="60">
       <q-toolbar class="GPLAY__toolbar text-grey-6">
         <q-btn
-          v-if="this.$q.platform.is.mobile || !leftDrawerOpen"
           flat
           dense
           round
-          @click="leftDrawerOpen = !leftDrawerOpen"
+          @click="goBack"
           aria-label="Menu"
-          icon="menu"
+          icon="arrow_back"
           class="q-mr-sm"
         />
         <q-space />
@@ -46,79 +45,6 @@
         <q-tab name="MySelf" @click="my" label="我的" />
       </q-tabs>
     </q-footer>
-<!--    <q-drawer-->
-<!--      v-model="leftDrawerOpen"-->
-<!--      show-if-above-->
-<!--      bordered-->
-<!--      content-class="bg-grey-3 text-grey-7"-->
-<!--      :width="200"-->
-<!--    >-->
-<!--      <q-list>-->
-
-<!--        <q-item clickable class="GPLAY__drawer-link bg-grey-10 text-grey-3">-->
-<!--          <q-item-section avatar class="text-grey-1">-->
-<!--            <q-icon name="weekend" />-->
-<!--          </q-item-section>-->
-<!--          <q-item-section class="text-grey-3">-->
-<!--            <q-item-label>Entertainment</q-item-label>-->
-<!--          </q-item-section>-->
-<!--        </q-item>-->
-
-<!--        <q-item clickable class="GPLAY__drawer-link GPLAY__drawer-link&#45;&#45;apps">-->
-<!--          <q-item-section avatar class="bg-green-7 text-grey-1 text-center">-->
-<!--            <q-icon name="android" />-->
-<!--          </q-item-section>-->
-<!--          <q-item-section class="apps-text">-->
-<!--            <q-item-label>Apps</q-item-label>-->
-<!--          </q-item-section>-->
-<!--        </q-item>-->
-
-<!--        <q-item clickable class="GPLAY__drawer-link GPLAY__drawer-link&#45;&#45;movies">-->
-<!--          <q-item-section avatar class="movies-icon bg-red-7 text-grey-1 text-center">-->
-<!--            <q-icon name="local_movies" />-->
-<!--          </q-item-section>-->
-<!--          <q-item-section class="movies-text">-->
-<!--            <q-item-label>Movies & TV</q-item-label>-->
-<!--          </q-item-section>-->
-<!--        </q-item>-->
-
-<!--        <q-item clickable class="GPLAY__drawer-link GPLAY__drawer-link&#45;&#45;music">-->
-<!--          <q-item-section avatar class="music-icon bg-orange-7 text-grey-1 text-center">-->
-<!--            <q-avatar size="22px" color="white" text-color="orange-7" icon="music_note" />-->
-<!--          </q-item-section>-->
-<!--          <q-item-section class="music-text">-->
-<!--            <q-item-label>Music</q-item-label>-->
-<!--          </q-item-section>-->
-<!--        </q-item>-->
-
-<!--        <q-item clickable class="GPLAY__drawer-link GPLAY__drawer-link&#45;&#45;books">-->
-<!--          <q-item-section avatar class="books-icon bg-blue-7 text-grey-1 text-center">-->
-<!--            <q-icon name="book" />-->
-<!--          </q-item-section>-->
-<!--          <q-item-section class="books-text">-->
-<!--            <q-item-label>Books</q-item-label>-->
-<!--          </q-item-section>-->
-<!--        </q-item>-->
-
-<!--        <q-item clickable class="GPLAY__drawer-link GPLAY__drawer-link&#45;&#45;devices">-->
-<!--          <q-item-section avatar class="devices-icon bg-blue-grey-7 text-grey-1 text-center">-->
-<!--            <q-icon name="devices" />-->
-<!--          </q-item-section>-->
-<!--          <q-item-section class="devices-text">-->
-<!--            <q-item-label>Devices</q-item-label>-->
-<!--          </q-item-section>-->
-<!--        </q-item>-->
-
-<!--        <q-separator class="q-mb-md" />-->
-
-<!--        <q-item v-for="link in links1" :key="link.text" v-ripple dense clickable class="GPLAY__drawer-item">-->
-<!--          <q-item-section class="text-grey-8">-->
-<!--            <q-item-label>{{ link.text }}</q-item-label>-->
-<!--          </q-item-section>-->
-<!--        </q-item>-->
-<!--      </q-list>-->
-<!--    </q-drawer>-->
-
     <q-page-container>
       <router-view />
     </q-page-container>
@@ -130,7 +56,6 @@ export default {
   name: 'GooglePlayLayout',
   data () {
     return {
-      leftDrawerOpen: false,
       search: '',
       storage: 0.26,
       iconSrc: this.$gStore.user.imgSrc,
@@ -147,6 +72,9 @@ export default {
     }
   },
   methods: {
+    goBack () {
+      this.$router.back()
+    },
     tab () {
       // tab
     },

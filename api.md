@@ -482,6 +482,15 @@ Answer:
         "oper": "default"
     }
 
+### /user/changeIcon
+
+更换用户头像。
+
+- GET
+- RequiresAuthentication
+
+
+    src string
 
 ## Others
 

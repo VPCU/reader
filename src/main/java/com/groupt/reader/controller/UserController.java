@@ -2,6 +2,8 @@ package com.groupt.reader.controller;
 
 import com.groupt.reader.dto.Json;
 import com.groupt.reader.dto.UserDto;
+import com.groupt.reader.model.UserEntity;
+import com.groupt.reader.repository.UserRepository;
 import com.groupt.reader.service.UserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
@@ -12,12 +14,16 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 public class UserController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    UserRepository userRepository;
 
     @PostMapping("/login")
     public Json login(@RequestBody Map<String, Object> payload) {
@@ -90,5 +96,15 @@ public class UserController {
         String username = (String)payload.get("username");
         if(userService.userExists(username)) return Json.fail("false");
         else return Json.succ("true");
+    }
+
+    @RequiresAuthentication
+    @GetMapping("/user/changeIcon")
+    public Json changeIcon(@RequestParam String src) {
+        UserDto userDto = (UserDto) SecurityUtils.getSubject().getPrincipal();
+        UserEntity u = userRepository.findById(userDto.getUid()).get();
+        u.setImgSrc(src);
+        userRepository.saveAndFlush(u);
+        return Json.succ();
     }
 }
