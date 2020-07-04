@@ -7,7 +7,7 @@ export default {
   name: 'mall',
   data () {
     return {
-      src: 'http://127.0.0.1:8080/#/'
+      src: 'http://localhost:8082/#/'
     }
   }
 }
