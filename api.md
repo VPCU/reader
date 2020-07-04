@@ -603,7 +603,7 @@ Answer:
 - RequiresPermissions: new:drifting
 
 
-    dirftId int
+    driftId int
     bookName string
     author string
     isbn string

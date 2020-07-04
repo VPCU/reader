@@ -56,15 +56,15 @@ public class DriftingController {
     @RequiresPermissions("new:drifting")
     @PostMapping("/drifting/edit")
     public Object setDrifting(@RequestBody Map<String, Object> payload) {
-        Long driftId = (Long)payload.get("dirftId");
+        if(payload.get("driftId") == null) return Json.fail("id 不能为空");
+        int driftId = (int)payload.get("driftId");
         String bookName = (String)payload.get("bookName");
         String author = (String)payload.get("author");
         String isbn = (String)payload.get("isbn");
         String position = (String)payload.get("position");
         String guardian = (String)payload.get("guardian");
-        if(driftId == null) return Json.fail("id 不能为空");
-        if(driftingRepository.findById(driftId).isPresent()) return Json.fail("错误的id");
-        DriftingEntity drift = driftingRepository.findById(driftId).get();
+        if(!driftingRepository.findById((long)driftId).isPresent()) return Json.fail("错误的id");
+        DriftingEntity drift = driftingRepository.findById((long)driftId).get();
         UserDto userDto = (UserDto) SecurityUtils.getSubject().getPrincipal();
         if(!userDto.getUid().equals(drift.getUid())) return Json.fail("没有权限修改");
         if(bookName != null) drift.setBookName(bookName);
