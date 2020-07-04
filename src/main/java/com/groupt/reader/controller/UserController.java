@@ -66,7 +66,11 @@ public class UserController {
                 .data("nick", user.getNick())
                 .data("roles", user.getRoles())
                 .data("perms", user.getPerms())
-                .data("imgSrc", user.getImgSrc());
+                .data("imgSrc", user.getImgSrc())
+                .data("username", user.getUname())
+                .data("resume", user.getResume())
+                .data("email", user.getEmail())
+                .data("phone", user.getPhone());
     }
 
     @PostMapping("/signup")
@@ -107,4 +111,26 @@ public class UserController {
         userRepository.saveAndFlush(u);
         return Json.succ();
     }
+
+    @RequiresAuthentication
+    @PostMapping("/user/edit")
+    public Json editInfo(@RequestBody Map<String, Object> payload) {
+        String userResume = (String) payload.get("userResume");
+        String userNick = (String) payload.get("userNick");
+        String userMail = (String) payload.get("userEmail");
+        String phone = (String) payload.get("phone");
+        String imgSrc = (String) payload.get("imgSrc");
+        if(StringUtils.isEmpty(userNick)) return Json.fail("昵称不能为空");
+        if(StringUtils.isEmpty(phone)) return Json.fail("Phone不能为空");
+        UserDto userDto = (UserDto) SecurityUtils.getSubject().getPrincipal();
+        UserEntity u = userRepository.findById(userDto.getUid()).get();
+        u.setNick(userNick);
+        u.setEmail(userMail);
+        u.setResume(userResume);
+        u.setPhone(phone);
+        if(!StringUtils.isEmpty(imgSrc)) u.setImgSrc(imgSrc);
+        userRepository.saveAndFlush(u);
+        return Json.succ();
+    }
+
 }

@@ -492,6 +492,22 @@ Answer:
 
     src string
 
+
+### /user/edit
+
+编辑用户信息。
+
+- POST
+- RequiresAuthentication
+
+    
+    userResume string
+    userNick string
+    userEmail string
+    phone string
+    imgSrc string
+
+
 ## Others
 
 ### /count

@@ -19,6 +19,9 @@ public class UserDto {
     private Date updated;   // 修改时间
     private String imgSrc;  // 头像
     private Boolean disabled;
+    private String resume;
+    private String email;
+    private String phone;
     private Set<String> roles = new HashSet<>();    //用户所有角色值，用于shiro做角色权限的判断
     private Set<String> perms = new HashSet<>();    //用户所有权限值，用于shiro做资源权限的判断
 
@@ -108,5 +111,29 @@ public class UserDto {
 
     public void setImgSrc(String imgSrc) {
         this.imgSrc = imgSrc;
+    }
+
+    public String getResume() {
+        return resume;
+    }
+
+    public void setResume(String resume) {
+        this.resume = resume;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

@@ -11,7 +11,7 @@
       <span>点击更换头像</span>
     </div>
 
-    <q-input v-model="username" placeholder="用户名"  style="margin-left: 7%; margin-right: 7%;">
+    <q-input v-model="username" placeholder="用户名" readonly style="margin-left: 7%; margin-right: 7%">
       <template v-slot:prepend>
         <q-icon name="person_pin" />
       </template>
@@ -42,21 +42,65 @@
     </q-input>
 
     <div class="row justify-center">
-    <q-btn outline rounded color="primary" label="保存修改" />
+    <q-btn outline rounded color="primary" label="保存修改" @click="submit" />
     </div>
   </div>
 </template>
 
 <script>
+import 'boot/axios'
+import 'boot/store'
 export default {
   data () {
     return {
-      url: 'https://cdn.quasar.dev/img/boy-avatar.png'
+      url: this.$gStore.user.imgSrc,
+      username: this.$gStore.user.username,
+      introduction: this.$gStore.user.resume,
+      nick: this.$gStore.user.nick,
+      email: this.$gStore.user.email,
+      phone: this.$gStore.user.phone
     }
   },
   methods: {
     refresh () {
+      console.log(this.$gStore.user)
       this.url = 'https://placeimg.com/500/300/animals?t=' + Math.random()
+    },
+    submit () {
+      this.$axios.post('user/edit', {
+        userResume: this.introduction,
+        userNick: this.nick,
+        userEmail: this.email,
+        phone: this.phone,
+        imgSrc: this.url
+      }, {
+        headers: {
+          token: this.$gStore.token
+        }
+      }).then((response) => {
+        // if (response.data.code === 4401) this.$router.push('/login')
+        console.log(this.$gStore.token)
+        console.log(response.data)
+        if (response.data.succ) {
+          this.$axios.get('getuser', {
+            params: {
+            },
+            headers: {
+              token: this.$gStore.token
+            }
+          }).then((response) => {
+            if (response.data.code === 4401) this.$router.push('/login')
+            this.$gStore.user = response.data
+          })
+            .catch((error) => {
+              console.log(error)
+            })
+          this.$router.back()
+        }
+      })
+        .catch((error) => {
+          console.log(error)
+        })
     }
   }
 }

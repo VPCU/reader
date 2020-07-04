@@ -21,6 +21,9 @@ public class MyUserMapper {
         userDto.setUpdated(user.getUpdated());
         userDto.setDisabled(user.getDisabled());
         userDto.setImgSrc(user.getImgSrc());
+        userDto.setResume(user.getResume());
+        userDto.setEmail(user.getEmail());
+        userDto.setPhone(user.getPhone());
 
         Set<PermEntity> perms = user.getPerms();
         Set<RoleEntity> roles = user.getRoles();

@@ -76,9 +76,9 @@ public class AdminService {
 
     public List<Map<String, Object>> getAllReports() {
         List<ReportEntity> reports = reportRepository.getAllByDone(false);
-        Map<String, Object> result = new HashMap<>();
         List<Map<String, Object>> ret = new ArrayList<>();
         for(ReportEntity report: reports) {
+            Map<String, Object> result = new HashMap<>();
             result.put("reportId", report.getRptId());
             result.put("reporter", userRepository.findById(report.getReporter()).get());
             result.put("review", bookReviewRepository.findById(report.getReviewId()).get());
