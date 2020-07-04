@@ -1,6 +1,6 @@
 <template>
   <div class="q-pa-md row justify-center">
-    <div style="width: 100%; max-width: 400px" v-for="detail in details" :key="detail.name">
+    <div style="width: 100%;" v-for="detail in details" :key="detail.name">
       <q-chat-message v-if=" detail.isMe == true "
       name="me"
       :avatar="`${detail.url}`"
