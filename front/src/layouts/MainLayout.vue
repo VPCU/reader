@@ -42,7 +42,7 @@
       <q-tabs v-model="tab">
         <q-tab name="Tips" @click="add"  label="广场" />
         <q-tab name="Group" @click="drifting" label="漂流" />
-        <q-tab name="Mall" label="商城" />
+        <q-tab name="Mall" @click="mall" label="商城" />
         <q-tab name="MySelf" @click="my" label="我的" />
       </q-tabs>
     </q-footer>
@@ -154,6 +154,9 @@ export default {
     },
     my () {
       this.$router.push('/my')
+    },
+    mall () {
+      this.$router.push('/mall')
     }
   }
 }
