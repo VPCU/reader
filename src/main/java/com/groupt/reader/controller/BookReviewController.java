@@ -40,6 +40,12 @@ public class BookReviewController {
     }
 
     @RequiresAuthentication
+    @GetMapping("/reviews/allu")
+    public Object getReviewsByUid(@RequestParam Long uid) {
+        return bookReviewService.getBookReviewsByAuthor(uid);
+    }
+
+    @RequiresAuthentication
     @GetMapping("/reviews/bylimit")
     public Object getSquareReviewsByOffset(@RequestParam int offset, @RequestParam int limit, @RequestParam boolean desc){
         return bookReviewService.getBookReviews(offset, limit, desc);

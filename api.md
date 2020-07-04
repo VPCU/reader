@@ -87,6 +87,51 @@ Answer:
     ]
 
 
+### /reviews/allu
+
+获得某用户的所有书评。
+
+- GET
+- RequiresAuthentication
+
+
+    uid int
+    
+Request:
+
+    /reviews/allu?uid=2
+
+Answer:
+
+    [
+        {
+            "rid": 1,
+            "createTime": "2020-07-01T13:43:24.224+00:00",
+            "content": "<h1>富强、民主、文明、和谐</h1><br/>",
+            "title": "莫泊桑小说",
+            "userId": 2,
+            "username": "user0",
+            "userNick": "superman",
+            "userResume": null,
+            "bookId": 1,
+            "bookAuthor": "黑柳",
+            "bookName": "黑柳"
+        },
+        {
+            "rid": 2,
+            "createTime": "2020-07-01T14:13:28.923+00:00",
+            "content": "<h3><font color=\"blue\">爱国、敬业、诚信、友善</font></h3>",
+            "title": "莫泊桑小说",
+            "userId": 2,
+            "username": "user0",
+            "userNick": "superman",
+            "userResume": null,
+            "bookId": 1,
+            "bookAuthor": "黑柳",
+            "bookName": "黑柳"
+        }
+    ]
+
 ### /reviews/bylimit
 
 流式分页加载书评。
