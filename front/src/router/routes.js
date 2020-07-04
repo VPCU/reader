@@ -20,7 +20,8 @@ const routes = [
       { path: 'manageusers', component: () => import('pages/ManageUsers.vue') },
       { path: 'readreview', component: () => import('pages/ReadReview.vue') },
       { path: 'readmyreview', component: () => import('pages/Myreview.vue') },
-      { path: 'mall', component: () => import('pages/Mall.vue') }
+      { path: 'mall', component: () => import('pages/Mall.vue') },
+      { path: 'findfriend', component: () => import('pages/FindFriend.vue') }
     ]
   },
   { path: '/login', component: () => import('pages/Login.vue') },
