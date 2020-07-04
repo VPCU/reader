@@ -22,7 +22,7 @@
         <q-card-separator />
         <q-card-actions class="q-px-none q-px-none" align="center">
           <q-btn flat icon="event" >漂流记录</q-btn>
-          <q-btn flat icon="create" @click="editdrift" >编辑</q-btn>
+          <q-btn flat icon="create" @click="editdrift(driId)" >编辑</q-btn>
           <q-btn flat icon="highlight_off" color="red" >结束漂流</q-btn>
         </q-card-actions>
       </div>
