@@ -1,6 +1,6 @@
 <template xmlns:max-width="http://www.w3.org/1999/xhtml">
   <div class="q-pa-md">
-    <q-infinite-scroll @load="onLoad" :offset="250">
+    <q-infinite-scroll @load="onLoad" :offset="250" ref="infiniteScroll">
       <div v-for="(item, index) in items" :key="index" class="caption">
         <template>
           <q-card flat bordered class="my-card bg-grey-1">
@@ -36,6 +36,13 @@
             <q-card-section>
             </q-card-section>
 
+            <q-card-actions align="right">
+              <q-btn flat round color="red" icon="favorite">
+                <p>
+                  {{item.ekil}}
+                </p>
+              </q-btn>
+            </q-card-actions>
             <q-separator />
           </q-card>
         </template>
@@ -73,18 +80,28 @@ export default {
   data () {
     return {
       items: [],
-      offset: 1,
-      limit: 1,
-      desc: true,
       errmsg: '',
       prompt: false,
       alert: false,
-      reports: '',
-      ekil: [],
-      curentrid: 0
+      reports: ''
     }
   },
   methods: {
+    updateEkil (e) {
+      this.$axios.get('reviews/countekil', {
+        params: {
+          rid: e.rid
+        },
+        headers: {
+          token: this.$gStore.token
+        }
+      }).then((response) => {
+        e.ekil = response.data
+      })
+        .catch((error) => {
+          console.log(error)
+        })
+    },
     onLoad (index, done) {
       this.$axios.get('reviews/my', {
         params: {
@@ -93,13 +110,18 @@ export default {
           token: this.$gStore.token
         }
       }).then((response) => {
-        if (response.data[0]) {
-          // console.log('查询结果（limit均为1）')
-          // console.log(response.data)
-          this.curentrid = response.data[0].rid
-          this.items.push(response.data[0])
-          this.offset++
-          // console.log('下一步查询的offset' + this.offset)
+        console.log(response.data)
+        if (response.data.length) {
+          var data = response.data
+          data.forEach(e => {
+            e.ekil = 0 // required
+            this.updateEkil(e)
+          })
+          data.forEach(e => this.items.push(e))
+          this.$refs.infiniteScroll.stop()
+        } else {
+          this.$refs.infiniteScroll.stop()
+          console.log('stop')
         }
         done()
       })

@@ -1,81 +1,84 @@
 <template xmlns:max-width="http://www.w3.org/1999/xhtml">
   <div class="q-pa-md">
     <q-infinite-scroll @load="onLoad" ref="infiniteScroll" :offset="250">
-      <div v-for="(item, index) in items" :key="index" class="caption">
-        <template>
-          <q-card flat bordered class="my-card bg-grey-1">
-<!--            这里控制用户头像和用户名-->
-            <q-item>
-              <q-item-section avatar>
-                <q-avatar>
-                  <img src="https://cdn.quasar.dev/img/boy-avatar.png">
-                </q-avatar>
-              </q-item-section>
+      <q-pull-to-refresh @refresh="refresh">
+        <div v-for="(item, index) in items" :key="index" class="caption">
+          <template>
+            <q-card flat bordered class="my-card bg-grey-1">
+              <!--            这里控制用户头像和用户名-->
+              <q-item>
+                <q-item-section avatar>
+                  <q-avatar>
+                    <img src="https://cdn.quasar.dev/img/boy-avatar.png">
+                  </q-avatar>
+                </q-item-section>
 
-              <q-item-section>
-                <q-item-label>用户名</q-item-label>
-                <q-item-label caption>
-                  用户简介
-                </q-item-label>
-              </q-item-section>
-            </q-item>
+                <q-item-section>
+                  <q-item-label>用户名</q-item-label>
+                  <q-item-label caption>
+                    用户简介
+                  </q-item-label>
+                </q-item-section>
+              </q-item>
 
-            <q-separator />
-<!--            这里控制该书评的内容-->
-            <q-card-section horizontal @click="readdetail(item.rid)">
+              <q-separator />
+              <!--            这里控制该书评的内容-->
+              <q-card-section horizontal @click="readdetail(item.rid)">
 
-              <q-card-section class="q-pt-xs">
-                <div class="text-overline">Overline</div>
-                <div class="text-h5 q-mt-sm q-mb-xs">{{String(item.title)}}</div>
-                <div class="text-caption text-grey">
-                 <p v-html="$options.filters.ellipsis(String(item.content))"></p>
-                </div>
+                <q-card-section class="q-pt-xs">
+                  <div class="text-overline">Overline</div>
+                  <div class="text-h5 q-mt-sm q-mb-xs">{{String(item.title)}}</div>
+                  <div class="text-caption text-grey">
+                    <p v-html="$options.filters.ellipsis(String(item.content))"></p>
+                  </div>
+                </q-card-section>
               </q-card-section>
-            </q-card-section>
 
-            <q-card-section>
-            </q-card-section>
+              <q-card-section>
+              </q-card-section>
 
-            <q-separator />
+              <q-separator />
 
-            <q-card-actions align="right">
-              <q-btn flat round color="red" icon="favorite" @click = "setekil(item.rid,!item.liked, item)">
-                <p>
-                  {{item.ekil}}
-                </p>
-              </q-btn>
-              <q-btn flat round color="teal" icon="bookmark" >收藏</q-btn>
-              <q-btn flat round color="primary" @click="prompt = true"  icon="share" >举报</q-btn>
-              <q-dialog v-model="prompt" persistent>
-                <q-card style="max-width: 300px">
-                  <q-card-section>
-                    <div class="text-h6">请输入举报理由</div>
-                  </q-card-section>
+              <q-card-actions align="right">
+                <q-btn flat round color="red" icon="favorite" @click = "setekil(item.rid,!item.liked, item)">
+                  <p>
+                    {{item.ekil}}
+                  </p>
+                </q-btn>
+                <q-btn flat round color="teal" icon="bookmark" >收藏</q-btn>
+                <q-btn flat round color="primary" @click="prompt = true"  icon="share" >举报</q-btn>
+                <q-dialog v-model="prompt" persistent>
+                  <q-card style="max-width: 300px">
+                    <q-card-section>
+                      <div class="text-h6">请输入举报理由</div>
+                    </q-card-section>
 
-                  <q-card-section class="q-pt-none">
-                    <q-input type="textarea" dense v-model="reports" autofocus @keyup.enter="prompt = false" />
-                  </q-card-section>
+                    <q-card-section class="q-pt-none">
+                      <q-input type="textarea" dense v-model="reports" autofocus @keyup.enter="prompt = false" />
+                    </q-card-section>
 
-                  <q-card-actions align="right" class="text-primary">
-                    <q-btn flat label="取消" v-close-popup />
-                    <q-btn flat label="确认举报" @click="reportto(item.rid)" v-close-popup />
-                  </q-card-actions>
-                </q-card>
-              </q-dialog>
-              <q-dialog v-model="alert">
-                <q-card>
-                  <q-card-section>
-                    <div class="text-h6">举报成功</div>
-                  </q-card-section>
-                  <q-card-actions align="right">
-                    <q-btn flat label="OK" color="primary" v-close-popup />
-                  </q-card-actions>
-                </q-card>
-              </q-dialog>
-            </q-card-actions>
-          </q-card>
-        </template>
-      </div>
+                    <q-card-actions align="right" class="text-primary">
+                      <q-btn flat label="取消" v-close-popup />
+                      <q-btn flat label="确认举报" @click="reportto(item.rid)" v-close-popup />
+                    </q-card-actions>
+                  </q-card>
+                </q-dialog>
+                <q-dialog v-model="alert">
+                  <q-card>
+                    <q-card-section>
+                      <div class="text-h6">举报成功</div>
+                    </q-card-section>
+                    <q-card-actions align="right">
+                      <q-btn flat label="OK" color="primary" v-close-popup />
+                    </q-card-actions>
+                  </q-card>
+                </q-dialog>
+              </q-card-actions>
+            </q-card>
+          </template>
+        </div>
+      </q-pull-to-refresh>
+
       <template v-slot:loading>
         <div class="row justify-center q-my-md">
           <q-spinner-dots color="primary" size="40px" />
@@ -113,7 +116,7 @@ export default {
   data () {
     return {
       items: [],
-      offset: 1,
+      offset: 1000000000,
       errmsg: '',
       prompt: false,
       alert: false,
@@ -122,6 +125,9 @@ export default {
   },
 
   methods: {
+    refresh () {
+      location.reload()
+    },
     updateEkil (e) {
       this.getEkil(e)
       this.$axios.get('reviews/countekil', {
@@ -158,7 +164,7 @@ export default {
         params: {
           offset: this.$data.offset,
           limit: 5,
-          desc: false
+          desc: true
         },
         headers: {
           token: this.$gStore.token
@@ -172,7 +178,7 @@ export default {
             this.updateEkil(e)
           })
           data.forEach(e => this.items.push(e))
-          this.offset = data[data.length - 1].rid + 1
+          this.offset = data[data.length - 1].rid - 1
         } else {
           this.$refs.infiniteScroll.stop()
           console.log('stop')
