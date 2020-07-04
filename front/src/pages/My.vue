@@ -46,6 +46,7 @@
           src="https://cdn.quasar.dev/img/parallax2.jpg"
           style="width: 100%" clickable v-ripple
           class="rounded-borders"
+          @click="message"
         >
           <div class="absolute-full text-subtitle2 flex flex-center">
                      私信
@@ -112,6 +113,9 @@ export default {
     },
     managereport () {
       this.$router.push('/managereport')
+    },
+    message () {
+      this.$router.push('/mymessages')
     }
   }
 }
