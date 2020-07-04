@@ -77,14 +77,14 @@
       </q-card-actions>
     </q-card>
 
-    <q-card class="my-card">
+    <q-card class="my-card" v-if="admin">
       <q-card-section class="bg-orange text-white">
         <div class="text-h6">后台管理</div>
       </q-card-section>
 
       <q-card-actions align="around">
         <q-btn flat icon="info" color="blue-grey-3" @click="managereport"> <span class="text-black">举报处理</span> </q-btn>
-        <q-btn flat icon="create" color="blue-grey-3" @click="todo"> <span class="text-black">待定</span> </q-btn>
+        <q-btn flat icon="create" color="blue-grey-3" @click="todo"> <span class="text-black">用户管理</span> </q-btn>
       </q-card-actions>
     </q-card>
   </div>
@@ -92,6 +92,11 @@
 
 <script>
 export default {
+  data () {
+    return {
+      admin: this.$gStore.user.roles.includes('admin')
+    }
+  },
   methods: {
     add () {
       this.$router.push('/newreview')
