@@ -616,7 +616,17 @@ Answer:
 - RequiresRoles: reader
 - RequiresPermissions: new:drifting
 
-借阅该书籍。将available置为true，curUid置为借阅者的uid。
+借阅该书籍。将available置为false，curUid置为借阅者的uid。
+
+    driftId int
+    
+### /drifting/borrow
+
+- GET
+- RequiresRoles: reader
+- RequiresPermissions: new:drifting
+
+借阅该书籍。将available置为true。
 
     driftId int
     

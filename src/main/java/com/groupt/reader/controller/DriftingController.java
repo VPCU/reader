@@ -88,6 +88,17 @@ public class DriftingController {
     }
 
     @RequiresAuthentication
+    @RequiresPermissions("new:drifting")
+    @GetMapping("/drifting/return")
+    public Json giveBookBack(@RequestParam Long driftId) {
+        if(driftingService.returnById(driftId)) {
+            return Json.succ();
+        } else {
+            return Json.fail();
+        }
+    }
+
+    @RequiresAuthentication
     @GetMapping("/drifting/bylimit")
     public Object getSquareReviewsByOffset(@RequestParam int cursor, @RequestParam int limit, @RequestParam boolean desc){
         return driftingService.getDrifting(cursor, limit, desc);

@@ -58,6 +58,17 @@ public class DriftingService {
         return true;
     }
 
+    public boolean returnById(Long id) {
+        UserDto userDto = (UserDto) SecurityUtils.getSubject().getPrincipal();
+        Optional<DriftingEntity> _drift = driftingRepository.findById(id);
+        if(!_drift.isPresent()) return false;
+        DriftingEntity drifting = _drift.get();
+        if(drifting.getAvailable()) return false;
+        if(!drifting.getCurUid().equals(userDto.getUid())) return false;
+        drifting.setAvailable(true);
+        return true;
+    }
+
     public List<DriftingEntity> getDrifting(int cursor, int limit, boolean desc) {
         List<DriftingEntity> driftings;
         if(!desc) {
