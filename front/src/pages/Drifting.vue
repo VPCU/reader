@@ -2,7 +2,7 @@
   <q-infinite-scroll @load="onLoad" ref="infiniteScroll" :offset="250">
     <q-card inline class="bigger q-ma-sm" v-for="{ driId, bookName, author, curPosition, available, detail, guard} in drifting" :key="driId">
       <q-card-media>
-        <img  src="https://s1.ax1x.com/2020/07/05/NzX1kd.jpg" width="100%">
+        <img  src="../../public/examplePics/parallax1.jpg" width="100%">
       </q-card-media>
       <div class="bigger q-ma-lg">
         <q-card-title class="relative-position">
@@ -25,7 +25,7 @@
         <q-card-separator />
         <q-card-actions class="q-px-none q-px-none" align="center">
           <q-btn flat icon="local_library" color="green" v-if="available" @click="borrow(driId)">我已取阅</q-btn>
-          <q-btn flat icon="where_to_vote" color="blue" v-if="!available" @click="retureb(driId)">我已归还</q-btn>
+          <q-btn flat icon="where_to_vote" color="blue" v-if="!available" @click="returnb(driId)">我已归还</q-btn>
         </q-card-actions>
       </div>
     </q-card>
@@ -86,13 +86,13 @@ export default {
       }).then((response) => {
         console.log(response.data)
         if (response.data.succ) {
-          this.$router.push('/drifting')
+          this.$router.go(0)
           // this.drifting = response.data
         }
       })
     },
     returnb (driId) {
-      this.$axios.get('/drifting/borrow', {
+      this.$axios.get('/drifting/return', {
         params: {
           driftId: driId
         },
@@ -102,7 +102,7 @@ export default {
       }).then((response) => {
         console.log(response.data)
         if (response.data.succ) {
-          this.$router.push('/drifting')
+          this.$router.go(0)
           // this.drifting = response.data
         }
       })

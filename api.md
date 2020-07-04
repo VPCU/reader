@@ -645,7 +645,7 @@ Answer:
 
     driftId int
     
-### /drifting/borrow
+### /drifting/return
 
 - GET
 - RequiresRoles: reader

@@ -3,7 +3,7 @@
     <q-item>
       <q-item-section side>
         <q-avatar rounded size="48px">
-          <img src="https://cdn.quasar.dev/img/boy-avatar.png" />
+          <img src="../../public/examplePics/boy-avatar.png" />
         </q-avatar>
       </q-item-section>
       <q-item-section>
@@ -20,7 +20,7 @@
     <div class="q-col-gutter-md row items-start">
       <div class="col-4">
         <q-img
-          src="https://s1.ax1x.com/2020/07/05/NzXAYR.jpg"
+          src="../../public/examplePics/parallax1.jpg"
           style="width: 100%" clickable v-ripple
           class="rounded-borders"
           @click="like"
@@ -32,7 +32,7 @@
       </div>
       <div class="col-4">
         <q-img
-          src="https://s1.ax1x.com/2020/07/05/NzXKmD.jpg"
+          src="../../public/examplePics/parallax2.jpg"
           style="width: 100%" clickable v-ripple
           class="rounded-borders"
           @click="friend"
@@ -44,7 +44,7 @@
       </div>
       <div class="col-4">
         <q-img
-          src="https://s1.ax1x.com/2020/07/05/NzX1kd.jpg"
+          src="../../public/examplePics/chicken-salad.jpg"
           style="width: 100%" clickable v-ripple
           class="rounded-borders"
           @click="message"
