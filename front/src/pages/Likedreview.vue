@@ -103,7 +103,7 @@ export default {
         })
     },
     onLoad (index, done) {
-      this.$axios.get('reviews/my', {
+      this.$axios.get('reviews/like', {
         params: {
         },
         headers: {

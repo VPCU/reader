@@ -23,6 +23,7 @@
           src="https://cdn.quasar.dev/img/chicken-salad.jpg"
           style="width: 100%" clickable v-ripple
           class="rounded-borders"
+          @click="like"
         >
           <div class="absolute-full text-subtitle2 flex flex-center">
                      收藏
@@ -115,6 +116,9 @@ export default {
     },
     friend () {
       this.$router.push('/myfriends')
+    },
+    like () {
+      this.$router.push('/mylike')
     },
     managereport () {
       this.$router.push('/managereport')

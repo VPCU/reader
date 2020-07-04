@@ -21,7 +21,8 @@ const routes = [
       { path: 'readreview', component: () => import('pages/ReadReview.vue') },
       { path: 'readmyreview', component: () => import('pages/Myreview.vue') },
       { path: 'mall', component: () => import('pages/Mall.vue') },
-      { path: 'findfriend', component: () => import('pages/FindFriend.vue') }
+      { path: 'findfriend', component: () => import('pages/FindFriend.vue') },
+      { path: 'mylike', component: () => import('pages/Likedreview.vue') }
     ]
   },
   { path: '/login', component: () => import('pages/Login.vue') },
