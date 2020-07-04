@@ -810,6 +810,18 @@ Answer:
         "succ": true,
         "oper": "default"
     }
+    
+    
+### /admin/disablereview
+
+封禁和解封书评。
+
+- GET
+- RequiresRoles: admin
+
+
+    rid int
+    disable bool
 
 ## Report
 

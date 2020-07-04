@@ -1,6 +1,8 @@
 package com.groupt.reader.controller;
 
 import com.groupt.reader.dto.Json;
+import com.groupt.reader.model.BookReviewEntity;
+import com.groupt.reader.repository.BookReviewRepository;
 import com.groupt.reader.service.AdminService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;
@@ -9,11 +11,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Optional;
+
 @RestController
 @RequiresRoles("admin")
 public class AdminController {
     @Autowired
     private AdminService adminService;
+
+    @Autowired
+    private BookReviewRepository bookReviewRepository;
 
     @RequiresPermissions("show:reader")
     @GetMapping("/admin/getallusers")
@@ -60,6 +67,16 @@ public class AdminController {
         } else {
             return Json.fail();
         }
+    }
+
+    @GetMapping("/admin/disablereview")
+    public Object setDisableReview(@RequestParam int rid, @RequestParam Boolean disable) {
+        Optional<BookReviewEntity> _r = bookReviewRepository.findById((long) rid);
+        if(!_r.isPresent()) return Json.fail("rid不合法");
+        BookReviewEntity r = _r.get();
+        r.setDisabled(disable);
+        bookReviewRepository.save(r);
+        return Json.succ();
     }
 
 }
