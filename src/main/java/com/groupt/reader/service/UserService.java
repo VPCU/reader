@@ -67,6 +67,7 @@ public class UserService {
         userEntity.getPerms().add(permRepository.findByPval("new:review"));
         userEntity.getPerms().add(permRepository.findByPval("new:comment"));
         userEntity.getPerms().add(permRepository.findByPval("new:drifting"));
+        userEntity.getPerms().add(permRepository.findByPval("new:message"));
         try {
             userRepository.save(userEntity);
         } catch (DataIntegrityViolationException e) {

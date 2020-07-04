@@ -61,6 +61,7 @@ public class TestService {
         permissionService.newPermission(10L, "授予权限", "addperm:reader");
         permissionService.newPermission(11L, "移除权限", "rmperm:reader");
         permissionService.newPermission(12L, "处理举报", "process:report");
+        permissionService.newPermission(13L, "新建信息", "new:message");
         RoleEntity r = new RoleEntity();
         r.setRid(1L);
         r.setRname("管理员");
@@ -95,6 +96,6 @@ public class TestService {
         permissionService.addPermission(u, "addperm:reader");
         permissionService.addPermission(u, "rmperm:reader");
         permissionService.addPermission(u, "process:report");
-
+        permissionService.addPermission(u, "new:message");
     }
 }

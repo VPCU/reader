@@ -685,17 +685,36 @@ Answer:
             "uid": 2,
             "uname": "user0",
             "nick": "superman",
-            "disabled": false,
             "created": "2020-07-01T13:35:14.388+00:00",
-            "updated": "2020-07-01T13:35:14.388+00:00",
-            "imgSrc": "/img/1.png",
+            "updated": "2020-07-04T05:46:42.140+00:00",
+            "email": "",
+            "phone": "12355555",
+            "resume": null,
+            "imgSrc": null,
+            "disabled": false,
             "roles": [
-                "reader"
+                {
+                    "rid": 2,
+                    "rname": "读者",
+                    "rval": "reader"
+                }
             ],
             "perms": [
-                "new:review",
-                "new:drifting",
-                "new:comment"
+                {
+                    "pid": 2,
+                    "pname": "发布书评",
+                    "pval": "new:review"
+                },
+                {
+                    "pid": 4,
+                    "pname": "发布漂流",
+                    "pval": "new:drifting"
+                },
+                {
+                    "pid": 3,
+                    "pname": "发布评论",
+                    "pval": "new:comment"
+                }
             ]
         }
     ]
@@ -890,6 +909,142 @@ Answer:
             "perms": null
         }
     ]
+
+
+## Message
+
+### /message/update
+
+设置user的更新时间为当前时间。返回更新后的时间。
+
+- GET
+- RequiresAuthentication
+
+Request:
+
+    /message/update
+    
+Answer:
+
+    {
+        "msg": "ok",
+        "code": 1,
+        "succ": true,
+        "data": "2020-07-04T06:14:36.579+00:00",
+        "oper": "default"
+    }
+
+### /message/getupdated
+
+- GET
+- RequiresAuthentication
+
+返回user的更新时间。
+
+Answer:
+
+    {
+        "msg": "ok",
+        "code": 1,
+        "succ": true,
+        "data": "2020-07-04T06:14:36.579+00:00",
+        "oper": "default"
+    }
+    
+    
+### /message/send
+
+- POST
+- RequiresPermissions: new:message
+
+    receiverId int
+    content string
+    
+Request:
+
+    {
+        "receiverId": 1,
+        "content": "!DJFOSJF>>>>>"
+    }
+    
+Answer:
+
+    {
+        "msg": "ok",
+        "code": 1,
+        "succ": true,
+        "oper": "default"
+    }
+    
+    
+### /message/allsent
+
+返回发送的所有信息。包含接受者的部分信息。
+
+- GET
+- RequiresAuthentication
+
+
+Answer:
+    [
+        {
+            "message": {
+                "msgId": 1,
+                "uid": 2,
+                "rvId": 1,
+                "msg": "!DJFOSJF>>>>>",
+                "time": "2020-07-04T06:43:12.582+00:00"
+            },
+            "user": {
+                "uid": 1,
+                "uname": "admin001",
+                "nick": "管理员1",
+                "created": null,
+                "updated": null,
+                "imgSrc": null,
+                "disabled": null,
+                "roles": null,
+                "perms": null
+            }
+        }
+    ]
+    
+
+### /message/all
+
+返回收到的所有信息。包含发送者的部分信息。
+
+- GET
+- RequiresAuthentication
+
+Answer:
+
+    [
+        {
+            "message": {
+                "msgId": 1,
+                "uid": 2,
+                "rvId": 1,
+                "msg": "!DJFOSJF>>>>>",
+                "time": "2020-07-04T06:43:12.582+00:00"
+            },
+            "user": {
+                "uid": 2,
+                "uname": "user0",
+                "nick": "superman",
+                "created": "2020-07-01T13:35:14.388+00:00",
+                "updated": null,
+                "imgSrc": null,
+                "disabled": false,
+                "roles": null,
+                "perms": null
+            }
+        }
+    ]
+
+- GET
+- RequiresAuthentication
+
 
 ## authorization
 

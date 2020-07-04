@@ -41,14 +41,12 @@ public class UserEntity implements Serializable {
 
     private String imgSrc; //头像
 
-    @Column(columnDefinition = "boolean default false")
-    private Boolean disabled;
+    @Column
+    private Boolean disabled = false;
 
-    @JsonIgnore
     @ManyToMany(targetEntity = RoleEntity.class, cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     private Set<RoleEntity> roles = new HashSet<>();
 
-    @JsonIgnore
     @ManyToMany(targetEntity = PermEntity.class, cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     private Set<PermEntity> perms = new HashSet<>();
 

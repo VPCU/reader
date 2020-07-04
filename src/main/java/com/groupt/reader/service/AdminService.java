@@ -26,15 +26,13 @@ public class AdminService {
     @Autowired
     private BookReviewRepository bookReviewRepository;
 
-    public List<UserDto> getAllUsersList() {
+    public List<UserEntity> getAllUsersList() {
         List<UserEntity> users = userRepository.findAll();
-        List<UserDto> ret = new ArrayList<>();
+        List<UserEntity> ret = new ArrayList<>();
         for(UserEntity user: users) {
             UserDto u = MyUserMapper.userToUserDto(user);
             if(!u.getRoles().contains("admin")) {
-                u.setPwd("");
-                u.setSalt("");
-                ret.add(u);
+                ret.add(user);
             }
         }
         return ret;
