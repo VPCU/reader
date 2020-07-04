@@ -8,9 +8,11 @@
               <!--            这里控制用户头像和用户名-->
               <q-item>
                 <q-item-section avatar>
-                  <q-avatar>
-                    <img :src="item.userImgSrc">
-                  </q-avatar>
+                  <q-btn round flat @click = "getuser(item.uid)">
+                    <q-avatar>
+                      <img :src="item.userImgSrc">
+                    </q-avatar>
+                  </q-btn>
                 </q-item-section>
 
                 <q-item-section>
@@ -276,6 +278,12 @@ export default {
     },
     drift () {
       this.$router.push('/drifting')
+    },
+    getuser (uid) {
+      this.$router.push({
+        path: '/findfriend',
+        query: { uid: String(uid) }
+      })
     }
   }
 }
