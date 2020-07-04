@@ -5,8 +5,6 @@ const routes = [
     component: () => import('layouts/MainLayout.vue'),
     children: [
       { path: '', component: () => import('pages/TipSquare.vue') },
-      { path: 'login', component: () => import('pages/Login.vue') },
-      { path: 'signup', component: () => import('pages/SignUp.vue') },
       { path: 'newreview', component: () => import('pages/NewReview') },
       { path: 'newdrifting', component: () => import('pages/NewDrifting.vue') },
       { path: 'drifting', component: () => import('pages/Drifting.vue') },
@@ -22,11 +20,13 @@ const routes = [
       { path: 'readmyreview', component: () => import('pages/Myreview.vue') }
     ]
   },
+  { path: '/login', component: () => import('pages/Login.vue') },
+  { path: '/signup', component: () => import('pages/SignUp.vue') },
   // Always leave this as last one,
   // but you can also remove it
   {
     path: '*',
-    component: () => import('pages/Error404.vue')
+    component: () => import('pages/Login.vue')
   }
 ]
 

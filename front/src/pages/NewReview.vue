@@ -2,7 +2,7 @@
   <q-page padding class="docs-input row justify-center">
     <div style="width: 1000px; max-width: 100vw;">
 
-      <h4 class="q-mt-lg">新建书评</h4>
+      <h4 class="q-mt-lg q-mb-md">新建书评</h4>
 
       <q-input v-model="title" placeholder="书评标题" />
       <q-input v-model="bookName" placeholder="书名" />

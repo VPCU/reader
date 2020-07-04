@@ -1,6 +1,6 @@
 <template>
   <q-list>
-    <q-card inline class="bigger q-ma-sm" v-for="{ driId, bookName, author, curPosition, available, detail } in drifting" :key="driId">
+    <q-card inline class="bigger q-ma-sm" v-for="{ driId, bookName, author, curPosition, available, detail, guard} in drifting" :key="driId">
       <q-card-media>
         <img  src="https://cdn.quasar.dev/img/parallax2.jpg" width="100%">
       </q-card-media>
@@ -13,6 +13,9 @@
           <div slot="right" class="row items-center">
             <q-icon name="place" /> {{ curPosition }}
           </div>
+          <div slot="right" class="row items-center" v-if="guard">
+            <q-icon name="person_pin" />保管人:{{ guard }}
+          </div>
         </q-card-title>
         <q-card-main>
           <p v-if="available" color:green>可取阅</p>
@@ -21,9 +24,8 @@
         </q-card-main>
         <q-card-separator />
         <q-card-actions class="q-px-none q-px-none" align="center">
-          <q-btn flat icon="event" >漂流记录</q-btn>
-          <q-btn flat icon="create" @click="editdrift" >编辑</q-btn>
-          <q-btn flat icon="highlight_off" color="red" >结束漂流</q-btn>
+          <q-btn flat icon="local_library" color="green" >我已取阅</q-btn>
+          <q-btn flat icon="where_to_vote" color="blue" >我已归还</q-btn>
         </q-card-actions>
       </div>
     </q-card>
