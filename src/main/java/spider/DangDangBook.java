@@ -61,11 +61,12 @@ public class DangDangBook {
                 Document doc = Jsoup.parse(detailUrl, 30000);
                 Elements select = doc.select("a[name=itemlist-picture]");
                 for (Element element : select) {
-                    String sql="insert into book (id,book_pic,book_name,price,author,publisher,book_time,isbn,type,url) values";
+//                    String sql="insert into book (id,book_pic,book_name,price,author,publisher,book_time,isbn,type,url) values";
+                    String sql="insert into books (author,detail,image,isbn,language,name,publisher) values";
 
                     List<String> params=new ArrayList<>();
                     String id = UUID.randomUUID().toString().replaceAll("-","");
-                    params.add(id);
+//                    params.add(id);
 
                     String detail = element.attr("href");
                     try {
@@ -73,14 +74,29 @@ public class DangDangBook {
                         if (detail.equals("http://product.dangdang.com/1439315588.html")){
                             System.out.println("ssss");
                         }
-                        //书名
-                        String bookName = parse.select(".name_info").get(0).select("h1").get(0).attr("title");
-                        params.add(bookName);
+
+                        Elements select1 = parse.select(".messbox_info");
+                        if(CollectionUtils.isEmpty(select1))continue;
+                        Elements elements = select1.get(0).select(".t1");
+                        //作者
+                        List<String> author = elements.get(0).select("a").stream().map(x -> x.html()).collect(Collectors.toList());
+                        params.add(StringUtils.join(author,","));
+
+                        //分类
+                        List<String> typeList = parse.select("#detail-category-path").get(0)
+                                .child(1).select("a").stream().map(x -> x.html()).collect(Collectors.toList());
+                        params.add(StringUtils.join(typeList,","));
+
+//                        //url
+//                        params.add(detail);
 
                         //封面地址
                         String picAddress = parse.select(".pic").get(0).select("a").select("img").get(0).attr("src");
                         params.add(picAddress);
 
+                        //ISBN
+                        String ISBN = parse.select("#detail_describe").get(0).child(0).child(4).html();
+                        params.add(ISBN.substring(11));
 
                         //价格
                         Elements e1 = parse.select("#original-price");
@@ -89,34 +105,21 @@ public class DangDangBook {
                         price = price.substring(n+1);
                         params.add(price);
 
-
-                        Elements select1 = parse.select(".messbox_info");
-                        if(CollectionUtils.isEmpty(select1))continue;
-                        Elements elements = select1.get(0).select(".t1");
-
-                        //作者
-                        List<String> author = elements.get(0).select("a").stream().map(x -> x.html()).collect(Collectors.toList());
-                        params.add(StringUtils.join(author,","));
+                        //书名
+                        String bookName = parse.select(".name_info").get(0).select("h1").get(0).attr("title");
+                        params.add(bookName);
 
                         //出版社
                         List<String> publisher = elements.get(1).select("a").stream().map(x -> x.html()).collect(Collectors.toList());
                         params.add(StringUtils.join(publisher,","));
 
-                        //出版时间
-                        String time = elements.get(2).html();
-                        params.add(time.substring(5,time.indexOf("&")));
+//                        //出版时间
+//                        String time = elements.get(2).html();
+//                        params.add(time.substring(5,time.indexOf("&")));
 
-                        //ISBN
-                        String ISBN = parse.select("#detail_describe").get(0).child(0).child(4).html();
-                        params.add(ISBN.substring(11));
 
-                        //分类
-                        List<String> typeList = parse.select("#detail-category-path").get(0)
-                                .child(1).select("a").stream().map(x -> x.html()).collect(Collectors.toList());
-                        params.add(StringUtils.join(typeList,","));
 
-                        //url
-                        params.add(detail);
+
 
 
                         sql+="('"+StringUtils.join(params,"','")+"');";

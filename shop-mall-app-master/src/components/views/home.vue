@@ -1,21 +1,15 @@
 <template lang="pug">
   .home
     Search
-    Banner(:imgList="imgList") 
+    Banner(:imgList="imgList")
     goodsDetail(@cartHandle="cartHandle")
     addCart(:cartDetail="cartDetail")
-    .type
-      ul.type-list.clearfix
-        li(v-for="(item,index) in typeList" :key="index")
-          a(:href="item.link")
-            i(class="type-img" :style="{background:'url('+item.url+')',backgroundSize:'cover'}")
-            span(class="type-name") {{item.name}}
     .goods
       .goods-item(v-for="(item,index) in goodsList" :key="index")
         h4 {{item.goods.type}}
           span(style="float:right") P{{index+1}}
         ul.clearfix
-          li(v-for="(val,inx) in item.goods.list" :key="inx",@click="goodsDetail(val)")
+          li(v-for="(val,inx) in item.goods.list.slice(0, 2)" :key="inx",@click="goodsDetail(val)")
             img(:src="val.img[0]")
             span(class="price") ¥{{val.price}}
             span(class="name")  {{val.name}}

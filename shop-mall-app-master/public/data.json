@@ -16,6 +16,7 @@
             "type":"休闲零食",
             "list":[
             {"id":1,"name":"夏威夷果","price":20,"img":["/img/food1.png","/img/food3.png","/img/food5.png"],"explain":"夏威夷果含有丰富的钙，磷 ，铁，维生素B1、B2和人体必需的8种氨基酸。"},
+            {"id":2,"name":"好吃的糖果","price":40,"img":["/img/food2.png","/img/food4.png","/img/food6.png"],"explain":"糖果是糖果糕点的一种，指以糖类为主要成份的一种小吃。"},
             {"id":2,"name":"好吃的糖果","price":40,"img":["/img/food2.png","/img/food4.png","/img/food6.png"],"explain":"糖果是糖果糕点的一种，指以糖类为主要成份的一种小吃。"}
             ]
           }
