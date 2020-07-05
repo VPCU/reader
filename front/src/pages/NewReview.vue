@@ -53,7 +53,7 @@ export default {
   },
   methods: {
     commit () {
-      this.$axios.post('newreview', {
+      this.$axios.post('/reviews/new', {
         title: this.$data.title,
         bookName: this.$data.bookName,
         bookAuthor: this.$data.bookAuthor,
@@ -71,6 +71,7 @@ export default {
             this.$data.alert = true
           } else {
             console.log('发布成功')
+            this.$router.back()
           }
         })
         .catch(() => {
