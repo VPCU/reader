@@ -98,7 +98,7 @@ export default {
     // 当渲染的文字超出30字后显示省略号
     ellipsis (value) {
       if (!value) return ''
-      if (value.length > 30) {
+      if (value.length > 200) {
         return '查看全文'
       }
       return value
