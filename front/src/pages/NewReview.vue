@@ -11,7 +11,7 @@
 
       <q-editor v-model="content" />
 
-      <q-rating color="amber" v-model="ratingModel" :max="5"  size="2rem" class="q-my-md" />
+      <!--<q-rating color="amber" v-model="ratingModel" :max="5"  size="2rem" class="q-my-md" />-->
       <br>
 
       <q-btn icon="create" label="发布书评" @click="commit" />
