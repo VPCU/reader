@@ -70,7 +70,7 @@ export default {
         } else {
           console.log('忽略成功')
           this.$gStore.token = response.data.token
-          this.$router.push('/managedrifting')
+          this.$router.go(0)
         }
       }).catch(() => {
         alert('error')
