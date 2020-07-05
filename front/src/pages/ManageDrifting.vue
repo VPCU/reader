@@ -2,7 +2,7 @@
   <q-list>
     <q-card inline class="bigger q-ma-sm" v-for="{ driId, bookName, author, curPosition, available, detail } in drifting" :key="driId">
       <q-card-media>
-        <img  src="https://cdn.quasar.dev/img/parallax2.jpg" width="100%">
+        <img  src="../../public/examplePics/parallax2.jpg" width="100%">
       </q-card-media>
       <div class="bigger q-ma-lg">
         <q-card-title class="relative-position">
