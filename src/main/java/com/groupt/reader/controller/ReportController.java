@@ -56,13 +56,14 @@ public class ReportController {
     @RequiresRoles("admin")
     @PostMapping("/admin/reviews")
     public Object setDone(@RequestBody Map<String, Object> payload) {
-        Long reportId = (Long)payload.get("reportId");
+        if(payload.get("reportId") == null) return Json.fail("reportId不合法");
+        int reportId = (int)payload.get("reportId");
         String status = (String)payload.get("status");
         String log = (String)payload.get("log");
-        if(reportId == null || !reportRepository.existsById(reportId))
+        if(!reportRepository.existsById((long)reportId))
             return Json.fail("id不合法");
         if(StringUtils.isEmpty(status)) return Json.fail("stauts不能为空");
-        ReportEntity report = reportRepository.findById(reportId).get();
+        ReportEntity report = reportRepository.findById((long)reportId).get();
         if(report.getDone()) return Json.fail("已被处理过");
         report.setDone(true);
         report.setLog(log);
