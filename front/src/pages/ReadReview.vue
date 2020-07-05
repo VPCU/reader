@@ -1,6 +1,6 @@
 <template>
   <div class="q-pa-md">
-    <q-card class="my-card bg-secondary text-white" @load ="onTips">
+    <q-card class="my-card bg-cyan-4 text-white" @load ="onTips">
       <q-card-section>
         <div class="text-h6">{{this.content.title}}</div>
         <div class="text-subtitle2">by {{this.content.userNick}}</div>
@@ -70,7 +70,7 @@
                 <q-card-section class="q-pt-xs">
                   <!--<div class="text-overline">Overline</div>
                   <div class="text-h5 q-mt-sm q-mb-xs">标题</div>-->
-                  <div class="text-caption text-grey">
+                  <div class="text-caption">
                     <p v-html="$options.filters.ellipsis(String(item.content))"></p>
                   </div>
                 </q-card-section>
