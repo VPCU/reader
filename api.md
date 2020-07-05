@@ -957,7 +957,11 @@ Answer:
         }
     ]
 
+### /friend/find
 
+- GET
+
+    uid int
 
 ## Message
 

@@ -22,9 +22,9 @@
 
         <div class="q-pl-md q-gutter-sm row no-wrap items-center">
           <q-btn round dense flat color="grey-8" icon="notifications" @click = "message">
-            <q-badge color="red" text-color="white" floating>
+            <!--<q-badge color="red" text-color="white" floating>
               2
-            </q-badge>
+            </q-badge>-->
             <q-tooltip>Notifications</q-tooltip>
           </q-btn>
 

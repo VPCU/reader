@@ -3,7 +3,7 @@
     <q-item>
       <q-item-section side>
         <q-avatar rounded size="48px">
-          <img src="../../public/examplePics/boy-avatar.png" />
+          <img :src="this.$gStore.user.imgSrc" />
         </q-avatar>
       </q-item-section>
       <q-item-section>
