@@ -13,8 +13,7 @@
 
       <!--<q-rating color="amber" v-model="ratingModel" :max="5"  size="2rem" class="q-my-md" />-->
       <br>
-
-      <q-btn icon="create" label="发布书评" @click="commit" />
+      <q-btn color="primary" class="full-width" icon="create" label="发布书评" :disabled="disable1" @click="commit" />
     </div>
 
     <q-dialog v-model="alert">x
