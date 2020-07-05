@@ -44,7 +44,7 @@ public class MessageController {
     @PostMapping("/message/send")
     public Json sendAMessage(@RequestBody Map<String, Object> payload) {
         if(payload.get("receiverId") == null) return Json.fail("非法的接受者id");
-        int receiverId = (int) payload.get("receiverId");
+        int receiverId = Integer.parseInt((String)payload.get("receiverId"));
         String content = (String)payload.get("content");
         MessageEntity msg = new MessageEntity();
         if(!userRepository.existsById((long)receiverId)) return Json.fail("非法的接受者id");

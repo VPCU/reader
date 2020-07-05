@@ -238,7 +238,7 @@ export default {
       // }, 2000)
     },
     reportto (rid) {
-      this.$axios.post('comments/new', {
+      this.$axios.post('report/review', {
         reviewId: rid,
         content: this.$data.reports
       },
