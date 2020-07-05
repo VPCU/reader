@@ -184,6 +184,7 @@ export default {
           } else {
             console.log('评论成功')
             this.$data.alert = true
+            this.$router.go(0)
           }
         })
         .catch(() => {
