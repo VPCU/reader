@@ -8,8 +8,8 @@
       <q-input outlined class="q-ma-md" v-model="phone" label="手机号码" />
       <q-input outlined class="q-ma-md" v-model="nick" label="昵称" />
       <q-input outlined class="q-ma-md" v-model="email" label="邮箱" />
-      <q-input outlined class="q-ma-md" v-model="password" label="密码" />
-      <q-input outlined class="q-ma-md" v-model="confirm_password" label="确认密码" />
+      <q-input outlined class="q-ma-md" type="password" v-model="password" label="密码" />
+      <q-input outlined class="q-ma-md" type="password" v-model="confirm_password" label="确认密码" />
       <div class="row justify-between q-mx-md q-px-none">
         <div class="col-6">
           <q-btn outline color="primary" @click="login"  label="登录" style="width: 100%" />
@@ -72,10 +72,12 @@ export default {
             this.$data.alert = true
           } else {
             console.log('注册成功')
+            this.$router.push('/login')
           }
         })
         .catch(() => {
-          alert('error')
+          this.$data.errmsg = '发生错误'
+          this.$data.alert = true
         })
     },
     login () {

@@ -75,7 +75,8 @@ export default {
           }
         })
         .catch(() => {
-          alert('error')
+          this.$data.errmsg = '发生了错误'
+          this.$data.alert = true
         })
     }
   }
