@@ -10,7 +10,7 @@
           </q-avatar>
         </q-item-section>
 
-        <q-item-section @click="info">
+        <q-item-section @click="info(contact.uid)">
           <q-item-label>{{ contact.nick }}</q-item-label>
           <q-item-label caption lines="1">{{ contact.resume }}</q-item-label>
         </q-item-section>
@@ -73,8 +73,11 @@ export default {
     }
   },
   methods: {
-    info () {
-      this.$router.push('/friendinfo')
+    info (uid) {
+      this.$router.push({
+        path: '/friendinfo',
+        query: { uid: String(uid) }
+      })
     }
   },
   created () {

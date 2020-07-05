@@ -78,7 +78,7 @@ export default {
           token: this.$gStore.token
         }
       }).then((response) => {
-        // if (response.data.code === 4401) this.$router.push('/login')
+        if (response.data.code === 4401) this.$router.push('/login')
         console.log(this.$gStore.token)
         console.log(response.data)
         if (response.data.succ) {
