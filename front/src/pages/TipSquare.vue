@@ -47,7 +47,7 @@
                     {{item.ekil}}
                   </p>
                 </q-btn>
-                <q-btn flat round color="teal" icon="bookmark" >收藏</q-btn>
+                <q-btn flat round color="teal" icon="bookmark" @click="setlike(item)">{{item.likestatus}}</q-btn>
                 <q-btn flat round color="primary" @click="prompt = true"  icon="share" >举报</q-btn>
                 <q-dialog v-model="prompt" persistent>
                   <q-card style="max-width: 300px">
@@ -127,6 +127,49 @@ export default {
   },
 
   methods: {
+    getlike (obj) {
+      this.$axios.get('reviews/getlike', {
+        params: {
+          rid: obj.rid
+        },
+        headers: {
+          token: this.$gStore.token
+        }
+      }).then((response) => {
+        if (response.data.code === 4401) this.$router.push('/login')
+        if (response.data) {
+          obj.likestatus = '已收藏'
+        } else {
+          obj.likestatus = '收藏'
+        }
+        this.$forceUpdate()
+      })
+        .catch((error) => {
+          console.log(error)
+        })
+    },
+    setlike (obj) {
+      this.$axios.get('reviews/setlike', {
+        params: {
+          rid: obj.rid,
+          like: obj.likestatus === '收藏'
+        },
+        headers: {
+          token: this.$gStore.token
+        }
+      }).then((response) => {
+        if (response.data.code === 4401) this.$router.push('/login')
+        if (!response.data.succ) {
+          this.$data.errmsg = response.data.msg
+        } else {
+          console.log('收藏成功')
+          this.getlike(obj)
+        }
+      })
+        .catch((error) => {
+          console.log(error)
+        })
+    },
     refresh () {
       location.reload()
     },
@@ -181,6 +224,7 @@ export default {
           data.forEach(e => {
             e.ekil = 0 // required
             this.updateEkil(e)
+            this.getlike(e)
           })
           data.forEach(e => this.items.push(e))
           this.offset = data[data.length - 1].rid - 1
