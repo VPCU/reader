@@ -18,7 +18,7 @@
         <q-btn flat>举  报</q-btn>
       </q-card-actions>
     </q-card>
-    <div>
+    <div class="q-mt-sm">
       <q-chip size="18px" icon="bookmark">
         评论内容
       </q-chip>
@@ -49,12 +49,12 @@
         </q-card-actions>
       </q-card>
     </q-dialog>
-    <div class="q-pa-md">
+    <div class="q-ma-none">
       <q-infinite-scroll @load="onLoad" ref="infiniteScroll" :offset="0">
-        <div v-for="(item, index) in items" :key="index" class="caption">
+        <div v-for="(item, index) in items" :key="index" class="caption q-ma-sm">
           <template>
             <q-card flat bordered class="my-card bg-grey-1">
-              <!--            这里控制用户头像和用户名-->
+              <!--这里控制用户头像和用户名-->
               <q-item>
                 <q-item-section avatar>
                   <q-avatar>
@@ -64,7 +64,7 @@
               </q-item>
 
               <q-separator />
-              <!--            这里控制该书评的内容-->
+              <!--这里控制该书评的内容-->
               <q-card-section horizontal>
 
                 <q-card-section class="q-pt-xs">
