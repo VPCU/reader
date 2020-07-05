@@ -32,7 +32,7 @@ export default {
     }
   },
   mounted(){
-    this.$axios.get("/data.json")
+    this.$axios.get("http://127.0.0.1:8090/market")
     .then((res)=>{
       this.goodsList=res.data.goodsList
     })
