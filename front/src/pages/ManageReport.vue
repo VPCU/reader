@@ -88,12 +88,11 @@ export default {
       }).then((response) => {
         if (response.data) {
           console.log(response.data)
-          this.$router.push('/managereport')
         }
       }).catch(() => {
         alert('error')
       })
-      this.$methods.ignore(reportId)
+      this.ignore(reportId)
     },
     deleteban (reportId, review) {
       this.$axios.get('/reviews/id/' + review.rid, {
