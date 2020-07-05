@@ -75,12 +75,7 @@
                   </div>
                 </q-card-section>
               </q-card-section>
-
-              <q-card-section>
-              </q-card-section>
-
               <q-separator />
-
               <q-card-actions align="right">
                 <q-btn flat round color="red" icon="favorite" />
                 <q-btn flat round color="teal" icon="bookmark" />
