@@ -8,7 +8,7 @@
               <!--            这里控制用户头像和用户名-->
               <q-item>
                 <q-item-section avatar>
-                  <q-btn round flat @click = "getuser(item.uid)">
+                  <q-btn round flat @click = "getuser(item.userId)">
                     <q-avatar>
                       <img :src="item.userImgSrc">
                     </q-avatar>

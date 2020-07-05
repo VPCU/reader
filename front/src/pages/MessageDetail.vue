@@ -28,7 +28,7 @@
 </template>
 
 <script>
-const details = [{
+/* const details = [{
   name: 'user0',
   content: '你好！！！！！',
   time: '11:00',
@@ -70,14 +70,25 @@ const details = [{
   time: '11:20',
   url: 'https://cdn.quasar.dev/img/avatar1.jpg',
   isMe: false
-}]
+}] */
 export default {
   data () {
     return {
-      details
+      details: null
     }
   },
   methods: {
+  },
+  created () {
+    this.$axios.get('/message/all', {
+      headers: {
+        token: this.$gStore.token
+      }
+    }).then((response) => {
+      if (response.data.code === 4401) this.$router.push('/login')
+      console.log(response.data)
+      this.messages = response.data
+    })
   }
 }
 </script>

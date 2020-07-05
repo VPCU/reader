@@ -67,4 +67,12 @@ public class FriendsController {
         }
         return friends;
     }
+
+    @RequiresRoles("reader")
+    @GetMapping("/find")
+    public Object findFriend(@RequestParam Long uid) {
+        UserEntity user = userRepository.findById(uid).get();
+        return MyUserMapper.userToUserDto(user);
+    }
+
 }

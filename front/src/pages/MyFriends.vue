@@ -84,10 +84,8 @@ export default {
       }
     }).then((response) => {
       if (response.data.code === 4401) this.$router.push('/login')
-      if (response.data[0]) {
-        console.log(response.data)
-        this.contacts = response.data
-      }
+      console.log(response.data)
+      this.contacts = response.data
     })
   }
 }
