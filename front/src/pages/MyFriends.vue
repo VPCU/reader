@@ -6,13 +6,13 @@
       <q-item v-for="contact in contacts" :key="contact.id" class="q-my-sm" clickable v-ripple >
         <q-item-section avatar @click="info">
           <q-avatar>
-            <img :src="`${contact.avatar}`">
+            <img :src="`${contact.imgSrc}`">
           </q-avatar>
         </q-item-section>
 
         <q-item-section @click="info">
-          <q-item-label>{{ contact.name }}</q-item-label>
-          <q-item-label caption lines="1">{{ contact.email }}</q-item-label>
+          <q-item-label>{{ contact.nick }}</q-item-label>
+          <q-item-label caption lines="1">{{ contact.resume }}</q-item-label>
         </q-item-section>
 
         <q-item-section side>
@@ -24,7 +24,7 @@
 </template>
 
 <script>
-const contacts = [{
+/* const contacts = [{
   id: 1,
   name: 'Ruddy Jedrzej',
   email: 'rjedrzej0@discuz.net',
@@ -64,18 +64,31 @@ const contacts = [{
   name: '周吴郑王',
   email: 'zwzw@qq.com',
   avatar: 'https://cdn.quasar.dev/img/boy-avatar.png'
-}]
+}] */
 
 export default {
   data () {
     return {
-      contacts
+      contacts: null
     }
   },
   methods: {
     info () {
       this.$router.push('/friendinfo')
     }
+  },
+  created () {
+    this.$axios.get('/friends/all', {
+      headers: {
+        token: this.$gStore.token
+      }
+    }).then((response) => {
+      if (response.data.code === 4401) this.$router.push('/login')
+      if (response.data[0]) {
+        console.log(response.data)
+        this.contacts = response.data
+      }
+    })
   }
 }
 </script>
